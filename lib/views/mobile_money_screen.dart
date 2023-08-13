@@ -6,6 +6,7 @@ import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/views/select_payment.dart';
+import 'package:one_net/views/transaction_inprogess_screen.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/round_btn.dart';
@@ -39,7 +40,7 @@ class MobileMoneyScreen extends StatelessWidget {
                 horizontal: ScreenSize().getScreenHeight(2),
               ),
               child: Container(
-                height: ScreenSize().getScreenHeight(46),
+                height: ScreenSize().getScreenHeight(48),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   image: const DecorationImage(
@@ -138,7 +139,7 @@ class MobileMoneyScreen extends StatelessWidget {
                                 Map value = network.value;
 
                                 return SizedBox(
-                                  height: ScreenSize().getScreenHeight(12.5),
+                                  height: ScreenSize().getScreenHeight(14.5),
                                   width: ScreenSize().getScreenWidth(27.5),
                                   child: Stack(
                                     children: [
@@ -154,20 +155,27 @@ class MobileMoneyScreen extends StatelessWidget {
                                         child: Align(
                                           alignment:
                                               AlignmentDirectional.center,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                              bottom: ScreenSize()
-                                                  .getScreenHeight(1),
-                                            ),
-                                            child: Image.asset(
-                                              value["image"],
-                                              height: myNetwork.transactionData[
-                                                          "selectedNetwork"] ==
-                                                      value["name"]
-                                                  ? ScreenSize()
-                                                      .getScreenHeight(40)
-                                                  : ScreenSize()
-                                                      .getScreenHeight(10),
+                                          child: Container(
+                                            height: ScreenSize()
+                                                .getScreenHeight(12.5),
+                                            width:
+                                                ScreenSize().getScreenWidth(27),
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      value["image"]),
+                                                  fit: BoxFit.cover),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                ScreenSize().getScreenHeight(2),
+                                              ),
+                                              border: Border.all(
+                                                  width: 2,
+                                                  color: myNetwork.transactionData[
+                                                              "selectedNetwork"] ==
+                                                          value["name"]
+                                                      ? Colour().primary()
+                                                      : Colors.transparent),
                                             ),
                                           ),
                                         ),
@@ -324,9 +332,8 @@ class MobileMoneyScreen extends StatelessWidget {
                       Consumer<StoreViewModel>(
                         builder: (context, myType, child) {
                           return Button(
-                            btnAction: myType.transactionData["momoNumber"]
-                                        .isEmpty ||
-                                    myType.transactionData["momoNo"] == null
+                            btnAction: myType.transactionData["momoNumber"] ==
+                                    ''
                                 ? () {}
                                 : () {
                                     Navigator.push(
@@ -334,7 +341,7 @@ class MobileMoneyScreen extends StatelessWidget {
                                       PageRouteBuilder(
                                         pageBuilder:
                                             (context, animation1, animation2) =>
-                                                const SelectPaymentOption(),
+                                                const TransactionInprogress(),
                                         transitionDuration: Duration.zero,
                                         reverseTransitionDuration:
                                             Duration.zero,

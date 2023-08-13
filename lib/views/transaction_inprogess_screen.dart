@@ -59,7 +59,7 @@ class TransactionInprogress extends StatelessWidget {
                     'assets/lottie/checked.json',
                     repeat: true,
                     //options: LottieOptions(),
-                    height: ScreenSize().getScreenHeight(10),
+                    height: ScreenSize().getScreenHeight(17),
                   ),
                 ),
                 Text(
