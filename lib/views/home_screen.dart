@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                     "assets/images/logo2.png",
                     width: ScreenSize().getScreenWidth(70),
                     height: ScreenSize().getScreenHeight(15),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                   InkWell(
                     onTap: () {
@@ -56,14 +56,14 @@ class HomeScreen extends StatelessWidget {
                         size: ScreenSize().getScreenHeight(4),
                         color: Colors.white,
                       ),
-                      innerColor: const Color.fromRGBO(255, 155, 0, 1),
+                      innerColor: Colour().primary(),
                       outerColor: Colors.white,
                     ),
                   ),
                 ],
               ),
               Container(
-                height: ScreenSize().getScreenHeight(35),
+                height: ScreenSize().getScreenHeight(37),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(235, 55, 52, 53),
@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(ScreenSize().getScreenHeight(2)),
+                  padding: EdgeInsets.all(ScreenSize().getScreenHeight(3.5)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -92,15 +92,10 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          // Icon(
-                          //   Icons.view_cozy,
-                          //   color: Colour().primary(),
-                          //   size: ScreenSize().getScreenHeight(8),
-                          // )
                           Image.asset(
                             "assets/images/grid.png",
-                            width: ScreenSize().getScreenHeight(5),
-                            height: ScreenSize().getScreenHeight(5),
+                            width: ScreenSize().getScreenHeight(4.5),
+                            height: ScreenSize().getScreenHeight(4.5),
                             fit: BoxFit.fill,
                           ),
                         ],
@@ -110,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                         color: Colour().primary(),
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(2),
+                        height: ScreenSize().getScreenHeight(3),
                       ),
                       const BuyAirtimeBtn(),
                     ],
@@ -118,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: ScreenSize().getScreenHeight(10),
+                height: ScreenSize().getScreenHeight(12),
               ),
               Text(
                 "Offers & Promos",

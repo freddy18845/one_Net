@@ -33,7 +33,7 @@ class SelectAirtimePackageScreen extends StatelessWidget {
               "assets/images/logo2.png",
               width: ScreenSize().getScreenWidth(70),
               height: ScreenSize().getScreenHeight(15),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -45,7 +45,7 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: const DecorationImage(
                       image: AssetImage("assets/images/card.png"),
-                      fit: BoxFit.fitHeight),
+                      fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),
                   ),

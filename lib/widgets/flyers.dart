@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/screen_size.dart';
 
 class Flyer extends StatefulWidget {
@@ -52,7 +54,7 @@ class _FlyerState extends State<Flyer> {
       decoration: BoxDecoration(
 //color: Colors.black,
         borderRadius: BorderRadius.circular(
-          ScreenSize().getScreenHeight(3),
+          ScreenSize().getScreenHeight(2),
         ),
       ),
       child: Stack(
@@ -70,34 +72,33 @@ class _FlyerState extends State<Flyer> {
               width: double.infinity,
             ),
           ),
-          // Align(
-          //   alignment: Alignment.bottomLeft,
-          //   child: Padding(
-          //     padding: EdgeInsets.only(top: ScreenSize().getScreenWidth(32)),
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: images.mapIndexed((index, item) {
-          //         return Padding(
-          //           padding: EdgeInsets.symmetric(
-          //               horizontal: ScreenSize().getScreenWidth(0.5)),
-          //           child: Container(
-          //             height: ScreenSize().getScreenHeight(1.5),
-          //             width: ScreenSize().getScreenHeight(1.5),
-          //             decoration: BoxDecoration(
-          //                 border: Border.all(
-          //                     width: ScreenSize().getScreenHeight(0.2),
-          //                     color: Colors.white),
-          //                 color: _currentIndex == index
-          //                     ? Colors.white
-          //                     : Colors.transparent,
-          //                 borderRadius: BorderRadius.circular(
-          //                     ScreenSize().getScreenHeight(0.75))),
-          //           ),
-          //         );
-          //       }).toList(),
-          //     ),
-          //   ),
-          // ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: ScreenSize().getScreenHeight(1),
+                  left: ScreenSize().getScreenWidth(75)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: images.mapIndexed((index, item) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenSize().getScreenWidth(0.5)),
+                    child: Container(
+                      height: ScreenSize().getScreenHeight(1.5),
+                      width: ScreenSize().getScreenHeight(1.5),
+                      decoration: BoxDecoration(
+                          color: _currentIndex == index
+                              ? Colour().primary()
+                              : const Color.fromARGB(113, 0, 0, 0),
+                          borderRadius: BorderRadius.circular(
+                              ScreenSize().getScreenHeight(0.75))),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
         ],
       ),
     );

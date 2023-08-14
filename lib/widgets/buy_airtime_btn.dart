@@ -40,36 +40,40 @@ class _BuyAirtimeBtnState extends State<BuyAirtimeBtn> {
         });
       },
       child: Container(
-        height: ScreenSize().getScreenHeight(18),
+        clipBehavior: Clip.hardEdge,
+        height: ScreenSize().getScreenHeight(18.5),
         width: double.infinity,
         decoration: BoxDecoration(
           image: const DecorationImage(
               image: AssetImage("assets/images/airtime.png"),
               fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(
-            ScreenSize().getScreenHeight(1),
+            ScreenSize().getScreenHeight(2.5),
           ),
           border: isPressed
-              ? Border.all(width: 3, color: Colour().primary())
+              ? Border.all(width: 5, color: Colour().primary())
               : Border.all(width: 3, color: Colors.transparent),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              "assets/images/phone.png",
-              width: ScreenSize().getScreenWidth(12),
-              height: ScreenSize().getScreenHeight(8),
-              fit: BoxFit.fill,
-            ),
-            SizedBox(
-              width: ScreenSize().getScreenWidth(1),
-            ),
-            Text(
-              "Buy Airtime",
-              style: FontsStyle().buyAirtimeText(),
-            ),
-          ],
+        child: Padding(
+          padding: EdgeInsets.only(left: ScreenSize().getScreenWidth(15)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset(
+                "assets/images/phone.png",
+                width: ScreenSize().getScreenWidth(13.5),
+                height: ScreenSize().getScreenHeight(8),
+                fit: BoxFit.fill,
+              ),
+              SizedBox(
+                width: ScreenSize().getScreenWidth(3),
+              ),
+              Text(
+                "Buy Airtime",
+                style: FontsStyle().buyAirtimeText(),
+              ),
+            ],
+          ),
         ),
       ),
     );

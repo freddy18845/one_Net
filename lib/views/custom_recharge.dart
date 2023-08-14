@@ -32,19 +32,19 @@ class CustomRecharge extends StatelessWidget {
               "assets/images/logo2.png",
               width: ScreenSize().getScreenWidth(70),
               height: ScreenSize().getScreenHeight(15),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: ScreenSize().getScreenHeight(2),
               ),
               child: Container(
-                height: ScreenSize().getScreenHeight(43),
+                height: ScreenSize().getScreenHeight(35),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   image: const DecorationImage(
                       image: AssetImage("assets/images/card.png"),
-                      fit: BoxFit.fitWidth),
+                      fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),
                   ),
@@ -113,7 +113,7 @@ class CustomRecharge extends StatelessWidget {
                         color: Colour().primary(),
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(2),
+                        height: ScreenSize().getScreenHeight(3),
                       ),
                       SizedBox(
                         height: ScreenSize().getScreenHeight(7),
@@ -124,72 +124,10 @@ class CustomRecharge extends StatelessWidget {
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                           ],
-                          maxLength: 10,
+                          maxLength: 5,
                           onChanged: (value) {
                             Provider.of<StoreViewModel>(context, listen: false)
-                                .setRecipietNo(value);
-                          },
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: ScreenSize().getScreenHeight(2),
-                          ),
-                          textInputAction: TextInputAction.done,
-                          keyboardType: TextInputType.number,
-                          onEditingComplete: () {
-                            // Provider.of<LoginViewModal>(context, listen: false)
-                            // .loginNow();
-                          },
-                          decoration: InputDecoration(
-                              hintText: 'Recipient Number',
-                              suffixIcon: const Icon(
-                                Icons.dialpad,
-                              ),
-                              filled: true,
-                              fillColor:
-                                  const Color.fromARGB(113, 211, 210, 210),
-                              suffixIconColor: MaterialStateColor.resolveWith(
-                                  (states) => states
-                                          .contains(MaterialState.focused)
-                                      ? Colour().primary()
-                                      : const Color.fromRGBO(134, 134, 134, 1)),
-                              counterText: "",
-                              labelStyle: const TextStyle(),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colour().primary(),
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  ScreenSize().getScreenHeight(1),
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colour().primary(),
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  ScreenSize().getScreenHeight(1),
-                                ),
-                              )),
-                        ),
-                      ),
-                      SizedBox(
-                        height: ScreenSize().getScreenHeight(2),
-                      ),
-                      SizedBox(
-                        height: ScreenSize().getScreenHeight(7),
-                        width: double.infinity,
-                        child: TextField(
-                          textAlign: TextAlign.start,
-                          textAlignVertical: TextAlignVertical.center,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                          ],
-                          maxLength: 10,
-                          onChanged: (value) {
-                            // Provider.of<LoginViewModal>(context, listen: false)
-                            //.setpsd(value);
+                                .setRechargeAmount(value);
                           },
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -252,36 +190,31 @@ class CustomRecharge extends StatelessWidget {
                         builder: (context, myType, child) {
                           return Button(
                             btnAction:
-                                // myType.transactionData["recipientNo"]
-                                //             .isEmpty ||
-                                //         myType.transactionData["rechargeAmount"]
-                                //             .isEmpty
-                                //     ? () {}
-                                //:
-                                () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation1, animation2) =>
-                                          const SelectPaymentOption(),
-                                  transitionDuration: Duration.zero,
-                                  reverseTransitionDuration: Duration.zero,
-                                ),
-                              );
-                            },
+                                myType.transactionData["rechargeAmount"] ==
+                                            null ||
+                                        myType.transactionData["rechargeAmount"]
+                                            .isEmpty
+                                    ? () {}
+                                    : () {
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation1,
+                                                    animation2) =>
+                                                const SelectPaymentOption(),
+                                            transitionDuration: Duration.zero,
+                                            reverseTransitionDuration:
+                                                Duration.zero,
+                                          ),
+                                        );
+                                      },
                             btnColor:
-                                //  myType.transactionData["recipientNo"]
-                                //             .isNotEmpty ||
-                                //         myType.transactionData["recipientNo"] !=
-                                //             null ||
-                                //         myType.transactionData["rechargeAmount"] !=
-                                //             '' ||
-                                //         myType.transactionData["rechargeAmount"] !=
-                                //             null
-                                //     ? const Color.fromARGB(255, 245, 195, 154)
-                                //     :
-                                Colour().primary(),
+                                myType.transactionData["rechargeAmount"] ==
+                                            null ||
+                                        myType.transactionData["rechargeAmount"]
+                                            .isEmpty
+                                    ? const Color.fromARGB(255, 245, 195, 154)
+                                    : Colour().primary(),
                             btnHeight: ScreenSize().getScreenHeight(7),
                             btnText: Text(
                               'Proceed ',

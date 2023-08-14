@@ -26,6 +26,7 @@ class StoreViewModel extends ChangeNotifier {
   momoNum(String value) {
     transactionData["momoNumber"] = value;
     notifyListeners();
+    print(transactionData["momoNumber"]);
   }
 
   setallfield() {
@@ -33,6 +34,12 @@ class StoreViewModel extends ChangeNotifier {
     transactionData["recipientNo"] == '';
     transactionData["rechargeAmount"] == '';
     transactionData["momoNo"] == '';
+    transactionData["paymentMethod"] = '';
+    transactionData["selectedNetwork"] = "";
+    transactionData["selectedNetworkImage"] = "";
+    transactionData["cardNumber"] = '';
+    transactionData["receiptNum"] = '';
+    transactionData["orderDateTime"] = '';
   }
 
   setBuyerNo(String value) {
@@ -51,9 +58,19 @@ class StoreViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  setmomoNum(String value) {
-    transactionData["momoNo"] = value;
-    notifyListeners();
+  // setmomoNum(String value) {
+  //   transactionData["momoNo"] = value;
+  //   notifyListeners();
+  // }
+
+  double getAmount() {
+    return double.parse(transactionData["rechargeAmount"]);
+  }
+
+  setPaymetData(data) {
+    transactionData["cardNumber"] = data["pan"];
+    transactionData["receiptNum"] = data["transactionId"];
+    transactionData["orderDateTime"] = data["date"];
   }
 
   generateOrderNumAndDate() {

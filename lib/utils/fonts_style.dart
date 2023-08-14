@@ -23,7 +23,7 @@ class FontsStyle {
   splashText1() {
     return TextStyle(
         color: Colors.white,
-        fontSize: ScreenSize().getScreenHeight(5),
+        fontSize: ScreenSize().getScreenHeight(7),
         decoration: TextDecoration.none,
         fontWeight: FontWeight.w900);
   }
@@ -31,7 +31,7 @@ class FontsStyle {
   splashText2() {
     return TextStyle(
         color: Colors.black,
-        fontSize: ScreenSize().getScreenHeight(2.7),
+        fontSize: ScreenSize().getScreenHeight(3.2),
         decoration: TextDecoration.none,
         fontWeight: FontWeight.w700);
   }
@@ -39,7 +39,7 @@ class FontsStyle {
   splashText3() {
     return TextStyle(
         color: Colors.white,
-        fontSize: ScreenSize().getScreenHeight(1.6),
+        fontSize: ScreenSize().getScreenHeight(1.8),
         decoration: TextDecoration.none,
         fontWeight: FontWeight.w700);
   }
@@ -146,7 +146,7 @@ class FontsStyle {
     return TextStyle(
         color: Colour().secondary(),
         fontSize: ScreenSize().getScreenHeight(2),
-        fontWeight: FontWeight.w900);
+        fontWeight: FontWeight.w500);
   }
 
   buyAirtimeText() {
@@ -168,5 +168,12 @@ class FontsStyle {
         color: Colour().primary(),
         fontSize: ScreenSize().getScreenHeight(2),
         fontWeight: FontWeight.bold);
+  }
+
+  receiptTitle() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(1.8),
+        fontWeight: FontWeight.normal);
   }
 }

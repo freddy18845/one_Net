@@ -45,7 +45,7 @@ class QRCodePaymentScreen extends StatelessWidget {
               "assets/images/logo2.png",
               width: ScreenSize().getScreenWidth(70),
               height: ScreenSize().getScreenHeight(15),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -57,7 +57,7 @@ class QRCodePaymentScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: const DecorationImage(
                       image: AssetImage("assets/images/card.png"),
-                      fit: BoxFit.fitWidth),
+                      fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),
                   ),
@@ -91,7 +91,7 @@ class QRCodePaymentScreen extends StatelessWidget {
                                   "assets/images/home_logo.png",
                                   width: ScreenSize().getScreenHeight(3.5),
                                   height: ScreenSize().getScreenHeight(3.5),
-                                  fit: BoxFit.contain,
+                                  fit: BoxFit.cover,
                                 ),
                                 innerColor: Colour().secondary(),
                                 outerColor: Colour().primary(),
@@ -171,8 +171,9 @@ class QRCodePaymentScreen extends StatelessWidget {
                                       height: ScreenSize().getScreenHeight(0)),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            ScreenSize().getScreenHeight(2.5)),
+                                      horizontal:
+                                          ScreenSize().getScreenHeight(3.5),
+                                    ),
                                     child: Image.asset(
                                       "assets/images/dash.png",
                                       width: double.infinity,
@@ -190,7 +191,7 @@ class QRCodePaymentScreen extends StatelessWidget {
                             },
                           )),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(1),
+                        height: ScreenSize().getScreenHeight(2),
                       ),
                       Consumer<StoreViewModel>(
                         builder: (context, myQrCode, child) {
@@ -228,7 +229,7 @@ class QRCodePaymentScreen extends StatelessWidget {
                         },
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(1),
+                        height: ScreenSize().getScreenHeight(2),
                       ),
                       Text(
                         " Scan To Tap To Pay",
@@ -239,7 +240,7 @@ class QRCodePaymentScreen extends StatelessWidget {
                         color: Colour().primary(),
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(1),
+                        height: ScreenSize().getScreenHeight(2),
                       ),
                       Image.asset(
                         "assets/images/Vs.png",

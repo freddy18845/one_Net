@@ -33,7 +33,7 @@ class MobileMoneyScreen extends StatelessWidget {
               "assets/images/logo2.png",
               width: ScreenSize().getScreenWidth(70),
               height: ScreenSize().getScreenHeight(15),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -45,7 +45,7 @@ class MobileMoneyScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: const DecorationImage(
                       image: AssetImage("assets/images/card.png"),
-                      fit: BoxFit.fitWidth),
+                      fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),
                   ),
@@ -139,8 +139,8 @@ class MobileMoneyScreen extends StatelessWidget {
                                 Map value = network.value;
 
                                 return SizedBox(
-                                  height: ScreenSize().getScreenHeight(14.5),
-                                  width: ScreenSize().getScreenWidth(27.5),
+                                  height: ScreenSize().getScreenHeight(15.5),
+                                  width: ScreenSize().getScreenWidth(28.5),
                                   child: Stack(
                                     children: [
                                       InkWell(
@@ -157,9 +157,9 @@ class MobileMoneyScreen extends StatelessWidget {
                                               AlignmentDirectional.center,
                                           child: Container(
                                             height: ScreenSize()
-                                                .getScreenHeight(12.5),
+                                                .getScreenHeight(13),
                                             width:
-                                                ScreenSize().getScreenWidth(27),
+                                                ScreenSize().getScreenWidth(24),
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(
@@ -170,7 +170,7 @@ class MobileMoneyScreen extends StatelessWidget {
                                                 ScreenSize().getScreenHeight(2),
                                               ),
                                               border: Border.all(
-                                                  width: 2,
+                                                  width: 5,
                                                   color: myNetwork.transactionData[
                                                               "selectedNetwork"] ==
                                                           value["name"]
@@ -333,7 +333,8 @@ class MobileMoneyScreen extends StatelessWidget {
                         builder: (context, myType, child) {
                           return Button(
                             btnAction: myType.transactionData["momoNumber"] ==
-                                    ''
+                                        null ||
+                                    myType.transactionData["momoNumber"].isEmpty
                                 ? () {}
                                 : () {
                                     Navigator.push(
@@ -348,15 +349,11 @@ class MobileMoneyScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-                            btnColor:
-                                //  myType.transactionData["momoNo"]
-                                //             .isEmpty ||
-                                //         myType.transactionData["momoNo"] ==
-                                //             null
-
-                                //     ? const Color.fromARGB(255, 245, 195, 154)
-                                //     :
-                                Colour().primary(),
+                            btnColor: myType.transactionData["momoNumber"] ==
+                                        null ||
+                                    myType.transactionData["momoNumber"].isEmpty
+                                ? const Color.fromARGB(255, 245, 195, 154)
+                                : Colour().primary(),
                             btnHeight: ScreenSize().getScreenHeight(7),
                             btnText: Text(
                               'Buy ',

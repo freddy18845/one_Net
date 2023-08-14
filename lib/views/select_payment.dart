@@ -34,7 +34,7 @@ class SelectPaymentOption extends StatelessWidget {
               "assets/images/logo2.png",
               width: ScreenSize().getScreenWidth(70),
               height: ScreenSize().getScreenHeight(15),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -266,35 +266,43 @@ class SelectPaymentOption extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               PaymentButton(
-                                btnAction: myType.transactionData[
-                                                "recipientNo"] ==
-                                            "" ||
-                                        myType.transactionData["buyerNo"] == ""
-                                    ? () {}
-                                    : () {
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation1,
-                                                    animation2) =>
-                                                const CardPayment(),
-                                            transitionDuration: Duration.zero,
-                                            reverseTransitionDuration:
-                                                Duration.zero,
-                                          ),
-                                        );
-                                        Provider.of<StoreViewModel>(context,
-                                                listen: false)
-                                            .setPayment("Card");
-                                      },
+                                btnAction:
+                                    myType.transactionData["recipientNo"] ==
+                                                null ||
+                                            myType
+                                                .transactionData["recipientNo"]
+                                                .isEmpty ||
+                                            myType.transactionData["buyerNo"] ==
+                                                null ||
+                                            myType.transactionData["buyerNo"]
+                                                .isEmpty
+                                        ? () {}
+                                        : () {
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                pageBuilder: (context,
+                                                        animation1,
+                                                        animation2) =>
+                                                    const CardPayment(),
+                                                transitionDuration:
+                                                    Duration.zero,
+                                                reverseTransitionDuration:
+                                                    Duration.zero,
+                                              ),
+                                            );
+                                            Provider.of<StoreViewModel>(context,
+                                                    listen: false)
+                                                .setPayment("Card");
+                                          },
                                 btnText: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset(
                                       "assets/images/visa.png",
-                                      width: ScreenSize().getScreenWidth(8),
+                                      width: ScreenSize().getScreenWidth(9),
                                       height: ScreenSize().getScreenHeight(5),
-                                      fit: BoxFit.contain,
+                                      fit: BoxFit.fill,
                                     ),
                                     SizedBox(
                                       height: ScreenSize().getScreenHeight(1),
@@ -307,76 +315,92 @@ class SelectPaymentOption extends StatelessWidget {
                                 ),
                               ),
                               PaymentButton(
-                                btnAction: myType.transactionData[
-                                                "recipientNo"] ==
-                                            "" ||
-                                        myType.transactionData["buyerNo"] == ""
-                                    ? () {}
-                                    : () {
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation1,
-                                                    animation2) =>
-                                                const MobileMoneyScreen(),
-                                            transitionDuration: Duration.zero,
-                                            reverseTransitionDuration:
-                                                Duration.zero,
-                                          ),
-                                        );
-                                        Provider.of<StoreViewModel>(context,
-                                                listen: false)
-                                            .setPayment("Mobile Money");
-                                      },
+                                btnAction:
+                                    myType.transactionData["recipientNo"] ==
+                                                null ||
+                                            myType
+                                                .transactionData["recipientNo"]
+                                                .isEmpty ||
+                                            myType.transactionData["buyerNo"] ==
+                                                null ||
+                                            myType.transactionData["buyerNo"]
+                                                .isEmpty
+                                        ? () {}
+                                        : () {
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                pageBuilder: (context,
+                                                        animation1,
+                                                        animation2) =>
+                                                    const MobileMoneyScreen(),
+                                                transitionDuration:
+                                                    Duration.zero,
+                                                reverseTransitionDuration:
+                                                    Duration.zero,
+                                              ),
+                                            );
+                                            Provider.of<StoreViewModel>(context,
+                                                    listen: false)
+                                                .setPayment("Mobile Money");
+                                          },
                                 btnText: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset(
                                       "assets/images/mobile.png",
-                                      width: ScreenSize().getScreenWidth(8),
+                                      width: ScreenSize().getScreenWidth(9),
                                       height: ScreenSize().getScreenHeight(5),
-                                      fit: BoxFit.contain,
+                                      fit: BoxFit.fill,
                                     ),
                                     SizedBox(
                                       height: ScreenSize().getScreenHeight(1),
                                     ),
                                     Text(
-                                      "Mobile\nMoney",
+                                      "Mobile Money",
                                       style: FontsStyle().mainText(),
                                     )
                                   ],
                                 ),
                               ),
                               PaymentButton(
-                                btnAction: myType.transactionData[
-                                                "recipientNo"] ==
-                                            "" ||
-                                        myType.transactionData["buyerNo"] == ""
-                                    ? () {}
-                                    : () {
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation1,
-                                                    animation2) =>
-                                                const QRCodePaymentScreen(),
-                                            transitionDuration: Duration.zero,
-                                            reverseTransitionDuration:
-                                                Duration.zero,
-                                          ),
-                                        );
-                                        Provider.of<StoreViewModel>(context,
-                                                listen: false)
-                                            .setPayment("QR");
-                                      },
+                                btnAction:
+                                    myType.transactionData["recipientNo"] ==
+                                                null ||
+                                            myType
+                                                .transactionData["recipientNo"]
+                                                .isEmpty ||
+                                            myType.transactionData["buyerNo"] ==
+                                                null ||
+                                            myType.transactionData["buyerNo"]
+                                                .isEmpty
+                                        ? () {}
+                                        : () {
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                pageBuilder: (context,
+                                                        animation1,
+                                                        animation2) =>
+                                                    const QRCodePaymentScreen(),
+                                                transitionDuration:
+                                                    Duration.zero,
+                                                reverseTransitionDuration:
+                                                    Duration.zero,
+                                              ),
+                                            );
+                                            Provider.of<StoreViewModel>(context,
+                                                    listen: false)
+                                                .setPayment("QR");
+                                          },
                                 btnText: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset(
                                       "assets/images/qr.png",
-                                      width: ScreenSize().getScreenWidth(8),
+                                      width: ScreenSize().getScreenWidth(9),
                                       height: ScreenSize().getScreenHeight(5),
-                                      fit: BoxFit.contain,
+                                      fit: BoxFit.fill,
                                     ),
                                     SizedBox(
                                       height: ScreenSize().getScreenHeight(1),

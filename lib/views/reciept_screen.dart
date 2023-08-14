@@ -1,6 +1,7 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:one_net/services/printing_service.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/currency_format.dart';
 import 'package:one_net/utils/fonts_style.dart';
@@ -15,13 +16,14 @@ class ReceiptScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<PrintingService>(context, listen: false).printReceipt(context);
     return Scaffold(
       body: Container(
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/txn_inprogess.png"),
+              image: AssetImage("assets/images/splash_screen.png"),
               fit: BoxFit.fill),
         ),
         child: Padding(
@@ -164,12 +166,15 @@ class ReceiptScreen extends StatelessWidget {
                                         style: FontsStyle().invoicetext(),
                                       ),
                                       Text(
-                                        "4012 **** **** 1450",
+                                        "4545 xxxx xxxx 7845",
                                         style: FontsStyle().invoicetext1(),
                                       ),
                                     ],
                                   )
-                                : Row(
+                                : SizedBox.fromSize(),
+                            invoice.transactionData["paymentMethod"] ==
+                                    "Mobile Money"
+                                ? Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -178,12 +183,13 @@ class ReceiptScreen extends StatelessWidget {
                                         style: FontsStyle().invoicetext(),
                                       ),
                                       Text(
-                                        invoice.transactionData["momoNo"]
+                                        invoice.transactionData["momoNumber"]
                                             .toString(),
                                         style: FontsStyle().invoicetext1(),
                                       ),
                                     ],
-                                  ),
+                                  )
+                                : const SizedBox.shrink(),
                             SizedBox(
                               height: ScreenSize().getScreenHeight(1),
                             ),
@@ -251,12 +257,12 @@ class ReceiptScreen extends StatelessWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text(
+                                  Text(
                                     "Thank You!",
-                                    // style: FontsStyle().receiptTitle(),
+                                    style: FontsStyle().receiptTitle(),
                                   ),
                                   SizedBox(
-                                    height: ScreenSize().getScreenHeight(1.5),
+                                    height: ScreenSize().getScreenHeight(2.5),
                                   ),
                                   Center(
                                     child: BarcodeWidget(
@@ -280,19 +286,7 @@ class ReceiptScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Button(
-                                  btnAction: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   PageRouteBuilder(
-                                    //     pageBuilder:
-                                    //         (context, animation1, animation2) =>
-                                    //             const HomeScreen(),
-                                    //     transitionDuration: Duration.zero,
-                                    //     reverseTransitionDuration:
-                                    //         Duration.zero,
-                                    //   ),
-                                    // );
-                                  },
+                                  btnAction: () {},
                                   btnColor: Colour().primary(),
                                   btnHeight: ScreenSize().getScreenHeight(6),
                                   btnText: Text(
@@ -302,19 +296,7 @@ class ReceiptScreen extends StatelessWidget {
                                   btnWight: ScreenSize().getScreenWidth(35),
                                 ),
                                 Button(
-                                  btnAction: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   PageRouteBuilder(
-                                    //     pageBuilder:
-                                    //         (context, animation1, animation2) =>
-                                    //             const HomeScreen(),
-                                    //     transitionDuration: Duration.zero,
-                                    //     reverseTransitionDuration:
-                                    //         Duration.zero,
-                                    //   ),
-                                    // );
-                                  },
+                                  btnAction: () {},
                                   btnColor: Colour().primary(),
                                   btnHeight: ScreenSize().getScreenHeight(6),
                                   btnText: Text(
@@ -335,6 +317,8 @@ class ReceiptScreen extends StatelessWidget {
               ),
               Button(
                 btnAction: () {
+                  Provider.of<StoreViewModel>(context, listen: false)
+                      .setallfield();
                   Navigator.push(
                     context,
                     PageRouteBuilder(

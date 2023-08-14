@@ -40,6 +40,9 @@ dependencies:
   barcode_widget: ^2.0.4
   flutter_exit_app: ^1.1.2
   lottie: ^2.6.0
+  http: ^1.1.0
+  collection: ^1.17.1
+  sunmi_printer_plus: ^2.1.01
 
 dev_dependencies:
   flutter_test:
@@ -85,14 +88,19 @@ flutter:
   # example:
   fonts:
     - family: Gilroy
-    - fonts:
+      fonts:
         - asset: assets/fonts/gilroy_regular.otf
         - asset: assets/fonts/gilroy_bold.otf
-          weight: 500
-        - asset: assets/fonts/gilroy_semibold.otf
           weight: 700
+        - asset: assets/fonts/gilroy_semibold.otf
+          weight: 500
         - asset: assets/fonts/Gilroy-ExtraBold.otf
           weight: 900
+    # - family: Trajan Pro
+    #   fonts:
+    #     - asset: fonts/TrajanPro.ttf
+    #     - asset: fonts/TrajanPro_Bold.ttf
+    #       weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

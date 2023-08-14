@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Colour {
   primary() {
-    return Color.fromARGB(255, 255, 122, 13);
+    return const Color.fromARGB(255, 255, 122, 13);
     //return const Color.fromRGBO(255, 115, 0, 1);
   }
 

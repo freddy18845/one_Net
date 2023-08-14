@@ -12,7 +12,7 @@ class TransactionInprogress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.push(
         context,
         PageRouteBuilder(
@@ -40,7 +40,7 @@ class TransactionInprogress extends StatelessWidget {
               image: const DecorationImage(
                   image: AssetImage("assets/images/txn_card.png"),
                   fit: BoxFit.cover),
-              border: Border.all(width: 4, color: Colour().primary()),
+              border: Border.all(width: 5, color: Colour().primary()),
               borderRadius: BorderRadius.circular(
                 ScreenSize().getScreenHeight(3),
               ),
@@ -57,7 +57,7 @@ class TransactionInprogress extends StatelessWidget {
                       vertical: ScreenSize().getScreenHeight(7)),
                   child: Lottie.asset(
                     'assets/lottie/checked.json',
-                    repeat: true,
+                    repeat: false,
                     //options: LottieOptions(),
                     height: ScreenSize().getScreenHeight(17),
                   ),

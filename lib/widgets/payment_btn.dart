@@ -38,18 +38,16 @@ class _PaymentButtonState extends State<PaymentButton> {
         });
       },
       child: Container(
-        height: ScreenSize().getScreenHeight(15),
-        width: ScreenSize().getScreenWidth(27.5),
+        height: ScreenSize().getScreenHeight(17),
+        width: ScreenSize().getScreenWidth(26),
         decoration: BoxDecoration(
-          image: const DecorationImage(
-              image: AssetImage("assets/images/payment_bg.png"),
-              fit: BoxFit.fitHeight),
+          color: const Color.fromRGBO(85, 85, 85, 1),
           borderRadius: BorderRadius.circular(
             ScreenSize().getScreenHeight(2),
           ),
           border: isPressed
-              ? Border.all(width: 3, color: Colour().primary())
-              : Border.all(width: 3, color: Colors.transparent),
+              ? Border.all(width: 5, color: Colour().primary())
+              : Border.all(width: 0, color: Colors.transparent),
         ),
         child: Center(
           child: widget.btnText,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:one_net/utils/fonts_style.dart';
@@ -104,116 +105,95 @@ class _CarouselState extends State<Carousel> {
               ),
             ),
           ),
-
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
+            child: SizedBox(
               height: ScreenSize().getScreenHeight(27),
               width: double.infinity,
-              color: Colors.transparent,
-              child: Positioned(
-                top: ScreenSize().getScreenHeight(10),
-                bottom: ScreenSize().getScreenHeight(10),
-                left: ScreenSize().getScreenHeight(10),
-                right: ScreenSize().getScreenHeight(10),
-                child: ClipRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
-                    child: Padding(
-                      padding: EdgeInsets.all(
-                        ScreenSize().getScreenHeight(2),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: ScreenSize().getScreenHeight(1),
-                          ),
-                          Text(
-                            "TALK MORE",
-                            // textAlign: TextAlign.start,
-                            style: FontsStyle().splashText1(),
-                          ),
-                          Text(
-                            "FOR LESS US DALLOR A DAY",
-                            style: FontsStyle().splashText2(),
-                          ),
-                          SizedBox(
-                            height: ScreenSize().getScreenHeight(1),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.pending_actions,
-                                size: ScreenSize().getScreenHeight(2.5),
-                                color: Colors.black,
-                              ),
-                              SizedBox(
-                                width: ScreenSize().getScreenHeight(1),
-                              ),
-                              Text(
-                                "Unlimited OnNet Calls - 12 Midnight Till 4AM ",
-                                style: FontsStyle().splashText3(),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: ScreenSize().getScreenHeight(1),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.phone_in_talk,
-                                size: ScreenSize().getScreenHeight(2.5),
-                                color: Colors.black,
-                              ),
-                              SizedBox(
-                                width: ScreenSize().getScreenHeight(1),
-                              ),
-                              Text(
-                                "60 min OnNet ",
-                                style: FontsStyle().splashText3(),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: ScreenSize().getScreenHeight(4),
+                  vertical: ScreenSize().getScreenHeight(1),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "TALK MORE",
+                      style: FontsStyle().splashText1(),
                     ),
-                  ),
+                    Text(
+                      "FOR LESS US DALLOR A DAY",
+                      style: FontsStyle().splashText2(),
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.pending_actions,
+                          size: ScreenSize().getScreenHeight(2.5),
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: ScreenSize().getScreenHeight(1),
+                        ),
+                        Text(
+                          "Unlimited OnNet Calls - 12 Midnight Till 4AM ",
+                          style: FontsStyle().splashText3(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: ScreenSize().getScreenHeight(1),
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.phone_in_talk,
+                          size: ScreenSize().getScreenHeight(2.5),
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: ScreenSize().getScreenHeight(1),
+                        ),
+                        Text(
+                          "60 min OnNet ",
+                          style: FontsStyle().splashText3(),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-
-          // Align(
-          //   alignment: Alignment.topCenter,
-          //   child: Padding(
-          //     padding: EdgeInsets.only(top: ScreenSize().getScreenWidth(32)),
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: images.mapIndexed((index, item) {
-          //         return Padding(
-          //           padding: EdgeInsets.symmetric(
-          //               horizontal: ScreenSize().getScreenWidth(0.5)),
-          //           child: Container(
-          //             height: ScreenSize().getScreenHeight(1.5),
-          //             width: ScreenSize().getScreenHeight(1.5),
-          //             decoration: BoxDecoration(
-          //                 border: Border.all(
-          //                     width: ScreenSize().getScreenHeight(0.2),
-          //                     color: Colors.white),
-          //                 color: _currentIndex == index
-          //                     ? Colors.white
-          //                     : Colors.transparent,
-          //                 borderRadius: BorderRadius.circular(
-          //                     ScreenSize().getScreenHeight(0.75))),
-          //           ),
-          //         );
-          //       }).toList(),
-          //     ),
-          //   ),
-          // ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: ScreenSize().getScreenHeight(2)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: images.mapIndexed((index, item) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenSize().getScreenWidth(0.5)),
+                    child: Container(
+                      height: ScreenSize().getScreenHeight(1.5),
+                      width: ScreenSize().getScreenHeight(1.5),
+                      decoration: BoxDecoration(
+                          // border: Border.all(
+                          //     width: ScreenSize().getScreenHeight(0.2),
+                          //     color: Colors.white),
+                          color: _currentIndex == index
+                              ? Colors.white
+                              : const Color.fromARGB(113, 0, 0, 0),
+                          borderRadius: BorderRadius.circular(
+                              ScreenSize().getScreenHeight(0.75))),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
         ],
       ),
     );

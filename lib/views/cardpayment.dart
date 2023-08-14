@@ -17,6 +17,7 @@ class CardPayment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
     var navigateTime = Timer(const Duration(seconds: 5), () {
       Navigator.push(
         context,
@@ -28,6 +29,7 @@ class CardPayment extends StatelessWidget {
         ),
       );
     });
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -44,7 +46,7 @@ class CardPayment extends StatelessWidget {
               "assets/images/logo2.png",
               width: ScreenSize().getScreenWidth(70),
               height: ScreenSize().getScreenHeight(15),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -56,7 +58,7 @@ class CardPayment extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: const DecorationImage(
                       image: AssetImage("assets/images/card.png"),
-                      fit: BoxFit.fitWidth),
+                      fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),
                   ),
@@ -170,7 +172,7 @@ class CardPayment extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal:
-                                            ScreenSize().getScreenHeight(2.5)),
+                                            ScreenSize().getScreenHeight(3.5)),
                                     child: Image.asset(
                                       "assets/images/dash.png",
                                       width: double.infinity,
@@ -188,7 +190,7 @@ class CardPayment extends StatelessWidget {
                             },
                           )),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(1),
+                        height: ScreenSize().getScreenHeight(2),
                       ),
                       Image.asset(
                         "assets/images/pay_card.png",
@@ -197,7 +199,7 @@ class CardPayment extends StatelessWidget {
                         fit: BoxFit.contain,
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(1),
+                        height: ScreenSize().getScreenHeight(2),
                       ),
                       Text(
                         "Tap To Pay",
@@ -215,7 +217,7 @@ class CardPayment extends StatelessWidget {
                         color: Colour().primary(),
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(1),
+                        height: ScreenSize().getScreenHeight(2),
                       ),
                       Image.asset(
                         "assets/images/Vs.png",
