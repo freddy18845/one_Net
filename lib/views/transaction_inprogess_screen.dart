@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
@@ -12,6 +13,7 @@ class TransactionInprogress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     Timer(const Duration(seconds: 3), () {
       Navigator.push(
         context,

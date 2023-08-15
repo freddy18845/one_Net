@@ -1,5 +1,6 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:one_net/services/printing_service.dart';
 import 'package:one_net/utils/colour.dart';
@@ -16,6 +17,7 @@ class ReceiptScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     Provider.of<PrintingService>(context, listen: false).printReceipt(context);
     return Scaffold(
       body: Container(
@@ -42,7 +44,7 @@ class ReceiptScreen extends StatelessWidget {
                 height: ScreenSize().getScreenHeight(2),
               ),
               Container(
-                height: ScreenSize().getScreenHeight(77),
+                height: ScreenSize().getScreenHeight(74),
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -51,7 +53,7 @@ class ReceiptScreen extends StatelessWidget {
                 ),
                 child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: ScreenSize().getScreenHeight(3),
+                      horizontal: ScreenSize().getScreenHeight(3.5),
                     ),
                     child: Consumer<StoreViewModel>(
                       builder: (context, invoice, child) {
@@ -67,14 +69,14 @@ class ReceiptScreen extends StatelessWidget {
                               fit: BoxFit.contain,
                             ),
                             SizedBox(
-                              height: ScreenSize().getScreenHeight(3),
+                              height: ScreenSize().getScreenHeight(2.5),
                             ),
                             Text(
                               "Transaction Receipt",
                               style: FontsStyle().invoicetxn(),
                             ),
                             SizedBox(
-                              height: ScreenSize().getScreenHeight(0.5),
+                              height: ScreenSize().getScreenHeight(1),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(
@@ -179,11 +181,11 @@ class ReceiptScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Mobile Number",
+                                        "Buyer Number",
                                         style: FontsStyle().invoicetext(),
                                       ),
                                       Text(
-                                        invoice.transactionData["momoNumber"]
+                                        invoice.transactionData["buyerNo"]
                                             .toString(),
                                         style: FontsStyle().invoicetext1(),
                                       ),
@@ -220,22 +222,6 @@ class ReceiptScreen extends StatelessWidget {
                                 Text(
                                   invoice.transactionData["recipientNo"]
                                       .toString(),
-                                  style: FontsStyle().invoicetext1(),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: ScreenSize().getScreenHeight(1),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Buyer's No. ",
-                                  style: FontsStyle().invoicetext(),
-                                ),
-                                Text(
-                                  invoice.transactionData["buyerNo"].toString(),
                                   style: FontsStyle().invoicetext1(),
                                 ),
                               ],

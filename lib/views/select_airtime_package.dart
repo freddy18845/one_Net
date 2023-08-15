@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/currency_format.dart';
 import 'package:one_net/utils/fonts_style.dart';
@@ -17,8 +18,10 @@ class SelectAirtimePackageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     Provider.of<StoreViewModel>(context, listen: false).setallfield();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -43,8 +46,14 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                 height: ScreenSize().getScreenHeight(67),
                 width: double.infinity,
                 decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromARGB(166, 119, 118, 116), //New
+                      blurRadius: 25.0,
+                    )
+                  ],
                   image: const DecorationImage(
-                      image: AssetImage("assets/images/card.png"),
+                      image: AssetImage("assets/images/card.jpg"),
                       fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),

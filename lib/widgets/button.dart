@@ -50,7 +50,7 @@ class _ButtonState extends State<Button> {
         decoration: BoxDecoration(
           color: widget.btnColor,
           borderRadius: BorderRadius.circular(
-            ScreenSize().getScreenHeight(3),
+            ScreenSize().getScreenHeight(2),
           ),
           border: isPressed
               ? Border.all(width: 5, color: Colors.white)

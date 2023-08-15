@@ -42,8 +42,14 @@ class CustomRecharge extends StatelessWidget {
                 height: ScreenSize().getScreenHeight(35),
                 width: double.infinity,
                 decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromARGB(166, 119, 118, 116), //New
+                      blurRadius: 25.0,
+                    )
+                  ],
                   image: const DecorationImage(
-                      image: AssetImage("assets/images/card.png"),
+                      image: AssetImage("assets/images/card.jpg"),
                       fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),
@@ -120,6 +126,7 @@ class CustomRecharge extends StatelessWidget {
                         width: double.infinity,
                         child: TextField(
                           textAlign: TextAlign.start,
+                          autofocus: true,
                           textAlignVertical: TextAlignVertical.center,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

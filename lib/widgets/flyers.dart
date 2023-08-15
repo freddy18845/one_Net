@@ -16,9 +16,9 @@ class _FlyerState extends State<Flyer> {
   int _currentIndex = 0;
 
   List<String> images = [
-    'assets/images/flyers/image1.png',
-    'assets/images/flyers/image2.png',
-    'assets/images/flyers/image3.png',
+    'assets/images/flyers/image1.jpg',
+    'assets/images/flyers/image2.jpg',
+    'assets/images/flyers/image3.jpg',
   ];
   Timer _timer = Timer.periodic(const Duration(seconds: 2), (timer) async {});
 
@@ -53,6 +53,7 @@ class _FlyerState extends State<Flyer> {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
 //color: Colors.black,
+
         borderRadius: BorderRadius.circular(
           ScreenSize().getScreenHeight(2),
         ),
@@ -88,11 +89,13 @@ class _FlyerState extends State<Flyer> {
                       height: ScreenSize().getScreenHeight(1.5),
                       width: ScreenSize().getScreenHeight(1.5),
                       decoration: BoxDecoration(
-                          color: _currentIndex == index
-                              ? Colour().primary()
-                              : const Color.fromARGB(113, 0, 0, 0),
-                          borderRadius: BorderRadius.circular(
-                              ScreenSize().getScreenHeight(0.75))),
+                        color: _currentIndex == index
+                            ? Colour().primary()
+                            : const Color.fromARGB(113, 0, 0, 0),
+                        borderRadius: BorderRadius.circular(
+                          ScreenSize().getScreenHeight(0.75),
+                        ),
+                      ),
                     ),
                   );
                 }).toList(),

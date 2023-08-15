@@ -134,9 +134,9 @@ class PrintingService extends ChangeNotifier {
         await SunmiPrinter.printRow(
           cols: [
             ColumnMaker(
-                text: "Mobile Number", width: 23, align: SunmiPrintAlign.LEFT),
+                text: "Buyer Number", width: 23, align: SunmiPrintAlign.LEFT),
             ColumnMaker(
-                text: transactionData["momoNumber"],
+                text: transactionData["buyerNo"],
                 width: 24,
                 align: SunmiPrintAlign.RIGHT),
           ],
@@ -146,7 +146,7 @@ class PrintingService extends ChangeNotifier {
       await SunmiPrinter.printRow(
         cols: [
           ColumnMaker(
-              text: " Transaction ID", width: 23, align: SunmiPrintAlign.LEFT),
+              text: "Transaction ID", width: 23, align: SunmiPrintAlign.LEFT),
           ColumnMaker(
               text: transactionData["receiptNum"].toString(),
               width: 24,
@@ -157,7 +157,7 @@ class PrintingService extends ChangeNotifier {
       await SunmiPrinter.printRow(
         cols: [
           ColumnMaker(
-              text: " Recipient's No", width: 23, align: SunmiPrintAlign.LEFT),
+              text: "Recipient's No", width: 23, align: SunmiPrintAlign.LEFT),
           ColumnMaker(
               text: transactionData["recipientNo"],
               width: 24,
@@ -167,7 +167,7 @@ class PrintingService extends ChangeNotifier {
       await SunmiPrinter.printRow(
         cols: [
           ColumnMaker(
-              text: " Buyer's No", width: 23, align: SunmiPrintAlign.LEFT),
+              text: "Buyer's No", width: 23, align: SunmiPrintAlign.LEFT),
           ColumnMaker(
               text: transactionData["buyerNo"],
               width: 24,

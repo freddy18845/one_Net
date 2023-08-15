@@ -17,6 +17,7 @@ class MobileMoneyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -40,11 +41,17 @@ class MobileMoneyScreen extends StatelessWidget {
                 horizontal: ScreenSize().getScreenHeight(2),
               ),
               child: Container(
-                height: ScreenSize().getScreenHeight(48),
+                height: ScreenSize().getScreenHeight(49),
                 width: double.infinity,
                 decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromARGB(166, 119, 118, 116), //New
+                      blurRadius: 25.0,
+                    )
+                  ],
                   image: const DecorationImage(
-                      image: AssetImage("assets/images/card.png"),
+                      image: AssetImage("assets/images/card.jpg"),
                       fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),
@@ -180,44 +187,6 @@ class MobileMoneyScreen extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      // myNetwork.transactionData[
-                                      //             "selectedNetwork"] ==
-                                      //         value["name"]
-                                      //     ? Align(
-                                      //         alignment:
-                                      //             AlignmentDirectional
-                                      //                 .center,
-                                      //         child: Padding(
-                                      //           padding: EdgeInsets.only(
-                                      //               bottom: ScreenSize()
-                                      //                   .getScreenHeight(
-                                      //                       0)),
-                                      //           child: Container(
-                                      //             height: ScreenSize()
-                                      //                 .getScreenHeight(
-                                      //                     10.3),
-                                      //             width: ScreenSize()
-                                      //                 .getScreenHeight(
-                                      //                     10.5),
-                                      //             decoration: BoxDecoration(
-                                      //               color:
-                                      //                   Colors.transparent,
-                                      //               border: Border.all(
-                                      //                   width: 3,
-                                      //                   color: Colour()
-                                      //                       .primary()),
-                                      //               borderRadius:
-                                      //                   BorderRadius
-                                      //                       .circular(
-                                      //                 ScreenSize()
-                                      //                     .getScreenHeight(
-                                      //                         1.8),
-                                      //               ),
-                                      //             ),
-                                      //           ),
-                                      //         ),
-                                      //       )
-                                      //     : const SizedBox.shrink(),
                                       myNetwork.transactionData[
                                                   "selectedNetwork"] ==
                                               value["name"]
@@ -258,109 +227,119 @@ class MobileMoneyScreen extends StatelessWidget {
                       SizedBox(
                         height: ScreenSize().getScreenHeight(1),
                       ),
-                      SizedBox(
-                        height: ScreenSize().getScreenHeight(7),
-                        width: double.infinity,
-                        child: TextField(
-                          textAlign: TextAlign.start,
-                          textAlignVertical: TextAlignVertical.center,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                          ],
-                          maxLength: 10,
-                          onChanged: (value) {
-                            Provider.of<StoreViewModel>(context, listen: false)
-                                .momoNum(value);
-                          },
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: ScreenSize().getScreenHeight(2),
-                          ),
-                          textInputAction: TextInputAction.done,
-                          keyboardType: TextInputType.number,
-                          onEditingComplete: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation1, animation2) =>
-                                        const SelectPaymentOption(),
-                                transitionDuration: Duration.zero,
-                                reverseTransitionDuration: Duration.zero,
-                              ),
-                            );
-                          },
-                          decoration: InputDecoration(
-                              hintText: 'Mobile Money Number',
-                              suffixIcon: const Icon(
-                                Icons.dialpad,
-                              ),
-                              filled: true,
-                              fillColor:
-                                  const Color.fromARGB(113, 211, 210, 210),
-                              suffixIconColor: MaterialStateColor.resolveWith(
-                                  (states) => states
-                                          .contains(MaterialState.focused)
-                                      ? Colour().primary()
-                                      : const Color.fromRGBO(134, 134, 134, 1)),
-                              counterText: "",
-                              labelStyle: const TextStyle(
-                                  color: Color.fromRGBO(134, 134, 134, 1)),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colour().primary(),
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  ScreenSize().getScreenHeight(1),
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colour().primary(),
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  ScreenSize().getScreenHeight(1),
-                                ),
-                              )),
-                        ),
+                      Consumer<StoreViewModel>(
+                        builder: (context, myNetwork, child) {
+                          return myNetwork.transactionData["selectedNetwork"] ==
+                                  ""
+                              ? const SizedBox.shrink()
+                              : SizedBox(
+                                  height: ScreenSize().getScreenHeight(7),
+                                  width: double.infinity,
+                                  child: TextField(
+                                    textAlign: TextAlign.start,
+                                    autofocus: true,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'[0-9]')),
+                                    ],
+                                    maxLength: 10,
+                                    onChanged: (value) {
+                                      Provider.of<StoreViewModel>(context,
+                                              listen: false)
+                                          .setBuyerNo(value);
+                                    },
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: ScreenSize().getScreenHeight(2),
+                                    ),
+                                    textInputAction: TextInputAction.done,
+                                    keyboardType: TextInputType.number,
+                                    onEditingComplete: () {
+                                      // Provider.of<LoginViewModal>(context, listen: false)
+                                      // .loginNow();
+                                    },
+                                    decoration: InputDecoration(
+                                        hintText: 'Buyer Number',
+                                        suffixIcon: const Icon(
+                                          Icons.dialpad,
+                                        ),
+                                        filled: true,
+                                        fillColor: const Color.fromARGB(
+                                            113, 211, 210, 210),
+                                        suffixIconColor:
+                                            MaterialStateColor.resolveWith(
+                                                (states) => states.contains(
+                                                        MaterialState.focused)
+                                                    ? Colour().primary()
+                                                    : const Color.fromRGBO(
+                                                        134, 134, 134, 1)),
+                                        counterText: "",
+                                        labelStyle: const TextStyle(
+                                            color: Color.fromRGBO(
+                                                134, 134, 134, 1)),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 2,
+                                            color: Colour().primary(),
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            ScreenSize().getScreenHeight(1),
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 2,
+                                            color: Colour().primary(),
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            ScreenSize().getScreenHeight(1),
+                                          ),
+                                        )),
+                                  ),
+                                );
+                        },
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(2),
+                        height: ScreenSize().getScreenHeight(1),
                       ),
                       Consumer<StoreViewModel>(
                         builder: (context, myType, child) {
-                          return Button(
-                            btnAction: myType.transactionData["momoNumber"] ==
-                                        null ||
-                                    myType.transactionData["momoNumber"].isEmpty
-                                ? () {}
-                                : () {
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                const TransactionInprogress(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
-                                    );
-                                  },
-                            btnColor: myType.transactionData["momoNumber"] ==
-                                        null ||
-                                    myType.transactionData["momoNumber"].isEmpty
-                                ? const Color.fromARGB(255, 245, 195, 154)
-                                : Colour().primary(),
-                            btnHeight: ScreenSize().getScreenHeight(7),
-                            btnText: Text(
-                              'Buy ',
-                              style: FontsStyle().startbtnText(),
-                            ),
-                            btnWight: double.infinity,
-                          );
+                          return myType.transactionData["selectedNetwork"] == ""
+                              ? const SizedBox.shrink()
+                              : Button(
+                                  btnAction: myType
+                                                  .transactionData["buyerNo"] ==
+                                              null ||
+                                          myType.transactionData["buyerNo"]
+                                              .isEmpty
+                                      ? () {}
+                                      : () {
+                                          Navigator.push(
+                                            context,
+                                            PageRouteBuilder(
+                                              pageBuilder: (context, animation1,
+                                                      animation2) =>
+                                                  const TransactionInprogress(),
+                                              transitionDuration: Duration.zero,
+                                              reverseTransitionDuration:
+                                                  Duration.zero,
+                                            ),
+                                          );
+                                        },
+                                  btnColor: myType.transactionData["buyerNo"] ==
+                                              null ||
+                                          myType.transactionData["buyerNo"]
+                                              .isEmpty
+                                      ? const Color.fromARGB(255, 245, 195, 154)
+                                      : Colour().primary(),
+                                  btnHeight: ScreenSize().getScreenHeight(7),
+                                  btnText: Text(
+                                    'Buy ',
+                                    style: FontsStyle().startbtnText(),
+                                  ),
+                                  btnWight: double.infinity,
+                                );
                         },
                       )
                     ],

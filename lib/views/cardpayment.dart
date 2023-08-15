@@ -56,8 +56,14 @@ class CardPayment extends StatelessWidget {
                 height: ScreenSize().getScreenHeight(67),
                 width: double.infinity,
                 decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromARGB(166, 119, 118, 116), //New
+                      blurRadius: 25.0,
+                    )
+                  ],
                   image: const DecorationImage(
-                      image: AssetImage("assets/images/card.png"),
+                      image: AssetImage("assets/images/card.jpg"),
                       fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),

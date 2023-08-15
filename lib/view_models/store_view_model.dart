@@ -33,7 +33,6 @@ class StoreViewModel extends ChangeNotifier {
     transactionData["buyerNo"] == '';
     transactionData["recipientNo"] == '';
     transactionData["rechargeAmount"] == '';
-    transactionData["momoNo"] == '';
     transactionData["paymentMethod"] = '';
     transactionData["selectedNetwork"] = "";
     transactionData["selectedNetworkImage"] = "";
@@ -57,11 +56,6 @@ class StoreViewModel extends ChangeNotifier {
     generateOrderNumAndDate();
     notifyListeners();
   }
-
-  // setmomoNum(String value) {
-  //   transactionData["momoNo"] = value;
-  //   notifyListeners();
-  // }
 
   double getAmount() {
     return double.parse(transactionData["rechargeAmount"]);

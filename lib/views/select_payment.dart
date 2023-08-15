@@ -41,11 +41,17 @@ class SelectPaymentOption extends StatelessWidget {
                 horizontal: ScreenSize().getScreenHeight(2),
               ),
               child: Container(
-                height: ScreenSize().getScreenHeight(57),
+                height: ScreenSize().getScreenHeight(49.5),
                 width: double.infinity,
                 decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromARGB(166, 119, 118, 116), //New
+                      blurRadius: 25.0,
+                    )
+                  ],
                   image: const DecorationImage(
-                      image: AssetImage("assets/images/card.png"),
+                      image: AssetImage("assets/images/card.jpg"),
                       fit: BoxFit.fitWidth),
                   borderRadius: BorderRadius.circular(
                     ScreenSize().getScreenHeight(3),
@@ -126,13 +132,14 @@ class SelectPaymentOption extends StatelessWidget {
                         color: Colour().primary(),
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(1),
+                        height: ScreenSize().getScreenHeight(2),
                       ),
                       SizedBox(
                         height: ScreenSize().getScreenHeight(7),
                         width: double.infinity,
                         child: TextField(
                           textAlign: TextAlign.start,
+                          autofocus: true,
                           textAlignVertical: TextAlignVertical.center,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -188,70 +195,7 @@ class SelectPaymentOption extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(2),
-                      ),
-                      SizedBox(
-                        height: ScreenSize().getScreenHeight(7),
-                        width: double.infinity,
-                        child: TextField(
-                          textAlign: TextAlign.start,
-                          textAlignVertical: TextAlignVertical.center,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                          ],
-                          maxLength: 10,
-                          onChanged: (value) {
-                            Provider.of<StoreViewModel>(context, listen: false)
-                                .setBuyerNo(value);
-                          },
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: ScreenSize().getScreenHeight(2),
-                          ),
-                          textInputAction: TextInputAction.done,
-                          keyboardType: TextInputType.number,
-                          onEditingComplete: () {
-                            // Provider.of<LoginViewModal>(context, listen: false)
-                            // .loginNow();
-                          },
-                          decoration: InputDecoration(
-                              hintText: 'Buyer Number',
-                              suffixIcon: const Icon(
-                                Icons.dialpad,
-                              ),
-                              filled: true,
-                              fillColor:
-                                  const Color.fromARGB(113, 211, 210, 210),
-                              suffixIconColor: MaterialStateColor.resolveWith(
-                                  (states) => states
-                                          .contains(MaterialState.focused)
-                                      ? Colour().primary()
-                                      : const Color.fromRGBO(134, 134, 134, 1)),
-                              counterText: "",
-                              labelStyle: const TextStyle(
-                                  color: Color.fromRGBO(134, 134, 134, 1)),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colour().primary(),
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  ScreenSize().getScreenHeight(1),
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colour().primary(),
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  ScreenSize().getScreenHeight(1),
-                                ),
-                              )),
-                        ),
-                      ),
-                      SizedBox(
-                        height: ScreenSize().getScreenHeight(2),
+                        height: ScreenSize().getScreenHeight(1),
                       ),
                       Text(
                         "Select Payment Method",
@@ -271,10 +215,6 @@ class SelectPaymentOption extends StatelessWidget {
                                                 null ||
                                             myType
                                                 .transactionData["recipientNo"]
-                                                .isEmpty ||
-                                            myType.transactionData["buyerNo"] ==
-                                                null ||
-                                            myType.transactionData["buyerNo"]
                                                 .isEmpty
                                         ? () {}
                                         : () {
@@ -320,10 +260,6 @@ class SelectPaymentOption extends StatelessWidget {
                                                 null ||
                                             myType
                                                 .transactionData["recipientNo"]
-                                                .isEmpty ||
-                                            myType.transactionData["buyerNo"] ==
-                                                null ||
-                                            myType.transactionData["buyerNo"]
                                                 .isEmpty
                                         ? () {}
                                         : () {
@@ -369,10 +305,6 @@ class SelectPaymentOption extends StatelessWidget {
                                                 null ||
                                             myType
                                                 .transactionData["recipientNo"]
-                                                .isEmpty ||
-                                            myType.transactionData["buyerNo"] ==
-                                                null ||
-                                            myType.transactionData["buyerNo"]
                                                 .isEmpty
                                         ? () {}
                                         : () {
