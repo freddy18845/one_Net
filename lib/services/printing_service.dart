@@ -146,7 +146,7 @@ class PrintingService extends ChangeNotifier {
       await SunmiPrinter.printRow(
         cols: [
           ColumnMaker(
-              text: "Transaction ID", width: 23, align: SunmiPrintAlign.LEFT),
+              text: "Receipt Number ", width: 23, align: SunmiPrintAlign.LEFT),
           ColumnMaker(
               text: transactionData["receiptNum"].toString(),
               width: 24,

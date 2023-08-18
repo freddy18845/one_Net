@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: "Gilroy",
         ),
-        home: const SplashScreen(),
+        home: const LoadingScreen(),
       ),
     );
   }

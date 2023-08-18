@@ -8,7 +8,7 @@ import 'package:one_net/utils/currency_format.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/store_view_model.dart';
-import 'package:one_net/views/home_screen.dart';
+import 'package:one_net/views/splash_screen.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:provider/provider.dart';
 
@@ -199,7 +199,7 @@ class ReceiptScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Transaction ID ",
+                                  "Receipt Number ",
                                   style: FontsStyle().invoicetext(),
                                 ),
                                 Text(
@@ -309,7 +309,7 @@ class ReceiptScreen extends StatelessWidget {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation1, animation2) =>
-                          const HomeScreen(),
+                          const SplashScreen(),
                       transitionDuration: Duration.zero,
                       reverseTransitionDuration: Duration.zero,
                     ),
