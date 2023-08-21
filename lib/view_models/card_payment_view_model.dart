@@ -16,6 +16,7 @@ class CardPaymentViewModel extends ChangeNotifier {
           body: jsonEncode(<String, dynamic>{
             "transactionId": "2003939929",
             "merchantName": "merchantName",
+            "orderNumber": "23783676",
             "amount": amount,
             "currencyCode": "ZWL",
             "paymentMethod": "CARD",

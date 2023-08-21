@@ -23,7 +23,7 @@ class FontsStyle {
   splashText1() {
     return TextStyle(
         color: Colors.white,
-        fontSize: ScreenSize().getScreenHeight(7),
+        fontSize: ScreenSize().getScreenHeight(7.7),
         decoration: TextDecoration.none,
         fontWeight: FontWeight.w900);
   }
@@ -41,7 +41,7 @@ class FontsStyle {
         color: Colors.white,
         fontSize: ScreenSize().getScreenHeight(1.8),
         decoration: TextDecoration.none,
-        fontWeight: FontWeight.w700);
+        fontWeight: FontWeight.w600);
   }
 
   copyrightText() {

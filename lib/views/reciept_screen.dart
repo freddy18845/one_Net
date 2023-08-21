@@ -168,7 +168,7 @@ class ReceiptScreen extends StatelessWidget {
                                         style: FontsStyle().invoicetext(),
                                       ),
                                       Text(
-                                        "4545 xxxx xxxx 7845",
+                                        "${invoice.transactionData["cardNumber"].substring(0, 4)} **** **** ${invoice.transactionData["cardNumber"].substring(invoice.transactionData["cardNumber"].length - 4)}",
                                         style: FontsStyle().invoicetext1(),
                                       ),
                                     ],

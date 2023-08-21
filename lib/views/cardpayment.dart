@@ -12,23 +12,25 @@ import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
 
+import '../view_models/card_payment_view_model.dart';
+
 class CardPayment extends StatelessWidget {
   const CardPayment({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
-    var navigateTime = Timer(const Duration(seconds: 5), () {
-      Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) =>
-              const TransactionInprogress(),
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: Duration.zero,
-        ),
-      );
-    });
+    Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
+    // var navigateTime = Timer(const Duration(seconds: 5), () {
+    //   Navigator.push(
+    //     context,
+    //     PageRouteBuilder(
+    //       pageBuilder: (context, animation1, animation2) =>
+    //           const TransactionInprogress(),
+    //       transitionDuration: Duration.zero,
+    //       reverseTransitionDuration: Duration.zero,
+    //     ),
+    //   );
+    // });
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -124,7 +126,7 @@ class CardPayment extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                navigateTime.cancel();
+                                // navigateTime.cancel();
                                 Navigator.pop(context);
                               },
                               child: RoundBtn(

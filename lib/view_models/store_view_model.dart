@@ -62,9 +62,10 @@ class StoreViewModel extends ChangeNotifier {
   }
 
   setPaymetData(data) {
-    transactionData["cardNumber"] = data["pan"];
-    transactionData["receiptNum"] = data["transactionId"];
+    transactionData["cardNumber"] = data["pan"].toString();
+    transactionData["receiptNum"] = data["transactionId"].toString();
     transactionData["orderDateTime"] = data["date"];
+    notifyListeners();
   }
 
   generateOrderNumAndDate() {

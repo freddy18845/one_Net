@@ -123,7 +123,8 @@ class PrintingService extends ChangeNotifier {
             ColumnMaker(
                 text: "Card Number", width: 23, align: SunmiPrintAlign.LEFT),
             ColumnMaker(
-                text: "4545 xxxx xxxx 7845",
+                text:
+                    "${transactionData["cardNumber"].substring(0, 4)} **** **** ${transactionData["cardNumber"].substring(transactionData["cardNumber"].length - 4)}",
                 width: 24,
                 align: SunmiPrintAlign.RIGHT),
           ],
@@ -134,7 +135,7 @@ class PrintingService extends ChangeNotifier {
         await SunmiPrinter.printRow(
           cols: [
             ColumnMaker(
-                text: "Buyer Number", width: 23, align: SunmiPrintAlign.LEFT),
+                text: "Buyer's Number", width: 23, align: SunmiPrintAlign.LEFT),
             ColumnMaker(
                 text: transactionData["buyerNo"],
                 width: 24,
@@ -146,7 +147,7 @@ class PrintingService extends ChangeNotifier {
       await SunmiPrinter.printRow(
         cols: [
           ColumnMaker(
-              text: "Receipt Number ", width: 23, align: SunmiPrintAlign.LEFT),
+              text: "Receipt Number", width: 23, align: SunmiPrintAlign.LEFT),
           ColumnMaker(
               text: transactionData["receiptNum"].toString(),
               width: 24,
@@ -160,16 +161,6 @@ class PrintingService extends ChangeNotifier {
               text: "Recipient's No", width: 23, align: SunmiPrintAlign.LEFT),
           ColumnMaker(
               text: transactionData["recipientNo"],
-              width: 24,
-              align: SunmiPrintAlign.RIGHT),
-        ],
-      );
-      await SunmiPrinter.printRow(
-        cols: [
-          ColumnMaker(
-              text: "Buyer's No", width: 23, align: SunmiPrintAlign.LEFT),
-          ColumnMaker(
-              text: transactionData["buyerNo"],
               width: 24,
               align: SunmiPrintAlign.RIGHT),
         ],
@@ -193,6 +184,7 @@ class PrintingService extends ChangeNotifier {
 
       return true;
     } catch (e) {
+      print(e);
       print("Cannot Print. An Error Occured!");
       return false;
     }

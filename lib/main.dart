@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_net/services/printing_service.dart';
+import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/loading_screen.dart';
-import 'package:one_net/views/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'view_models/card_payment_view_model.dart';
@@ -21,6 +21,10 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<PinpadThemeView>(
+          create: (context) => PinpadThemeView(),
+          lazy: false,
+        ),
         ChangeNotifierProvider<StoreViewModel>(
           create: (context) => StoreViewModel(),
           lazy: false,
