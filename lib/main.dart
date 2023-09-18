@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_net/services/printing_service.dart';
 import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
+import 'package:one_net/view_models/debug_switch_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/loading_screen.dart';
 import 'package:provider/provider.dart';
@@ -37,9 +38,14 @@ class MyApp extends StatelessWidget {
           create: (context) => PrintingService(),
           lazy: false,
         ),
+        ChangeNotifierProvider<DebugSwitchViewModel>(
+          create: (context) => DebugSwitchViewModel(),
+          lazy: false,
+        ),
       ],
       child: MaterialApp(
         title: 'One Net',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 255, 122, 13),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/widgets/debug_switch.dart';
 import 'package:one_net/widgets/round_btn.dart';
 
 class Carousel extends StatefulWidget {
@@ -83,9 +84,10 @@ class _CarouselState extends State<Carousel> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  DebugSwitch(),
                   Image.asset(
                     "assets/images/logo1.png",
-                    width: ScreenSize().getScreenWidth(35),
+                    width: ScreenSize().getScreenWidth(32),
                   ),
                   InkWell(
                     onTap: () {

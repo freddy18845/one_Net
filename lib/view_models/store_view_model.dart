@@ -61,6 +61,16 @@ class StoreViewModel extends ChangeNotifier {
     return double.parse(transactionData["rechargeAmount"]);
   }
 
+  defaultResponse() {
+    generateOrderNumAndDate();
+    transactionData["cardNumber"] = "6769897907095013";
+    transactionData["receiptNum"] = 1 +
+        Random().nextInt(9999999 - 0000001
+          ..toString());
+    transactionData["orderDateTime"] = DateTime.now();
+    notifyListeners();
+  }
+
   setPaymetData(data) {
     transactionData["cardNumber"] = data["pan"].toString();
     transactionData["receiptNum"] = data["transactionId"].toString();
