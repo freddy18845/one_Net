@@ -18,6 +18,7 @@ class SelectPaymentOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<StoreViewModel>(context, listen: false).defualtRecipietNo();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -155,10 +156,6 @@ class SelectPaymentOption extends StatelessWidget {
                           ),
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.number,
-                          onEditingComplete: () {
-                            // Provider.of<LoginViewModal>(context, listen: false)
-                            // .loginNow();
-                          },
                           decoration: InputDecoration(
                               hintText: 'Recipient Number',
                               suffixIcon: const Icon(
@@ -218,13 +215,26 @@ class SelectPaymentOption extends StatelessWidget {
                                                 .isEmpty
                                         ? () {}
                                         : () {
+                                            // Navigator.push(
+                                            //   context,
+                                            //   PageRouteBuilder(
+                                            //     pageBuilder: (context,
+                                            //             animation1,
+                                            //             animation2) =>
+                                            //         const CardPayment(),
+                                            //     transitionDuration:
+                                            //         Duration.zero,
+                                            //     reverseTransitionDuration:
+                                            //         Duration.zero,
+                                            //   ),
+                                            // );
                                             Navigator.push(
                                               context,
                                               PageRouteBuilder(
                                                 pageBuilder: (context,
                                                         animation1,
                                                         animation2) =>
-                                                    const CardPayment(),
+                                                    const HomeScreen(),
                                                 transitionDuration:
                                                     Duration.zero,
                                                 reverseTransitionDuration:

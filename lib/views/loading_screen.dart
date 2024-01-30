@@ -8,6 +8,8 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // double screenW = MediaQuery.of(context).size.width;
+    // double screenH = MediaQuery.of(context).size.height;
     Timer(const Duration(seconds: 5), () {
       Navigator.push(
         context,

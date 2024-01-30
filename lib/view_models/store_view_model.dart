@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
+import 'package:one_net/views/splash_screen.dart';
 
 class StoreViewModel extends ChangeNotifier {
   Map transactionData = {};
@@ -20,6 +22,25 @@ class StoreViewModel extends ChangeNotifier {
   ];
   setRecipietNo(String value) {
     transactionData["recipientNo"] = value;
+    notifyListeners();
+  }
+
+  goToSplashScreen(context) {
+    Timer(const Duration(seconds: 5), () {
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) =>
+              const SplashScreen(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      );
+    });
+  }
+
+  defualtRecipietNo() {
+    transactionData["recipientNo"] = '';
     notifyListeners();
   }
 
@@ -64,9 +85,7 @@ class StoreViewModel extends ChangeNotifier {
   defaultResponse() {
     generateOrderNumAndDate();
     transactionData["cardNumber"] = "6769897907095013";
-    transactionData["receiptNum"] = 1 +
-        Random().nextInt(9999999 - 0000001
-          ..toString());
+    transactionData["receiptNum"] = 1 + Random().nextInt(9999999 - 0000001);
     transactionData["orderDateTime"] = DateTime.now();
     notifyListeners();
   }

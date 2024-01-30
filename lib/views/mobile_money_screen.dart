@@ -155,9 +155,6 @@ class MobileMoneyScreen extends StatelessWidget {
                                           Provider.of<StoreViewModel>(context,
                                                   listen: false)
                                               .addSelectedNet(index, value);
-                                          //                                        setState(() {
-                                          //   isPressed = true;
-                                          // });
                                         },
                                         child: Align(
                                           alignment:

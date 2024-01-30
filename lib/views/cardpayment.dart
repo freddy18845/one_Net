@@ -5,6 +5,7 @@ import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/currency_format.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/view_models/debug_switch_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/views/transaction_inprogess_screen.dart';
@@ -20,17 +21,22 @@ class CardPayment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
-    // var navigateTime = Timer(const Duration(seconds: 5), () {
-    //   Navigator.push(
-    //     context,
-    //     PageRouteBuilder(
-    //       pageBuilder: (context, animation1, animation2) =>
-    //           const TransactionInprogress(),
-    //       transitionDuration: Duration.zero,
-    //       reverseTransitionDuration: Duration.zero,
-    //     ),
-    //   );
-    // });
+    onTapToComplete() {
+      bool isDebugMode =
+          Provider.of<DebugSwitchViewModel>(context, listen: false).debug;
+      if (isDebugMode == true) {
+        Provider.of<StoreViewModel>(context, listen: false).defaultResponse();
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) =>
+                const TransactionInprogress(),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
+      }
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -200,11 +206,14 @@ class CardPayment extends StatelessWidget {
                       SizedBox(
                         height: ScreenSize().getScreenHeight(2),
                       ),
-                      Image.asset(
-                        "assets/images/pay_card.png",
-                        width: ScreenSize().getScreenWidth(70),
-                        height: ScreenSize().getScreenHeight(10),
-                        fit: BoxFit.contain,
+                      InkWell(
+                        onTap: () => onTapToComplete(),
+                        child: Image.asset(
+                          "assets/images/pay_card.png",
+                          width: ScreenSize().getScreenWidth(70),
+                          height: ScreenSize().getScreenHeight(10),
+                          fit: BoxFit.contain,
+                        ),
                       ),
                       SizedBox(
                         height: ScreenSize().getScreenHeight(2),

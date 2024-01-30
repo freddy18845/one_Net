@@ -11,6 +11,7 @@ class CardPaymentViewModel extends ChangeNotifier {
   payNow(context) async {
     double amount =
         Provider.of<StoreViewModel>(context, listen: false).getAmount();
+
     bool isDebugMode =
         Provider.of<DebugSwitchViewModel>(context, listen: false).debug;
 
@@ -58,18 +59,18 @@ class CardPaymentViewModel extends ChangeNotifier {
       // print('Response status: ${response.statusCode}');
       // print('Response body: ${response.body}');
     } else {
-      Timer(const Duration(seconds: 4), () {
-        Provider.of<StoreViewModel>(context, listen: false).defaultResponse();
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) =>
-                const TransactionInprogress(),
-            transitionDuration: Duration.zero,
-            reverseTransitionDuration: Duration.zero,
-          ),
-        );
-      });
+      //   Timer(const Duration(seconds: 4), () {
+      //     Provider.of<StoreViewModel>(context, listen: false).defaultResponse();
+      //     Navigator.push(
+      //       context,
+      //       PageRouteBuilder(
+      //         pageBuilder: (context, animation1, animation2) =>
+      //             const TransactionInprogress(),
+      //         transitionDuration: Duration.zero,
+      //         reverseTransitionDuration: Duration.zero,
+      //       ),
+      //     );
+      //   });
     }
   }
 }
