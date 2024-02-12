@@ -125,7 +125,7 @@ class _CarouselState extends State<Carousel> {
                       style: FontsStyle().splashText1(),
                     ),
                     Text(
-                      "FOR LESS US DALLOR A DAY",
+                      "FOR LESS THAN  A DOLLAR A DAY",
                       style: FontsStyle().splashText2(),
                     ),
                     Row(
@@ -158,7 +158,7 @@ class _CarouselState extends State<Carousel> {
                           width: ScreenSize().getScreenHeight(1),
                         ),
                         Text(
-                          "60 min OnNet ",
+                          "60 minutes OnNet ",
                           style: FontsStyle().splashText3(),
                         ),
                       ],

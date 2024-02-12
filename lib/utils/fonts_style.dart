@@ -31,7 +31,7 @@ class FontsStyle {
   splashText2() {
     return TextStyle(
         color: Colors.black,
-        fontSize: ScreenSize().getScreenHeight(3.2),
+        fontSize: ScreenSize().getScreenHeight(2.5),
         decoration: TextDecoration.none,
         fontWeight: FontWeight.w700);
   }

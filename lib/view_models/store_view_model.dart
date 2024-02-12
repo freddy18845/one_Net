@@ -2,6 +2,10 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
+import 'package:one_net/views/cardpayment.dart';
+import 'package:one_net/views/home_screen.dart';
+import 'package:one_net/views/mobile_money_screen.dart';
+import 'package:one_net/views/qr_scan_screen.dart';
 import 'package:one_net/views/splash_screen.dart';
 
 class StoreViewModel extends ChangeNotifier {
@@ -72,10 +76,49 @@ class StoreViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  setPayment(String value) {
-    transactionData["paymentMethod"] = value;
-    generateOrderNumAndDate();
-    notifyListeners();
+  setPayment(String value, context) {
+    if (transactionData["recipientNo"] != null) {
+      transactionData["paymentMethod"] = value;
+      generateOrderNumAndDate();
+      switch (value) {
+        case "Mobile Money":
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  const MobileMoneyScreen(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          );
+          break;
+        case "Card":
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  const CardPayment(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          );
+          break;
+        case "QR":
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  const QRCodePaymentScreen(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          );
+          break;
+      }
+
+      notifyListeners();
+      print("working");
+    }
   }
 
   double getAmount() {
@@ -103,10 +146,10 @@ class StoreViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  setSelectedNet() {
-    transactionData["selectedNetwork"] = "";
-    transactionData["selectedNetworkImage"] = "";
-  }
+  // setSelectedNet() {
+  //   transactionData["selectedNetwork"] = "";
+  //   transactionData["selectedNetworkImage"] = "";
+  // }
 
   addSelectedNet(int index, Map selectedNet) {
     Map unselectNetwork = mobileNetworks[1];
@@ -124,7 +167,7 @@ class StoreViewModel extends ChangeNotifier {
     mobileNetworks = [
       {
         "name": "telecash",
-        "image": "assets/images/payments/Telecash.png",
+        "image": "assets/images/payments/TeleCash.png",
       },
       {
         "name": "one Money",
