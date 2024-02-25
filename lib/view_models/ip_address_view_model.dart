@@ -34,7 +34,7 @@ class IpaddressViewModel extends ChangeNotifier {
       notifyListeners();
     }
     //return ipAddress;
-    print(ipAddress);
+    //print(ipAddress);
   }
 
   void setIPAddress() async {
