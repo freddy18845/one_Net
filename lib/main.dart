@@ -7,9 +7,7 @@ import 'package:one_net/view_models/debug_switch_view_model.dart';
 import 'package:one_net/view_models/ip_address_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/loading_screen.dart';
-import 'package:one_net/views/select_airtime_package.dart';
 import 'package:provider/provider.dart';
-
 import 'view_models/card_payment_view_model.dart';
 
 void main() {
