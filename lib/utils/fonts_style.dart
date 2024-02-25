@@ -12,6 +12,14 @@ class FontsStyle {
         fontWeight: FontWeight.w600);
   }
 
+  curencybtnText() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(1.5),
+        decoration: TextDecoration.none,
+        fontWeight: FontWeight.w600);
+  }
+
   btnText() {
     return TextStyle(
         color: Colors.black,

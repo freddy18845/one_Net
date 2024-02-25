@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/views/select_payment.dart';
@@ -39,7 +40,7 @@ class CustomRecharge extends StatelessWidget {
                 horizontal: ScreenSize().getScreenHeight(2),
               ),
               child: Container(
-                height: ScreenSize().getScreenHeight(35),
+                height: ScreenSize().getScreenHeight(37),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   boxShadow: const [
@@ -119,7 +120,64 @@ class CustomRecharge extends StatelessWidget {
                         color: Colour().primary(),
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(3),
+                        height: ScreenSize().getScreenHeight(1),
+                      ),
+                      Consumer<CurrencySelectionViewModel>(
+                        builder: (context, myCurrency, child) {
+                          return Row(
+                            children: [
+                              Flexible(child: Container()),
+                              Flexible(
+                                child: Text(
+                                  "Select  Currency",
+                                  style: FontsStyle().rechargeText(),
+                                ),
+                              ),
+                              Flexible(
+                                  child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Button(
+                                    btnAction: () {
+                                      myCurrency.changeCurrency('USD');
+                                    },
+                                    btnColor: myCurrency.activeCurrency == 'USD'
+                                        ? Colour().primary()
+                                        : const Color.fromARGB(
+                                            107, 255, 122, 13),
+                                    btnHeight: ScreenSize().getScreenHeight(3),
+                                    btnText: Text(
+                                      'USD',
+                                      style: FontsStyle().curencybtnText(),
+                                    ),
+                                    btnWight: ScreenSize().getScreenWidth(12),
+                                  ),
+                                  SizedBox(
+                                    width: ScreenSize().getScreenWidth(1),
+                                  ),
+                                  Button(
+                                    btnAction: () {
+                                      myCurrency.changeCurrency('ZWL');
+                                    },
+                                    btnColor: myCurrency.activeCurrency == 'ZWL'
+                                        ? Colour().primary()
+                                        : const Color.fromARGB(
+                                            107, 255, 122, 13),
+                                    btnHeight: ScreenSize().getScreenHeight(3),
+                                    btnText: Text(
+                                      'ZWL',
+                                      style: FontsStyle().curencybtnText(),
+                                    ),
+                                    btnWight: ScreenSize().getScreenWidth(12),
+                                  ),
+                                ],
+                              ))
+                            ],
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: ScreenSize().getScreenHeight(1),
                       ),
                       SizedBox(
                         height: ScreenSize().getScreenHeight(7),
@@ -191,7 +249,7 @@ class CustomRecharge extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(2),
+                        height: ScreenSize().getScreenHeight(1),
                       ),
                       Consumer<StoreViewModel>(
                         builder: (context, myType, child) {

@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/currency_format.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/debug_switch_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/home_screen.dart';
@@ -20,6 +19,8 @@ class CardPayment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myCurrency =
+        Provider.of<CurrencySelectionViewModel>(context, listen: false);
     Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
     onTapToComplete() {
       bool isDebugMode =
@@ -174,9 +175,12 @@ class CardPayment extends StatelessWidget {
                                     style: FontsStyle().buyText(),
                                   ),
                                   Text(
-                                    Currency().format(amount
-                                        .transactionData["rechargeAmount"]
-                                        .toString()),
+                                    myCurrency.activeCurrency +
+                                        Currency().format(
+                                          amount
+                                              .transactionData["rechargeAmount"]
+                                              .toString(),
+                                        ),
                                     //  "Amount To Pay",
 
                                     style: FontsStyle().cardAmtText(),

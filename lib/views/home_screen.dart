@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
 import 'package:one_net/views/splash_screen.dart';
 import 'package:one_net/widgets/buy_airtime_btn.dart';
 import 'package:one_net/widgets/flyers.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/round_btn.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,6 +17,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    Provider.of<PinpadThemeView>(context).colourTheme(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(

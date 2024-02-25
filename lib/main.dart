@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_net/services/printing_service.dart';
 import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
+import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/debug_switch_view_model.dart';
+import 'package:one_net/view_models/ip_address_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/loading_screen.dart';
+import 'package:one_net/views/select_airtime_package.dart';
 import 'package:provider/provider.dart';
 
 import 'view_models/card_payment_view_model.dart';
@@ -40,6 +43,14 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<DebugSwitchViewModel>(
           create: (context) => DebugSwitchViewModel(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider<IpaddressViewModel>(
+          create: (context) => IpaddressViewModel(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider<CurrencySelectionViewModel>(
+          create: (context) => CurrencySelectionViewModel(),
           lazy: false,
         ),
       ],

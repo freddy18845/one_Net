@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:one_net/utils/currency_format.dart';
+import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:sunmi_printer_plus/column_maker.dart';
@@ -59,6 +61,8 @@ class PrintingService extends ChangeNotifier {
   printReceipt(context) async {
     Map transactionData =
         Provider.of<StoreViewModel>(context, listen: false).transactionData;
+    final myCurrency =
+        Provider.of<CurrencySelectionViewModel>(context, listen: false);
 
     try {
       /// Receipt Header
@@ -174,7 +178,7 @@ class PrintingService extends ChangeNotifier {
       // await SunmiPrinter.lineWrap(1);
       await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
       await SunmiPrinter.printBarCode(
-          "Order No: ${transactionData["rechargeAmount"]}",
+          "Order No:${myCurrency.activeCurrency}${Currency().format("${transactionData["rechargeAmount"]}")}",
           height: 54,
           width: 46,
           textPosition: SunmiBarcodeTextPos.NO_TEXT);

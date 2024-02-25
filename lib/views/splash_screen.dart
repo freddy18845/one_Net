@@ -6,6 +6,7 @@ import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/carousel.dart';
+import 'package:one_net/widgets/ip_address_modal.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -35,7 +36,11 @@ class SplashScreen extends StatelessWidget {
                   child: Padding(
                     padding:
                         EdgeInsets.only(top: ScreenSize().getScreenHeight(3)),
-                    child: const Carousel(),
+                    child: InkWell(
+                        onDoubleTap: () {
+                          getIPModal(context);
+                        },
+                        child: const Carousel()),
                   )),
               Align(
                 alignment: Alignment.bottomCenter,

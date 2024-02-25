@@ -55,9 +55,9 @@ class StoreViewModel extends ChangeNotifier {
   }
 
   setallfield() {
-    transactionData["buyerNo"] == '';
-    transactionData["recipientNo"] == '';
-    transactionData["rechargeAmount"] == '';
+    transactionData["buyerNo"] = '';
+    transactionData["recipientNo"] = '';
+    transactionData["rechargeAmount"] = '';
     transactionData["paymentMethod"] = '';
     transactionData["selectedNetwork"] = "";
     transactionData["selectedNetworkImage"] = "";
@@ -74,6 +74,10 @@ class StoreViewModel extends ChangeNotifier {
   setRechargeAmount(String value) {
     transactionData["rechargeAmount"] = value;
     notifyListeners();
+  }
+
+  double getAmount() {
+    return double.parse(transactionData["rechargeAmount"]);
   }
 
   setPayment(String value, context) {
@@ -119,10 +123,6 @@ class StoreViewModel extends ChangeNotifier {
       notifyListeners();
       print("working");
     }
-  }
-
-  double getAmount() {
-    return double.parse(transactionData["rechargeAmount"]);
   }
 
   defaultResponse() {

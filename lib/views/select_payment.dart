@@ -214,9 +214,17 @@ class SelectPaymentOption extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 PaymentButton(
-                                  btnAction: () {
-                                    myType.setPayment("Card", context);
-                                  },
+                                  btnAction:
+                                      myType.transactionData["recipientNo"] ==
+                                                  '' ||
+                                              myType.transactionData[
+                                                      "recipientNo"] ==
+                                                  null
+                                          ? () {}
+                                          : () {
+                                              myType.setPayment(
+                                                  "Card", context);
+                                            },
                                   btnText: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -237,9 +245,17 @@ class SelectPaymentOption extends StatelessWidget {
                                   ),
                                 ),
                                 PaymentButton(
-                                  btnAction: () {
-                                    myType.setPayment("Mobile Money", context);
-                                  },
+                                  btnAction:
+                                      myType.transactionData["recipientNo"] ==
+                                                  '' ||
+                                              myType.transactionData[
+                                                      "recipientNo"] ==
+                                                  null
+                                          ? () {}
+                                          : () {
+                                              myType.setPayment(
+                                                  "Mobile Money", context);
+                                            },
                                   btnText: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -260,20 +276,29 @@ class SelectPaymentOption extends StatelessWidget {
                                   ),
                                 ),
                                 PaymentButton(
-                                  btnAction: () {
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                const QRCodePaymentScreen(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
-                                    );
-                                    myType.setPayment("QR", context);
-                                  },
+                                  btnAction:
+                                      myType.transactionData["recipientNo"] ==
+                                                  '' ||
+                                              myType.transactionData[
+                                                      "recipientNo"] ==
+                                                  null
+                                          ? () {}
+                                          : () {
+                                              Navigator.push(
+                                                context,
+                                                PageRouteBuilder(
+                                                  pageBuilder: (context,
+                                                          animation1,
+                                                          animation2) =>
+                                                      const QRCodePaymentScreen(),
+                                                  transitionDuration:
+                                                      Duration.zero,
+                                                  reverseTransitionDuration:
+                                                      Duration.zero,
+                                                ),
+                                              );
+                                              myType.setPayment("QR", context);
+                                            },
                                   btnText: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
