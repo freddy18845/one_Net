@@ -27,7 +27,7 @@ class CardPaymentViewModel extends ChangeNotifier {
               "merchantName": "merchantName",
               "orderNumber": "23783676",
               "amount": amount,
-              "currencyCode": "ZWL",
+              "currencyCode": "USD",
               "paymentMethod": "CARD",
               "network": "",
               "pan": "",
@@ -44,18 +44,33 @@ class CardPaymentViewModel extends ChangeNotifier {
         print(apiResponse);
         Provider.of<StoreViewModel>(context, listen: false)
             .setPaymetData(apiResponse);
-        //Navigator.of(ContextService.navigatorKey.currentContext!).pop();
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) =>
-                const TransactionInprogress(),
-            transitionDuration: Duration.zero,
-            reverseTransitionDuration: Duration.zero,
-          ),
-        );
+
+        Timer(const Duration(seconds: 4), () {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  const TransactionInprogress(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          );
+        });
+        print("working  request");
       } catch (e) {
         print(e);
+        Timer(const Duration(seconds: 4), () {
+          Provider.of<StoreViewModel>(context, listen: false).defaultResponse();
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  const TransactionInprogress(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          );
+        });
         print("An error occured in the hhtp request");
       }
 

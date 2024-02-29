@@ -3,17 +3,21 @@ import 'package:flutter/services.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/view_models/card_payment_view_model.dart';
+import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
 import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/carousel.dart';
 import 'package:one_net/widgets/ip_address_modal.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    Provider.of<PinpadThemeView>(context).colourTheme(context);
+    Provider.of<CardPaymentViewModel>(context).payNow(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
