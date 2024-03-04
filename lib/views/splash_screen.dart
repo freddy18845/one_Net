@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
-import 'package:one_net/view_models/card_payment_view_model.dart';
 import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
 import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/widgets/button.dart';
@@ -17,7 +15,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<PinpadThemeView>(context).colourTheme(context);
-    Provider.of<CardPaymentViewModel>(context).payNow(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/views/qr_scan_screen.dart';
@@ -16,7 +17,7 @@ class SelectPaymentOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Provider.of<StoreViewModel>(context, listen: false).defualtRecipietNo();
+    Provider.of<PinpadThemeView>(context).colourTheme(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Consumer<StoreViewModel>(
@@ -145,7 +146,10 @@ class SelectPaymentOption extends StatelessWidget {
                             SizedBox(
                               height: ScreenSize().getScreenHeight(7),
                               width: double.infinity,
-                              child: TextField(
+                              child: TextFormField(
+                                initialValue: myType
+                                    .transactionData["receiptNum"]
+                                    .toString(),
                                 textAlign: TextAlign.start,
                                 autofocus: true,
                                 textAlignVertical: TextAlignVertical.center,
@@ -164,7 +168,7 @@ class SelectPaymentOption extends StatelessWidget {
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                    hintText: 'Recipient Number',
+                                    hintText: 'Enter Recipient Number',
                                     suffixIcon: const Icon(
                                       Icons.dialpad,
                                     ),

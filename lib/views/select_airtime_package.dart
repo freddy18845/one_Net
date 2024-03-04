@@ -4,6 +4,7 @@ import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/currency_format.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
 import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/custom_recharge.dart';
@@ -21,9 +22,8 @@ class SelectAirtimePackageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     Provider.of<StoreViewModel>(context, listen: false).setallfield();
+    Provider.of<PinpadThemeView>(context).colourTheme(context);
 
-    final myCurrency1 =
-        Provider.of<CurrencySelectionViewModel>(context, listen: false);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(

@@ -4,10 +4,8 @@ import 'package:one_net/utils/currency_format.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/currency_selection.dart';
-import 'package:one_net/view_models/debug_switch_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/home_screen.dart';
-import 'package:one_net/views/transaction_inprogess_screen.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
@@ -22,22 +20,6 @@ class CardPayment extends StatelessWidget {
     final myCurrency =
         Provider.of<CurrencySelectionViewModel>(context, listen: false);
     Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
-    // onTapToComplete() {
-    //   bool isDebugMode =
-    //       Provider.of<DebugSwitchViewModel>(context, listen: false).debug;
-    //   if (isDebugMode == true) {
-    //     Provider.of<StoreViewModel>(context, listen: false).defaultResponse();
-    //     Navigator.push(
-    //       context,
-    //       PageRouteBuilder(
-    //         pageBuilder: (context, animation1, animation2) =>
-    //             const TransactionInprogress(),
-    //         transitionDuration: Duration.zero,
-    //         reverseTransitionDuration: Duration.zero,
-    //       ),
-    //     );
-    //   }
-    // }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -134,6 +116,7 @@ class CardPayment extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 // navigateTime.cancel();
+
                                 Navigator.pop(context);
                               },
                               child: RoundBtn(

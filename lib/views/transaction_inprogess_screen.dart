@@ -26,6 +26,7 @@ class TransactionInprogress extends StatelessWidget {
       );
     });
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         height: double.infinity,
         width: double.infinity,

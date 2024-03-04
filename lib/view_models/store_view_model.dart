@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/widgets.dart';
 import 'package:one_net/views/cardpayment.dart';
-import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/views/mobile_money_screen.dart';
 import 'package:one_net/views/qr_scan_screen.dart';
 import 'package:one_net/views/splash_screen.dart';

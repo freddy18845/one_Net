@@ -1,18 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:one_net/utils/colour.dart';
-import 'package:one_net/view_models/card_payment_view_model.dart';
-import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
 import 'package:one_net/views/splash_screen.dart';
-import 'package:provider/provider.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PinpadThemeView>(context).colourTheme(context);
-    Provider.of<CardPaymentViewModel>(context).payNow(context);
+    ;
     Timer(const Duration(seconds: 5), () {
       Navigator.push(
         context,
