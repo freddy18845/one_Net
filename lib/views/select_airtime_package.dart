@@ -6,24 +6,27 @@ import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
 import 'package:one_net/view_models/currency_selection.dart';
+import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/custom_recharge.dart';
-import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/views/select_payment.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
-import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/header.dart';
 
+// ignore: must_be_immutable
 class SelectAirtimePackageScreen extends StatelessWidget {
-  const SelectAirtimePackageScreen({super.key});
+  SelectAirtimePackageScreen({super.key});
+
+  // TextEditingController amountCtr = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-
+    // Provider.of<InputAmountViewModel>(context, listen: false)
+    //     .clearCustonAmount(amountCtr);
     Provider.of<PinpadThemeView>(context).colourTheme(context);
 
     return Scaffold(
@@ -82,9 +85,6 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                                       .transactionData["TransactionType"]
                                       .toString(),
                                   subtitleText: 'Select Currency Below',
-                                  previousFunction: () {
-                                    Navigator.pop(context);
-                                  },
                                 );
                               },
                             ),

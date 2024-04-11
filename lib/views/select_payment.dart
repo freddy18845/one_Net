@@ -84,9 +84,6 @@ class SelectPaymentOption extends StatelessWidget {
                                       .transactionData["TransactionType"]
                                       .toString(),
                                   subtitleText: 'Payment Method',
-                                  previousFunction: () {
-                                    Navigator.pop(context);
-                                  },
                                 );
                               },
                             ),

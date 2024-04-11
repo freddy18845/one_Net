@@ -11,7 +11,7 @@ class Header extends StatelessWidget {
   final bool showPrevious;
   final String titleText;
   final String subtitleText;
-  final Function previousFunction;
+  //final Function previousFunction;
 
   const Header({
     super.key,
@@ -19,7 +19,7 @@ class Header extends StatelessWidget {
     required this.titleText,
     required this.showPrevious,
     required this.subtitleText,
-    required this.previousFunction,
+    //required this.previousFunction,
   });
 
   @override
@@ -31,10 +31,9 @@ class Header extends StatelessWidget {
         children: [
           showPrevious
               ? InkWell(
-                  onTap: () => previousFunction,
-                  // () {
-                  //   Navigator.pop(context);
-                  // },
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                   child: RoundBtn(
                     btnLabel: Icon(
                       Icons.arrow_back,
@@ -74,7 +73,7 @@ class Header extends StatelessWidget {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
-                            const HomeScreen(),
+                            HomeScreen(),
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                       ),

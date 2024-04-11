@@ -105,9 +105,6 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                                 .transactionData["TransactionType"]
                                 .toString(),
                             subtitleText: 'Enter Your Detial Below',
-                            previousFunction: () {
-                              Navigator.pop(context);
-                            },
                           );
                         },
                       ),
@@ -196,29 +193,37 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                               keyboardType: TextInputType.none,
 
                               decoration: InputDecoration(
-                                  prefix: DropdownButton(
-                                    // Initial Value
-                                    style: const TextStyle(color: Colors.red),
-                                    elevation: 6,
-                                    value: dropdownvalue.toString(),
+                                  prefix: SizedBox(
+                                    height: double.infinity,
+                                    child: DropdownButton(
+                                      // Initial Value
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      elevation: 8,
+                                      value: dropdownvalue.toString(),
 
-                                    // Down Arrow Icon
-                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                      // Down Arrow Icon
+                                      icon:
+                                          const Icon(Icons.keyboard_arrow_down),
 
-                                    // Array list of items
-                                    items: items.map((String items) {
-                                      return DropdownMenuItem(
-                                        value: items,
-                                        child: Text(items),
-                                      );
-                                    }).toList(),
-                                    // After selecting the desired option,it will
-                                    // change button value to selected value
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        dropdownvalue = newValue!;
-                                      });
-                                    },
+                                      // Array list of items
+                                      items: items.map((String items) {
+                                        return DropdownMenuItem(
+                                          value: items,
+                                          child: Text(items),
+                                        );
+                                      }).toList(),
+                                      // After selecting the desired option,it will
+                                      // change button value to selected value
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          dropdownvalue = newValue!;
+                                        });
+                                        Provider.of<CurrencySelectionViewModel>(
+                                                context)
+                                            .changeCurrency(dropdownvalue);
+                                      },
+                                    ),
                                   ),
                                   hintText: 'Recharge Amount',
                                   suffixIcon: const Icon(
@@ -461,33 +466,31 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                       SizedBox(
                         height: ScreenSize().getScreenHeight(2.5),
                       ),
-                      Consumer<StoreViewModel>(
+                      Consumer<InputAmountViewModel>(
                         builder: (context, myType, child) {
                           return Button(
-                            btnAction:
-                                myType.transactionData["rechargeAmount"] ==
-                                            null ||
-                                        myType.transactionData["rechargeAmount"]
-                                            .isEmpty
-                                    ? () {}
-                                    : () {
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation1,
-                                                    animation2) =>
+                            btnAction: myType.amount == null ||
+                                    myType.amount.isEmpty
+                                ? () {}
+                                : () {
+                                    Provider.of<StoreViewModel>(context,
+                                            listen: false)
+                                        .setRechargeAmount(
+                                            myType.amount.toString());
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder:
+                                            (context, animation1, animation2) =>
                                                 const SelectPaymentOption(),
-                                            transitionDuration: Duration.zero,
-                                            reverseTransitionDuration:
-                                                Duration.zero,
-                                          ),
-                                        );
-                                      },
+                                        transitionDuration: Duration.zero,
+                                        reverseTransitionDuration:
+                                            Duration.zero,
+                                      ),
+                                    );
+                                  },
                             inerColor:
-                                myType.transactionData["rechargeAmount"] ==
-                                            null ||
-                                        myType.transactionData["rechargeAmount"]
-                                            .isEmpty
+                                myType.amount == null || myType.amount.isEmpty
                                     ? const Color.fromARGB(255, 245, 195, 154)
                                     : Colour().primary(),
                             btnLabel: Text(

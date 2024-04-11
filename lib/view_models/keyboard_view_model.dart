@@ -21,10 +21,11 @@ class InputAmountViewModel extends ChangeNotifier {
   void setCustonAmount(String value, TextEditingController contoller) {
     print(value);
     if (value == '.') return;
-    if (amount.length > 11 && (value != 'back')) return;
+    if (amount.length > 7 && (value != 'back')) return;
     if (value == 'back') {
       if (amount.isNotEmpty) {
         amount = amount.substring(0, amount.length - 1);
+
         notifyListeners();
       } else {
         return;
@@ -52,12 +53,15 @@ class InputAmountViewModel extends ChangeNotifier {
     double rawAmount = amount.isEmpty ? 0.0 : double.parse(amount);
     amount = rawAmount <= 0 ? '' : rawAmount.toStringAsFixed(2);
     contoller.text = amount;
+    //amount = Provider.of<StoreViewModel>(context).getTxnType();
     notifyListeners();
     //setState(() {});
   }
 
-  void clearCustonAmount() {
+  clearCustonAmount(TextEditingController contoller) {
     amount = '';
+    contoller.text = '';
+    print(amount);
     notifyListeners();
   }
   // setCustonAmount(String number) {

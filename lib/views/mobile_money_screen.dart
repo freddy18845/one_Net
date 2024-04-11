@@ -63,14 +63,11 @@ class MobileMoneyScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Header(
+                      const Header(
                         showHome: true,
                         showPrevious: true,
                         titleText: "Mobile Payment",
                         subtitleText: 'Select Payment Method',
-                        previousFunction: () {
-                          Navigator.pop(context);
-                        },
                       ),
                       Divider(
                         thickness: 1,

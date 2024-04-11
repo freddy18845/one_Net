@@ -8,10 +8,10 @@ import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/store_view_model.dart';
+import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/views/transaction_inprogess_screen.dart';
 import 'package:one_net/widgets/footer.dart';
-import 'package:one_net/widgets/header.dart';
-
+import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
 
 class QRCodePaymentScreen extends StatelessWidget {
@@ -76,16 +76,49 @@ class QRCodePaymentScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Header(
-                        showHome: false,
-                        showPrevious: true,
-                        titleText: "QR Code",
-                        subtitleText: 'Scan The QR Code',
-                        previousFunction: () {
-                          navigateTime.cancel();
-                          Navigator.pop(context);
-                        },
-                      ),
+                      SizedBox(
+                          height: ScreenSize().getScreenHeight(10),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    navigateTime.cancel();
+                                    Navigator.pop(context);
+                                  },
+                                  child: RoundBtn(
+                                    btnLabel: Icon(
+                                      Icons.arrow_back,
+                                      color: Colour().primary(),
+                                      size: ScreenSize().getScreenHeight(4),
+                                    ),
+                                    innerColor: Colour().secondary(),
+                                    outerColor: Colour().primary(),
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: ScreenSize().getScreenHeight(1),
+                                    ),
+                                    Text(
+                                      "QR Code",
+                                      style: FontsStyle().mainMenuText(),
+                                    ),
+                                    SizedBox(
+                                      height: ScreenSize().getScreenHeight(1),
+                                    ),
+                                    Text(
+                                      "Scan The QR Code",
+                                      style: FontsStyle().buyText(),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  width: ScreenSize().getScreenHeight(9),
+                                )
+                              ])),
                       Divider(
                         thickness: 1,
                         color: Colour().primary(),

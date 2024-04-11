@@ -71,8 +71,9 @@ class StoreViewModel extends ChangeNotifier {
   }
 
   setRechargeAmount(String value) {
-    transactionData["rechargeAmount"] = "675";
-    print(transactionData["rechargeAmount"]);
+    transactionData["rechargeAmount"] = value;
+    print("sdawegsfd");
+
     notifyListeners();
   }
 

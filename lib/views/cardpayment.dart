@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/currency_format.dart';
@@ -7,13 +5,13 @@ import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/store_view_model.dart';
-import 'package:one_net/views/transaction_inprogess_screen.dart';
+import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/widgets/footer.dart';
-import 'package:one_net/widgets/header.dart';
+import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
 
 import '../view_models/card_payment_view_model.dart';
-import '../view_models/debug_switch_view_model.dart';
+import '../widgets/header.dart';
 
 class CardPayment extends StatelessWidget {
   const CardPayment({super.key});
@@ -23,18 +21,7 @@ class CardPayment extends StatelessWidget {
     final myCurrency =
         Provider.of<CurrencySelectionViewModel>(context, listen: false);
     Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
-    var navigateTime = Timer(const Duration(seconds: 5), () {
-      Provider.of<StoreViewModel>(context, listen: false).defaultResponse();
-      Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) =>
-              const TransactionInprogress(),
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: Duration.zero,
-        ),
-      );
-    });
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -79,21 +66,11 @@ class CardPayment extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Consumer<DebugSwitchViewModel>(
-                        builder: (context, myType, child) {
-                          return Header(
-                            showHome: false,
-                            showPrevious: true,
-                            titleText: "Card Payment",
-                            subtitleText: 'Present Your Card',
-                            previousFunction: myType.debug == false
-                                ? () {}
-                                : () {
-                                    navigateTime.cancel();
-                                    Navigator.pop(context);
-                                  },
-                          );
-                        },
+                      Header(
+                        showHome: false,
+                        showPrevious: true,
+                        titleText: "Card Payment",
+                        subtitleText: 'Present Your Card',
                       ),
                       Divider(
                         thickness: 1,
