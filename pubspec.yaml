@@ -40,9 +40,9 @@ dependencies:
   barcode_widget: ^2.0.4
   flutter_exit_app: ^1.1.2
   lottie: ^2.6.0
-  http: ^1.1.0
+  http: ^1.0.0
   collection: ^1.17.1
-  sunmi_printer_plus: ^2.1.01
+  sunmi_printer_plus: ^2.1.2
   shared_preferences: ^2.2.1
   
 

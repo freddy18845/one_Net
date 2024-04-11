@@ -87,7 +87,9 @@ class PrintingService extends ChangeNotifier {
 
       await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
       await SunmiPrinter.setCustomFontSize(30);
-      await SunmiPrinter.printText("USD${transactionData["rechargeAmount"]}");
+      await SunmiPrinter.printText(myCurrency.activeCurrency +
+          Currency().format(transactionData["rechargeAmount"].toString()));
+
       await SunmiPrinter.line(len: 48);
       await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
       await SunmiPrinter.setCustomFontSize(26);
@@ -101,7 +103,7 @@ class PrintingService extends ChangeNotifier {
               width: 23,
               align: SunmiPrintAlign.LEFT),
           ColumnMaker(
-              text: "Airtime Purchase",
+              text: transactionData["TransactionType"].toString(),
               width: 24,
               align: SunmiPrintAlign.RIGHT),
         ],

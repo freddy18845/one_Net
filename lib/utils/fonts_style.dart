@@ -44,6 +44,14 @@ class FontsStyle {
         fontWeight: FontWeight.w700);
   }
 
+  inputAmtText() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(2.5),
+        decoration: TextDecoration.none,
+        fontWeight: FontWeight.w700);
+  }
+
   splashText3() {
     return TextStyle(
         color: Colors.white,
@@ -154,13 +162,13 @@ class FontsStyle {
     return TextStyle(
         color: Colour().secondary(),
         fontSize: ScreenSize().getScreenHeight(2),
-        fontWeight: FontWeight.w500);
+        fontWeight: FontWeight.w700);
   }
 
   buyAirtimeText() {
     return TextStyle(
         color: Colour().secondary(),
-        fontSize: ScreenSize().getScreenHeight(3),
+        fontSize: ScreenSize().getScreenHeight(2.5),
         fontWeight: FontWeight.w800);
   }
 

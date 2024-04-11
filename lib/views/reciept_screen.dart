@@ -137,7 +137,7 @@ class ReceiptScreen extends StatelessWidget {
                                   style: FontsStyle().invoicetext(),
                                 ),
                                 Text(
-                                  "Airtime Purchase",
+                                  invoice.transactionData["TransactionType"],
                                   style: FontsStyle().invoicetext1(),
                                 ),
                               ],
@@ -164,6 +164,25 @@ class ReceiptScreen extends StatelessWidget {
                             SizedBox(
                               height: ScreenSize().getScreenHeight(1),
                             ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     Text(
+                            //       "Date",
+                            //       style: FontsStyle().invoicetext(),
+                            //     ),
+                            //     Text(
+                            //       DateFormat("dd-MMM-yyyy, h:mm a").format(
+                            //           DateTime.parse(invoice
+                            //               .transactionData["orderDateTime"]
+                            //               .toString())),
+                            //       style: FontsStyle().invoicetext1(),
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(
+                            //   height: ScreenSize().getScreenHeight(1),
+                            // ),
                             invoice.transactionData["paymentMethod"] == "Card"
                                 ? Row(
                                     mainAxisAlignment:
@@ -278,24 +297,39 @@ class ReceiptScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Button(
-                                  btnAction: () {},
-                                  btnColor: Colour().primary(),
-                                  btnHeight: ScreenSize().getScreenHeight(6),
-                                  btnText: Text(
-                                    'Email',
-                                    style: FontsStyle().startbtnText(),
-                                  ),
-                                  btnWight: ScreenSize().getScreenWidth(35),
-                                ),
+                                    btnLabel: Text(
+                                      'Email',
+                                      style: FontsStyle().startbtnText(),
+                                    ),
+                                    btnInwardHightSize:
+                                        ScreenSize().getScreenHeight(7),
+                                    btnOutwardHieghtSize:
+                                        ScreenSize().getScreenHeight(8.5),
+                                    btnInwardWidthSize:
+                                        ScreenSize().getScreenWidth(78),
+                                    btnOutwardWidthSize:
+                                        ScreenSize().getScreenWidth(81),
+                                    outerColor:
+                                        Colour().primary().withOpacity(0.5),
+                                    inerColor: Colour().primary(),
+                                    btnAction: () {}),
                                 Button(
-                                  btnAction: () {},
-                                  btnColor: Colour().primary(),
-                                  btnHeight: ScreenSize().getScreenHeight(6),
-                                  btnText: Text(
+                                  btnLabel: Text(
                                     'SMS',
                                     style: FontsStyle().startbtnText(),
                                   ),
-                                  btnWight: ScreenSize().getScreenWidth(35),
+                                  btnInwardHightSize:
+                                      ScreenSize().getScreenHeight(7),
+                                  btnOutwardHieghtSize:
+                                      ScreenSize().getScreenHeight(8.5),
+                                  btnInwardWidthSize:
+                                      ScreenSize().getScreenWidth(78),
+                                  btnOutwardWidthSize:
+                                      ScreenSize().getScreenWidth(81),
+                                  outerColor:
+                                      Colour().primary().withOpacity(0.5),
+                                  btnAction: () {},
+                                  inerColor: Colour().primary(),
                                 ),
                               ],
                             )
@@ -321,13 +355,16 @@ class ReceiptScreen extends StatelessWidget {
                     ),
                   );
                 },
-                btnColor: Colour().primary(),
-                btnHeight: ScreenSize().getScreenHeight(9),
-                btnText: Text(
+                btnInwardHightSize: ScreenSize().getScreenHeight(7),
+                btnOutwardHieghtSize: ScreenSize().getScreenHeight(8.5),
+                btnInwardWidthSize: ScreenSize().getScreenWidth(78),
+                btnOutwardWidthSize: ScreenSize().getScreenWidth(81),
+                outerColor: Colour().primary().withOpacity(0.5),
+                inerColor: Colour().primary(),
+                btnLabel: Text(
                   'Done',
                   style: FontsStyle().startbtnText(),
                 ),
-                btnWight: double.infinity,
               ),
               SizedBox(
                 height: ScreenSize().getScreenHeight(2),

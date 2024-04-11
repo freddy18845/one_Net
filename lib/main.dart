@@ -5,6 +5,7 @@ import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
 import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/debug_switch_view_model.dart';
 import 'package:one_net/view_models/ip_address_view_model.dart';
+import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/loading_screen.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +50,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<CurrencySelectionViewModel>(
           create: (context) => CurrencySelectionViewModel(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider<InputAmountViewModel>(
+          create: (context) => InputAmountViewModel(),
           lazy: false,
         ),
       ],

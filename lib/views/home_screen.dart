@@ -4,12 +4,16 @@ import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
+import 'package:one_net/views/custom_recharge.dart';
+import 'package:one_net/views/select_airtime_package.dart';
 import 'package:one_net/views/splash_screen.dart';
-import 'package:one_net/widgets/buy_airtime_btn.dart';
+import 'package:one_net/widgets/home_card_btn.dart';
 import 'package:one_net/widgets/flyers.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
+
+import '../view_models/store_view_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,6 +21,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    Provider.of<StoreViewModel>(context, listen: false).setallfield();
     Provider.of<PinpadThemeView>(context).colourTheme(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               Container(
-                height: ScreenSize().getScreenHeight(37),
+                height: ScreenSize().getScreenHeight(44),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(235, 55, 52, 53),
@@ -110,15 +115,27 @@ class HomeScreen extends StatelessWidget {
                         color: Colour().primary(),
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(3),
+                        height: ScreenSize().getScreenHeight(1),
                       ),
-                      const BuyAirtimeBtn(),
+                      const HomeCardBtn(
+                        image: "assets/images/top_airtime.png",
+                        textbtn: 'Buy Airtime',
+                        btntype: 'Buy Airtime',
+                      ),
+                      SizedBox(
+                        height: ScreenSize().getScreenHeight(1.3),
+                      ),
+                      const HomeCardBtn(
+                        image: "assets/images/topup.png",
+                        textbtn: 'TopUp Wallet',
+                        btntype: 'TopUp Wallet',
+                      ),
                     ],
                   ),
                 ),
               ),
               SizedBox(
-                height: ScreenSize().getScreenHeight(12),
+                height: ScreenSize().getScreenHeight(3),
               ),
               Text(
                 "Offers & Promos",

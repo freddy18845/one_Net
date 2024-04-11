@@ -47,6 +47,16 @@ class SplashScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Button(
+                  btnInwardHightSize: ScreenSize().getScreenHeight(15),
+                  btnLabel: Text(
+                    'Tap To Start',
+                    style: FontsStyle().btnText(),
+                  ),
+                  btnOutwardHieghtSize: ScreenSize().getScreenHeight(16.5),
+                  btnInwardWidthSize: ScreenSize().getScreenWidth(80),
+                  btnOutwardWidthSize: ScreenSize().getScreenWidth(84),
+                  inerColor: Colour().primary(),
+                  outerColor: Colour().primary().withOpacity(0.5),
                   btnAction: () {
                     Navigator.push(
                       context,
@@ -58,13 +68,6 @@ class SplashScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  btnHeight: ScreenSize().getScreenHeight(15),
-                  btnText: Text(
-                    'Tap To Start',
-                    style: FontsStyle().btnText(),
-                  ),
-                  btnWight: double.infinity,
-                  btnColor: Colour().primary(),
                 ),
               ),
             ],

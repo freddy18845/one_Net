@@ -22,7 +22,7 @@ class PinpadThemeView extends ChangeNotifier {
       try {
         final url = Uri.parse('http://$ipAddress:8080/v1/colour/');
         final response = await http.post(url,
-            body: jsonEncode(<String, dynamic>{
+            body: jsonEncode(<String, String>{
               "index": "5",
             }),
             headers: <String, String>{
@@ -35,7 +35,7 @@ class PinpadThemeView extends ChangeNotifier {
         print("apiResponse");
         print(apiResponse);
       } catch (e) {
-        //print(e);
+        print(e);
         getSmartPadAlert(context);
         print("An error occured in the http request");
       }

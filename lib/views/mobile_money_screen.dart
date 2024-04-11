@@ -9,6 +9,7 @@ import 'package:one_net/views/select_payment.dart';
 import 'package:one_net/views/transaction_inprogess_screen.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
+import 'package:one_net/widgets/header.dart';
 import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
 
@@ -62,70 +63,14 @@ class MobileMoneyScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: ScreenSize().getScreenHeight(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder:
-                                        (context, animation1, animation2) =>
-                                            const HomeScreen(),
-                                    transitionDuration: Duration.zero,
-                                    reverseTransitionDuration: Duration.zero,
-                                  ),
-                                );
-                              },
-                              child: RoundBtn(
-                                btnLabel: Image.asset(
-                                  "assets/images/home_logo.png",
-                                  width: ScreenSize().getScreenHeight(3.5),
-                                  height: ScreenSize().getScreenHeight(3.5),
-                                  fit: BoxFit.contain,
-                                ),
-                                innerColor: Colour().secondary(),
-                                outerColor: Colour().primary(),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: ScreenSize().getScreenHeight(1),
-                                ),
-                                Text(
-                                  "Mobile Payments",
-                                  style: FontsStyle().mainMenuText(),
-                                ),
-                                SizedBox(
-                                  height: ScreenSize().getScreenHeight(1),
-                                ),
-                                Text(
-                                  "Select Payment Method",
-                                  style: FontsStyle().buyText(),
-                                ),
-                              ],
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: RoundBtn(
-                                btnLabel: Icon(
-                                  Icons.arrow_back,
-                                  color: Colour().primary(),
-                                  size: ScreenSize().getScreenHeight(4),
-                                ),
-                                innerColor: Colour().secondary(),
-                                outerColor: Colour().primary(),
-                              ),
-                            ),
-                          ],
-                        ),
+                      Header(
+                        showHome: true,
+                        showPrevious: true,
+                        titleText: "Mobile Payment",
+                        subtitleText: 'Select Payment Method',
+                        previousFunction: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       Divider(
                         thickness: 1,
@@ -324,18 +269,27 @@ class MobileMoneyScreen extends StatelessWidget {
                                             ),
                                           );
                                         },
-                                  btnColor: myType.transactionData["buyerNo"] ==
+                                  inerColor: myType
+                                                  .transactionData["buyerNo"] ==
                                               null ||
                                           myType.transactionData["buyerNo"]
                                               .isEmpty
                                       ? const Color.fromARGB(255, 245, 195, 154)
                                       : Colour().primary(),
-                                  btnHeight: ScreenSize().getScreenHeight(7),
-                                  btnText: Text(
+                                  btnInwardHightSize:
+                                      ScreenSize().getScreenHeight(7),
+                                  btnOutwardHieghtSize:
+                                      ScreenSize().getScreenHeight(8.5),
+                                  btnInwardWidthSize:
+                                      ScreenSize().getScreenWidth(78),
+                                  btnOutwardWidthSize:
+                                      ScreenSize().getScreenWidth(81),
+                                  outerColor:
+                                      Colour().primary().withOpacity(0.5),
+                                  btnLabel: Text(
                                     'Buy ',
                                     style: FontsStyle().startbtnText(),
                                   ),
-                                  btnWight: double.infinity,
                                 );
                         },
                       )

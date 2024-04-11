@@ -15,13 +15,15 @@ import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/header.dart';
+
 class SelectAirtimePackageScreen extends StatelessWidget {
   const SelectAirtimePackageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    Provider.of<StoreViewModel>(context, listen: false).setallfield();
+
     Provider.of<PinpadThemeView>(context).colourTheme(context);
 
     return Scaffold(
@@ -71,104 +73,24 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: ScreenSize().getScreenHeight(10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          pageBuilder: (context, animation1,
-                                                  animation2) =>
-                                              const HomeScreen(),
-                                          transitionDuration: Duration.zero,
-                                          reverseTransitionDuration:
-                                              Duration.zero,
-                                        ),
-                                      );
-                                    },
-                                    child: RoundBtn(
-                                      btnLabel: Image.asset(
-                                        "assets/images/home_logo.png",
-                                        width:
-                                            ScreenSize().getScreenHeight(3.5),
-                                        height:
-                                            ScreenSize().getScreenHeight(3.5),
-                                        fit: BoxFit.contain,
-                                      ),
-                                      innerColor: Colour().secondary(),
-                                      outerColor: Colour().primary(),
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: ScreenSize().getScreenHeight(1),
-                                      ),
-                                      Text(
-                                        "Buy Airtime",
-                                        style: FontsStyle().mainMenuText(),
-                                      ),
-                                      SizedBox(
-                                        height: ScreenSize().getScreenHeight(1),
-                                      ),
-                                      Text(
-                                        "Select Currency Below",
-                                        style: FontsStyle().buyText(),
-                                      ),
-                                    ],
-                                  ),
-                                  Container(
-                                    width: ScreenSize().getScreenHeight(6),
-                                  ),
-                                ],
-                              ),
+                            Consumer<StoreViewModel>(
+                              builder: (context, myTxnType, child) {
+                                return Header(
+                                  showHome: true,
+                                  showPrevious: false,
+                                  titleText: myTxnType
+                                      .transactionData["TransactionType"]
+                                      .toString(),
+                                  subtitleText: 'Select Currency Below',
+                                  previousFunction: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              },
                             ),
                             Divider(
                               thickness: 1,
                               color: Colour().primary(),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Button(
-                                  btnAction: () {
-                                    myCurrency.changeCurrency('USD');
-                                  },
-                                  btnColor: myCurrency.activeCurrency == 'USD'
-                                      ? Colour().primary()
-                                      : const Color.fromARGB(107, 255, 122, 13),
-                                  btnHeight: ScreenSize().getScreenHeight(3),
-                                  btnText: Text(
-                                    'USD',
-                                    style: FontsStyle().curencybtnText(),
-                                  ),
-                                  btnWight: ScreenSize().getScreenWidth(12),
-                                ),
-                                SizedBox(
-                                  width: ScreenSize().getScreenWidth(3),
-                                ),
-                                Button(
-                                  btnAction: () {
-                                    myCurrency.changeCurrency('ZWL');
-                                  },
-                                  btnColor: myCurrency.activeCurrency == 'ZWL'
-                                      ? Colour().primary()
-                                      : const Color.fromARGB(107, 255, 122, 13),
-                                  btnHeight: ScreenSize().getScreenHeight(3),
-                                  btnText: Text(
-                                    'ZWL',
-                                    style: FontsStyle().curencybtnText(),
-                                  ),
-                                  btnWight: ScreenSize().getScreenWidth(12),
-                                ),
-                              ],
                             ),
                             SizedBox(
                               height: ScreenSize().getScreenHeight(1),
@@ -422,19 +344,26 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                                   PageRouteBuilder(
                                     pageBuilder:
                                         (context, animation1, animation2) =>
-                                            const CustomRecharge(),
+                                            const CustomRechargeScreen(),
                                     transitionDuration: Duration.zero,
                                     reverseTransitionDuration: Duration.zero,
                                   ),
                                 );
                               },
-                              btnColor: Colour().primary(),
-                              btnHeight: ScreenSize().getScreenHeight(7),
-                              btnText: Text(
+                              btnLabel: Text(
                                 'Custom Amount',
                                 style: FontsStyle().startbtnText(),
                               ),
-                              btnWight: double.infinity,
+                              btnInwardHightSize:
+                                  ScreenSize().getScreenHeight(7),
+                              btnOutwardHieghtSize:
+                                  ScreenSize().getScreenHeight(8.5),
+                              btnInwardWidthSize:
+                                  ScreenSize().getScreenWidth(78),
+                              btnOutwardWidthSize:
+                                  ScreenSize().getScreenWidth(81),
+                              inerColor: Colour().primary(),
+                              outerColor: Colour().primary().withOpacity(0.5),
                             ),
                           ],
                         ),

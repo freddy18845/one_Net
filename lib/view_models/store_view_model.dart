@@ -62,6 +62,7 @@ class StoreViewModel extends ChangeNotifier {
     transactionData["cardNumber"] = '';
     transactionData["receiptNum"] = '';
     transactionData["orderDateTime"] = '';
+    transactionData["TranactionType"] = '';
   }
 
   setBuyerNo(String value) {
@@ -70,13 +71,22 @@ class StoreViewModel extends ChangeNotifier {
   }
 
   setRechargeAmount(String value) {
-    transactionData["rechargeAmount"] = value;
+    transactionData["rechargeAmount"] = "675";
+    print(transactionData["rechargeAmount"]);
     notifyListeners();
   }
 
-  double getAmount() {
-    return double.parse(transactionData["rechargeAmount"]);
+  setTxnType(String value) {
+    transactionData["TransactionType"] = value;
+    notifyListeners();
   }
+
+  String getTxnType() {
+    return transactionData["TransactionType"].toString();
+  }
+  // double getAmount() {
+  //   return double.parse(transactionData["rechargeAmount"]);
+  // }
 
   setPayment(String value, context) {
     if (transactionData["recipientNo"] != null) {
