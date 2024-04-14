@@ -72,8 +72,6 @@ class StoreViewModel extends ChangeNotifier {
 
   setRechargeAmount(String value) {
     transactionData["rechargeAmount"] = value;
-    print("sdawegsfd");
-
     notifyListeners();
   }
 
@@ -155,10 +153,10 @@ class StoreViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // setSelectedNet() {
-  //   transactionData["selectedNetwork"] = "";
-  //   transactionData["selectedNetworkImage"] = "";
-  // }
+  setSelectedNet(String network) {
+    transactionData["selectedNetwork"] = network;
+    // transactionData["selectedNetworkImage"] = "";
+  }
 
   addSelectedNet(int index, Map selectedNet) {
     Map unselectNetwork = mobileNetworks[1];

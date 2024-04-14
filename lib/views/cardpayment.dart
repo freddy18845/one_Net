@@ -5,9 +5,7 @@ import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/store_view_model.dart';
-import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/widgets/footer.dart';
-import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
 
 import '../view_models/card_payment_view_model.dart';
@@ -66,7 +64,7 @@ class CardPayment extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Header(
+                      const Header(
                         showHome: false,
                         showPrevious: true,
                         titleText: "Card Payment",

@@ -7,6 +7,6 @@ class CurrencySelectionViewModel extends ChangeNotifier {
     activeCurrency = currency;
     currency == "USD" ? activeCurrency = "USD" : activeCurrency = "ZiG";
     notifyListeners();
-    print(activeCurrency);
+    //print(activeCurrency);
   }
 }

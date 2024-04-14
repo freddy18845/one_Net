@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_net/utils/colour.dart';
-import 'package:one_net/utils/currency_format.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
@@ -9,24 +8,24 @@ import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/custom_recharge.dart';
-import 'package:one_net/views/select_payment.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/airtime_package_tag.dart';
 import '../widgets/header.dart';
 
 // ignore: must_be_immutable
 class SelectAirtimePackageScreen extends StatelessWidget {
-  SelectAirtimePackageScreen({super.key});
+  const SelectAirtimePackageScreen({super.key});
 
   // TextEditingController amountCtr = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    // Provider.of<InputAmountViewModel>(context, listen: false)
-    //     .clearCustonAmount(amountCtr);
+    Provider.of<InputAmountViewModel>(context, listen: false)
+        .clearCustonAmount();
     Provider.of<PinpadThemeView>(context).colourTheme(context);
 
     return Scaffold(
@@ -105,73 +104,13 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    Provider.of<StoreViewModel>(context,
-                                            listen: false)
-                                        .setRechargeAmount("5");
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                const SelectPaymentOption(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    height: ScreenSize().getScreenHeight(9),
-                                    width: ScreenSize().getScreenWidth(40),
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/tag1.png"),
-                                          fit: BoxFit.fill),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                            myCurrency.activeCurrency +
-                                                Currency().format("5"),
-                                            style: FontsStyle().priceText())),
-                                  ),
+                                AirtimeTag(
+                                  airtimeAmt: '5',
+                                  tagBg: 'tag1',
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    Provider.of<StoreViewModel>(context,
-                                            listen: false)
-                                        .setRechargeAmount("10");
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                const SelectPaymentOption(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    height: ScreenSize().getScreenHeight(9),
-                                    width: ScreenSize().getScreenWidth(40),
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/tag1.png"),
-                                          fit: BoxFit.fill),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        myCurrency.activeCurrency +
-                                            Currency().format("10"),
-                                        style: FontsStyle().priceText(),
-                                      ),
-                                    ),
-                                  ),
+                                AirtimeTag(
+                                  airtimeAmt: '10',
+                                  tagBg: 'tag1',
                                 ),
                               ],
                             ),
@@ -181,71 +120,13 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    Provider.of<StoreViewModel>(context,
-                                            listen: false)
-                                        .setRechargeAmount("30");
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                const SelectPaymentOption(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    height: ScreenSize().getScreenHeight(9),
-                                    width: ScreenSize().getScreenWidth(40),
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/tag2.png"),
-                                          fit: BoxFit.fill),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                            myCurrency.activeCurrency +
-                                                Currency().format("30"),
-                                            style: FontsStyle().priceText())),
-                                  ),
+                                AirtimeTag(
+                                  airtimeAmt: '30',
+                                  tagBg: 'tag2',
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    Provider.of<StoreViewModel>(context,
-                                            listen: false)
-                                        .setRechargeAmount("50");
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                const SelectPaymentOption(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    height: ScreenSize().getScreenHeight(9),
-                                    width: ScreenSize().getScreenWidth(40),
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/tag2.png"),
-                                          fit: BoxFit.fill),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                            myCurrency.activeCurrency +
-                                                Currency().format("50"),
-                                            style: FontsStyle().priceText())),
-                                  ),
+                                AirtimeTag(
+                                  airtimeAmt: '50',
+                                  tagBg: 'tag2',
                                 ),
                               ],
                             ),
@@ -255,71 +136,13 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    Provider.of<StoreViewModel>(context,
-                                            listen: false)
-                                        .setRechargeAmount("75");
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                const SelectPaymentOption(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    height: ScreenSize().getScreenHeight(9),
-                                    width: ScreenSize().getScreenWidth(40),
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/tag3.png"),
-                                          fit: BoxFit.fill),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                            myCurrency.activeCurrency +
-                                                Currency().format("75"),
-                                            style: FontsStyle().priceText())),
-                                  ),
+                                AirtimeTag(
+                                  airtimeAmt: '75',
+                                  tagBg: 'tag3',
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    Provider.of<StoreViewModel>(context,
-                                            listen: false)
-                                        .setRechargeAmount("100");
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                const SelectPaymentOption(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    height: ScreenSize().getScreenHeight(9),
-                                    width: ScreenSize().getScreenWidth(40),
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/tag3.png"),
-                                          fit: BoxFit.fill),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                            myCurrency.activeCurrency +
-                                                Currency().format("100"),
-                                            style: FontsStyle().priceText())),
-                                  ),
+                                AirtimeTag(
+                                  airtimeAmt: '100',
+                                  tagBg: 'tag3',
                                 ),
                               ],
                             ),

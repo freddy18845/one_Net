@@ -4,14 +4,13 @@ import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/change_pinpad_theme_view_model.dart';
+import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/views/splash_screen.dart';
 import 'package:one_net/widgets/home_card_btn.dart';
 import 'package:one_net/widgets/flyers.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
-
-import '../view_models/keyboard_view_model.dart';
 import '../view_models/store_view_model.dart';
 
 // ignore: must_be_immutable
@@ -24,8 +23,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     Provider.of<StoreViewModel>(context, listen: false).setallfield();
-    // Provider.of<InputAmountViewModel>(context, listen: false)
-    //     .clearCustonAmount(amountCtr);
+    Provider.of<InputAmountViewModel>(context, listen: false)
+        .clearCustonAmount();
     Provider.of<PinpadThemeView>(context).colourTheme(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,

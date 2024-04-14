@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class InputAmountViewModel extends ChangeNotifier {
   String amount = '';
+  String number = '';
   bool point = false;
 
   setPointTapped() {
@@ -18,10 +19,10 @@ class InputAmountViewModel extends ChangeNotifier {
     return double.parse(amount);
   }
 
-  void setCustonAmount(String value, TextEditingController contoller) {
+  void setCustonAmount(String value) {
     print(value);
     if (value == '.') return;
-    if (amount.length > 7 && (value != 'back')) return;
+    if (amount.length > 6 && (value != 'back')) return;
     if (value == 'back') {
       if (amount.isNotEmpty) {
         amount = amount.substring(0, amount.length - 1);
@@ -52,16 +53,35 @@ class InputAmountViewModel extends ChangeNotifier {
     }
     double rawAmount = amount.isEmpty ? 0.0 : double.parse(amount);
     amount = rawAmount <= 0 ? '' : rawAmount.toStringAsFixed(2);
-    contoller.text = amount;
+
     //amount = Provider.of<StoreViewModel>(context).getTxnType();
     notifyListeners();
     //setState(() {});
   }
 
-  clearCustonAmount(TextEditingController contoller) {
+  void setRecipientNo(String value) {
+    if (value == '.') return;
+    if (amount.length > 9 && (value != 'back')) return;
+    if (value == 'back') {
+      if (number.isNotEmpty) {
+        number = number.substring(0, number.length - 1);
+
+        notifyListeners();
+      } else {
+        return;
+      }
+    } else {
+      if (number.length < 9) {
+        number += value;
+        print(number.length);
+      }
+      notifyListeners();
+    }
+  }
+
+  clearCustonAmount() {
     amount = '';
-    contoller.text = '';
-    print(amount);
+    number = '';
     notifyListeners();
   }
   // setCustonAmount(String number) {

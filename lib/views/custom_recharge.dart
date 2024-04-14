@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
-import 'package:one_net/views/home_screen.dart';
-import 'package:one_net/views/select_payment.dart';
+import 'package:one_net/views/input_recipientNo.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/header.dart';
 import 'package:one_net/widgets/keyboard_btn.dart';
-import 'package:one_net/widgets/round_btn.dart';
 import 'package:provider/provider.dart';
 
 class CustomRechargeScreen extends StatefulWidget {
@@ -115,153 +112,96 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                       SizedBox(
                         height: ScreenSize().getScreenHeight(1),
                       ),
-                      // Consumer<CurrencySelectionViewModel>(
-                      //   builder: (context, myCurrency, child) {
-                      //     return Row(
-                      //       children: [
-                      //         Flexible(child: Container()),
-                      //         Flexible(
-                      //           child: Text(
-                      //             "Select  Currency",
-                      //             style: FontsStyle().rechargeText(),
-                      //           ),
-                      //         ),
-                      //     Flexible(
-                      //         child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.end,
-                      //       children: [
-                      //         Button(
-                      //           btnAction: () {
-                      //             myCurrency.changeCurrency('USD');
-                      //           },
-                      //           btnColor: myCurrency.activeCurrency == 'USD'
-                      //               ? Colour().primary()
-                      //               : const Color.fromARGB(
-                      //                   107, 255, 122, 13),
-                      //           btnHeight: ScreenSize().getScreenHeight(3),
-                      //           btnText: Text(
-                      //             'USD',
-                      //             style: FontsStyle().curencybtnText(),
-                      //           ),
-                      //           btnWight: ScreenSize().getScreenWidth(12),
-                      //         ),
-                      //         SizedBox(
-                      //           width: ScreenSize().getScreenWidth(1),
-                      //         ),
-                      //         Button(
-                      //           btnAction: () {
-                      //             myCurrency.changeCurrency('ZWL');
-                      //           },
-                      //           btnColor: myCurrency.activeCurrency == 'ZWL'
-                      //               ? Colour().primary()
-                      //               : const Color.fromARGB(
-                      //                   107, 255, 122, 13),
-                      //           btnHeight: ScreenSize().getScreenHeight(3),
-                      //           btnText: Text(
-                      //             'ZWL',
-                      //             style: FontsStyle().curencybtnText(),
-                      //           ),
-                      //           btnWight: ScreenSize().getScreenWidth(12),
-                      //         ),
-                      //       ],
-                      //     ))
-                      //   ],
-                      // );
-                      // },
-                      // ),
-                      // SizedBox(
-                      //   height: ScreenSize().getScreenHeight(),
-                      // ),
-                      Consumer<InputAmountViewModel>(
-                        builder: (context, myAmount, child) {
-                          return SizedBox(
-                            height: ScreenSize().getScreenHeight(7),
-                            width: double.infinity,
-                            child: TextFormField(
-                              controller: amountCtr,
-                              // initialValue: myAmount.amount.toString(),
-                              textAlign: TextAlign.start,
-                              autofocus: true,
-                              textAlignVertical: TextAlignVertical.center,
+                      Container(
+                        height: ScreenSize().getScreenHeight(7),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(
+                            ScreenSize().getScreenHeight(1.5),
+                          ),
+                          border: Border.all(
+                            width: 2,
+                            color: Colour().primary(),
+                          ),
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                child: DropdownButton(
+                                  underline: const SizedBox(),
+                                  itemHeight: ScreenSize().getScreenHeight(6),
+                                  // Initial Value
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400),
+                                  elevation: 8,
+                                  value: dropdownvalue.toString(),
 
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: ScreenSize().getScreenHeight(2),
+                                  // Down Arrow Icon
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+
+                                  // Array list of items
+                                  items: items.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  // After selecting the desired option,it will
+                                  // change button value to selected value
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      dropdownvalue = newValue!;
+                                    });
+                                    Provider.of<CurrencySelectionViewModel>(
+                                            context,
+                                            listen: false)
+                                        .changeCurrency(dropdownvalue);
+
+                                    print(dropdownvalue);
+                                  },
+                                ),
                               ),
-
-                              textInputAction: TextInputAction.done,
-                              keyboardType: TextInputType.none,
-
-                              decoration: InputDecoration(
-                                  prefix: SizedBox(
-                                    height: double.infinity,
-                                    child: DropdownButton(
-                                      // Initial Value
-                                      style:
-                                          const TextStyle(color: Colors.black),
-                                      elevation: 8,
-                                      value: dropdownvalue.toString(),
-
-                                      // Down Arrow Icon
-                                      icon:
-                                          const Icon(Icons.keyboard_arrow_down),
-
-                                      // Array list of items
-                                      items: items.map((String items) {
-                                        return DropdownMenuItem(
-                                          value: items,
-                                          child: Text(items),
-                                        );
-                                      }).toList(),
-                                      // After selecting the desired option,it will
-                                      // change button value to selected value
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          dropdownvalue = newValue!;
-                                        });
-                                        Provider.of<CurrencySelectionViewModel>(
-                                                context)
-                                            .changeCurrency(dropdownvalue);
-                                      },
-                                    ),
-                                  ),
-                                  hintText: 'Recharge Amount',
-                                  suffixIcon: const Icon(
-                                    Icons.dialpad,
-                                  ),
-                                  filled: true,
-                                  fillColor:
-                                      const Color.fromARGB(113, 211, 210, 210),
-                                  suffixIconColor:
-                                      MaterialStateColor.resolveWith((states) =>
-                                          states.contains(MaterialState.focused)
-                                              ? Colour().primary()
-                                              : const Color.fromRGBO(
-                                                  134, 134, 134, 1)),
-                                  counterText: "",
-                                  labelStyle: const TextStyle(
-                                      color: Color.fromRGBO(134, 134, 134, 1)),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 2,
-                                      color: Colour().primary(),
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                      ScreenSize().getScreenHeight(1),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 2,
-                                      color: Colour().primary(),
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                      ScreenSize().getScreenHeight(1),
-                                    ),
+                              Flexible(
+                                  flex: 3,
+                                  child: Consumer<InputAmountViewModel>(
+                                    builder: (context, myAmount, child) {
+                                      return SizedBox(
+                                        height: double.infinity,
+                                        width: double.maxFinite,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              top: ScreenSize()
+                                                  .getScreenHeight(1.8)),
+                                          child: Text(
+                                            textAlign: TextAlign.left,
+                                            myAmount.amount.isEmpty
+                                                ? "Enter Amount"
+                                                : myAmount.amount.toString(),
+                                            style: TextStyle(
+                                              fontWeight:
+                                                  myAmount.amount.isEmpty
+                                                      ? FontWeight.w100
+                                                      : FontWeight.bold,
+                                              fontSize: ScreenSize()
+                                                  .getScreenHeight(2),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   )),
-                            ),
-                          );
-                        },
+                              Flexible(
+                                flex: 1,
+                                child: Icon(
+                                  Icons.dialpad,
+                                  color: Colour().primary(),
+                                ),
+                              ),
+                            ]),
                       ),
                       SizedBox(
                         height: ScreenSize().getScreenHeight(3),
@@ -276,7 +216,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                               //     .setCustonAmount('1');
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('1', amountCtr);
+                                  .setCustonAmount('1');
                             },
                             btnLabel: Text(
                               '1',
@@ -290,7 +230,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                             btnAction: () {
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('2,', amountCtr);
+                                  .setCustonAmount('2');
                             },
                             btnLabel: Text(
                               '2',
@@ -304,7 +244,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                             btnAction: () {
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('3', amountCtr);
+                                  .setCustonAmount('3');
                             },
                             btnLabel: Text(
                               '3',
@@ -321,12 +261,9 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                         children: [
                           KeyboardButton(
                             btnAction: () {
-                              // Provider.of<InputAmountViewModel>(context,
-                              //         listen: false)
-                              //     .setCustonAmount('1');
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('4', amountCtr);
+                                  .setCustonAmount('4');
                             },
                             btnLabel: Text(
                               '4',
@@ -340,7 +277,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                             btnAction: () {
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('5', amountCtr);
+                                  .setCustonAmount('5');
                             },
                             btnLabel: Text(
                               '5',
@@ -354,7 +291,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                             btnAction: () {
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('6', amountCtr);
+                                  .setCustonAmount('6');
                             },
                             btnLabel: Text(
                               '6',
@@ -371,12 +308,9 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                         children: [
                           KeyboardButton(
                             btnAction: () {
-                              // Provider.of<InputAmountViewModel>(context,
-                              //         listen: false)
-                              //     .setCustonAmount('1');
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('7', amountCtr);
+                                  .setCustonAmount('7');
                             },
                             btnLabel: Text(
                               '7',
@@ -390,7 +324,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                             btnAction: () {
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('8', amountCtr);
+                                  .setCustonAmount('8');
                             },
                             btnLabel: Text(
                               '8',
@@ -404,7 +338,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                             btnAction: () {
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('9', amountCtr);
+                                  .setCustonAmount('9');
                             },
                             btnLabel: Text(
                               '9',
@@ -426,7 +360,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                               //     .setCustonAmount('1');
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('.', amountCtr);
+                                  .setCustonAmount('.');
                             },
                             btnLabel: Text(
                               '.',
@@ -440,7 +374,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                             btnAction: () {
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('0', amountCtr);
+                                  .setCustonAmount('0');
                             },
                             btnLabel: Text(
                               '0',
@@ -454,7 +388,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                             btnAction: () {
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
-                                  .setCustonAmount('back', amountCtr);
+                                  .setCustonAmount('back');
                             },
                             btnLabel: Image.asset(
                               "assets/images/clear.png",
@@ -482,7 +416,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                                       PageRouteBuilder(
                                         pageBuilder:
                                             (context, animation1, animation2) =>
-                                                const SelectPaymentOption(),
+                                                const InputRecipientNumScreen(),
                                         transitionDuration: Duration.zero,
                                         reverseTransitionDuration:
                                             Duration.zero,

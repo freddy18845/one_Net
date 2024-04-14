@@ -28,7 +28,7 @@ class CardPaymentViewModel extends ChangeNotifier {
           "transactionId": "087870909",
           "transactionType": "00",
           "orderNumber": myData.transactionData["receiptNum"].toString(),
-          "description": "Buy Airtime",
+          "description": myData.transactionData["TransactionType"].toString(),
           "amount": double.parse(myData.transactionData["rechargeAmount"]),
           "currencyCode": 748,
           "currencySymbol": selectedCurrency,
@@ -80,18 +80,18 @@ class CardPaymentViewModel extends ChangeNotifier {
         print("An error occured in the http request");
       }
     } else {
-      /// Timer(const Duration(seconds: 5), () {
-      // Provider.of<StoreViewModel>(context, listen: false).defaultResponse();
-      // Navigator.push(
-      //   context,
-      //   PageRouteBuilder(
-      //     pageBuilder: (context, animation1, animation2) =>
-      //         const TransactionInprogress(),
-      //     transitionDuration: Duration.zero,
-      //     reverseTransitionDuration: Duration.zero,
-      //   ),
-      // );
-      //  });
+      Timer(const Duration(seconds: 5), () {
+        Provider.of<StoreViewModel>(context, listen: false).defaultResponse();
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) =>
+                const TransactionInprogress(),
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
+      });
     }
   }
 }
