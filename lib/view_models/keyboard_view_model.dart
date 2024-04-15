@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +8,21 @@ class InputAmountViewModel extends ChangeNotifier {
   String amount = '';
   String number = '';
   bool point = false;
+  bool isloading = true;
+  String status = '';
+  late bool showAllNetworks;
 
   setPointTapped() {
     point = true;
+  }
+
+  setloadingStatus() {
+    status = '';
+    isloading = false;
+  }
+
+  setNetworks(bool network) {
+    showAllNetworks = network;
   }
 
   clearPointTapped() {
@@ -73,7 +87,18 @@ class InputAmountViewModel extends ChangeNotifier {
     } else {
       if (number.length < 9) {
         number += value;
-        print(number.length);
+
+        //print(number.length);
+        if (number.length == 9) {
+          isloading = true;
+          status = 'isloading';
+          Timer(const Duration(seconds: 4), () {
+            isloading = false;
+            status = 'display';
+            notifyListeners();
+            print(status);
+          });
+        }
       }
       notifyListeners();
     }
@@ -82,59 +107,9 @@ class InputAmountViewModel extends ChangeNotifier {
   clearCustonAmount() {
     amount = '';
     number = '';
+
     notifyListeners();
   }
-  // setCustonAmount(String number) {
-  //   if (point) {
-  //     if (amount == '') {
-  //       amount = "0.$number";
-  //     } else {
-  //       List myAmountList = amount.split('.');
-  //       if (myAmountList.length == 1) {
-  //         amount = "$amount.$number";
-  //       } else if (myAmountList.length == 2) //Amount Conatians Decimal
-  //       {
-  //         if (myAmountList[1].length ==
-  //             1) // Amount Contains 1 Decimal, Add Next Decimal
-  //         {
-  //           amount = "$amount$number";
-  //         } else //Amount Contains More Than 1 Decimal, Remove Last One And Put In Another One
-  //         {
-  //           amount = amount.substring(0, amount.length - 1);
-  //           amount = "$amount$number";
-  //         }
-  //       }
-  //     }
-  //   } else {
-  //     if (amount == '') {
-  //       amount = number;
-  //     } else {
-  //       amount = amount + number;
-  //     }
-  //   }
-  //   notifyListeners();
-  // }
-
-  // clearCustonAmount() {
-  //   if (amount == "") {
-  //   } else {
-  //     List myAmountList = amount.split('.');
-
-  //     if (myAmountList.length == 1) //The amount does not contain decimal
-  //     {
-  //       amount = amount.substring(0, amount.length - 1);
-  //       point = false;
-  //     } else if (myAmountList.length == 2) //The amount contains decimal
-  //     {
-  //       if (myAmountList[1].length == 1) {
-  //         amount = amount.substring(0, amount.length - 2);
-  //       } else if (myAmountList[1].length == 2) {
-  //         amount = amount.substring(0, amount.length - 1);
-  //       }
-  //     }
-  //   }
-  //   notifyListeners();
-  // }
 
   reset() {
     amount = "";

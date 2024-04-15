@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/custom_recharge.dart';
 import 'package:one_net/views/select_airtime_package.dart';
@@ -40,16 +41,20 @@ class _HomeCardBtnState extends State<HomeCardBtn> {
           Provider.of<StoreViewModel>(context, listen: false)
               .setTxnType(widget.btntype);
           if (widget.btntype == "Buy Airtime") {
+            Provider.of<InputAmountViewModel>(context, listen: false)
+                .setNetworks(true);
             Navigator.push(
               context,
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
-                    SelectAirtimePackageScreen(),
+                    const SelectAirtimePackageScreen(),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),
             );
           } else {
+            Provider.of<InputAmountViewModel>(context, listen: false)
+                .setNetworks(false);
             Navigator.push(
               context,
               PageRouteBuilder(
@@ -84,8 +89,8 @@ class _HomeCardBtnState extends State<HomeCardBtn> {
             children: [
               Image.asset(
                 widget.image,
-                width: ScreenSize().getScreenWidth(12.5),
-                height: ScreenSize().getScreenHeight(10),
+                width: ScreenSize().getScreenWidth(10),
+                height: ScreenSize().getScreenHeight(8),
                 fit: BoxFit.fill,
               ),
               SizedBox(

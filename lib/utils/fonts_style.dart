@@ -88,6 +88,20 @@ class FontsStyle {
         fontWeight: FontWeight.normal);
   }
 
+  recipientNumText() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(1.5),
+        fontWeight: FontWeight.normal);
+  }
+
+  recipientNumName() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(1.5),
+        fontWeight: FontWeight.w700);
+  }
+
   buyText() {
     return TextStyle(
         color: Colour().secondary(),
