@@ -12,6 +12,7 @@ import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/header.dart';
 import 'package:one_net/widgets/payment_btn.dart';
 import 'package:one_net/widgets/round_btn.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/currency_format.dart';
@@ -75,17 +76,11 @@ class SelectPaymentOption extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Consumer<StoreViewModel>(
-                              builder: (context, myTxnType, child) {
-                                return Header(
-                                  showHome: true,
-                                  showPrevious: true,
-                                  titleText: myTxnType
-                                      .transactionData["TransactionType"]
-                                      .toString(),
-                                  subtitleText: 'Payment Method',
-                                );
-                              },
+                            Header(
+                              showHome: true,
+                              showPrevious: true,
+                              titleText: transactionType.toString(),
+                              subtitleText: 'Payment Method',
                             ),
                             Divider(
                               thickness: 1,
@@ -95,122 +90,123 @@ class SelectPaymentOption extends StatelessWidget {
                               height: ScreenSize().getScreenHeight(2),
                             ),
                             Container(
-                                height: ScreenSize().getScreenHeight(20),
+                                height: transactionType == "Get eSIM"
+                                    ? ScreenSize().getScreenHeight(31)
+                                    : ScreenSize().getScreenHeight(27),
                                 width: double.infinity,
                                 decoration: const BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage(
-                                          "assets/images/subtract.png"),
-                                      fit: BoxFit.contain),
+                                          "assets/images/Subtract_one.png"),
+                                      fit: BoxFit.fill),
                                 ),
                                 child: Consumer<StoreViewModel>(
                                   builder: (context, amount, child) {
-                                    return Column(
-                                      children: [
-                                        SizedBox(
-                                            height: ScreenSize()
-                                                .getScreenHeight(3)),
-                                        Text(
-                                          "Amount To Pay",
-                                          style: FontsStyle().buyText(),
-                                        ),
-                                        Text(
-                                          myCurrency.activeCurrency +
-                                              Currency().format(
-                                                amount.transactionData[
-                                                        "rechargeAmount"]
-                                                    .toString(),
-                                              ),
-                                          //  "Amount To Pay",
-
-                                          style: FontsStyle().cardAmtText(),
-                                        ),
-                                        SizedBox(
-                                            height: ScreenSize()
-                                                .getScreenHeight(0)),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: ScreenSize()
-                                                .getScreenHeight(3.5),
+                                    return Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            ScreenSize().getScreenHeight(2.5),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                              height: ScreenSize()
+                                                  .getScreenHeight(2)),
+                                          Text(
+                                            "Amount To Pay",
+                                            style: FontsStyle().buyText(),
                                           ),
-                                          child: Image.asset(
+                                          Text(
+                                            myCurrency.activeCurrency +
+                                                Currency().format(
+                                                  amount.transactionData[
+                                                          "totalPrice"]
+                                                      .toString(),
+                                                ),
+                                            //  "Amount To Pay",
+
+                                            style: FontsStyle().cardAmtText(),
+                                          ),
+                                          Text(
+                                            "Will Be Debited From Your Account ",
+                                            style: FontsStyle().debitText(),
+                                          ),
+                                          Image.asset(
                                             "assets/images/dash.png",
                                             width: double.infinity,
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              ScreenSize().getScreenHeight(1),
-                                        ),
-                                        Text(
-                                          "Will Be Debited From Your Account ",
-                                          style: FontsStyle().debitText(),
-                                        ),
-                                      ],
+                                          transactionType != "Get eSIM"
+                                              ? const SizedBox.shrink()
+                                              : SizedBox(
+                                                  height: ScreenSize()
+                                                      .getScreenHeight(1),
+                                                ),
+                                          transactionType != "Get eSIM"
+                                              ? const SizedBox.shrink()
+                                              : Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "eSIM Fee",
+                                                      style: FontsStyle()
+                                                          .debitText(),
+                                                    ),
+                                                    Text(
+                                                      Currency().format(amount
+                                                              .transactionData[
+                                                          "0"]),
+                                                      style: FontsStyle()
+                                                          .debitText(),
+                                                    ),
+                                                  ],
+                                                ),
+                                          SizedBox(
+                                            height:
+                                                ScreenSize().getScreenHeight(1),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Processing Fee",
+                                                style: FontsStyle().debitText(),
+                                              ),
+                                              Text(
+                                                transactionType != "Get eSIM"
+                                                    ? "2.00"
+                                                    : "0.00",
+                                                style: FontsStyle().debitText(),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height:
+                                                ScreenSize().getScreenHeight(1),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Subtotal",
+                                                style: FontsStyle().debitText(),
+                                              ),
+                                              Text(
+                                                Currency().format(
+                                                    amount.transactionData[
+                                                        "rechargeAmount"]),
+                                                style: FontsStyle().debitText(),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   },
                                 )),
-                            // SizedBox(
-                            //   height: ScreenSize().getScreenHeight(7),
-                            //   width: double.infinity,
-                            //   child: TextFormField(
-                            //     initialValue: myType
-                            //         .transactionData["receiptNum"]
-                            //         .toString(),
-                            //     textAlign: TextAlign.start,
-                            //     autofocus: true,
-                            //     textAlignVertical: TextAlignVertical.center,
-                            //     inputFormatters: [
-                            //       FilteringTextInputFormatter.allow(
-                            //           RegExp(r'[0-9]')),
-                            //     ],
-                            //     maxLength: 10,
-                            //     onChanged: (value) {
-                            //       myType.setRecipietNo(value);
-                            //     },
-                            //     style: TextStyle(
-                            //       fontWeight: FontWeight.bold,
-                            //       fontSize: ScreenSize().getScreenHeight(2),
-                            //     ),
-                            //     textInputAction: TextInputAction.done,
-                            //     keyboardType: TextInputType.number,
-                            //     decoration: InputDecoration(
-                            //         hintText: 'Enter Recipient Number',
-                            //         suffixIcon: const Icon(
-                            //           Icons.dialpad,
-                            //         ),
-                            //         filled: true,
-                            //         fillColor: const Color.fromARGB(
-                            //             113, 211, 210, 210),
-                            //         suffixIconColor:
-                            //             MaterialStateColor.resolveWith(
-                            //                 (states) => states.contains(
-                            //                         MaterialState.focused)
-                            //                     ? Colour().primary()
-                            //                     : const Color.fromRGBO(
-                            //                         134, 134, 134, 1)),
-                            //         counterText: "",
-                            //         labelStyle: const TextStyle(),
-                            //         enabledBorder: OutlineInputBorder(
-                            //           borderSide: BorderSide(
-                            //             width: 2,
-                            //             color: Colour().primary(),
-                            //           ),
-                            //           borderRadius: BorderRadius.circular(
-                            //             ScreenSize().getScreenHeight(1),
-                            //           ),
-                            //         ),
-                            //         focusedBorder: OutlineInputBorder(
-                            //           borderSide: BorderSide(
-                            //             width: 2,
-                            //             color: Colour().primary(),
-                            //           ),
-                            //           borderRadius: BorderRadius.circular(
-                            //             ScreenSize().getScreenHeight(1),
-                            //           ),
-                            //         )),
-                            //   ),
-                            // ),
                             SizedBox(
                               height: ScreenSize().getScreenHeight(1),
                             ),
@@ -219,7 +215,7 @@ class SelectPaymentOption extends StatelessWidget {
                               style: FontsStyle().rechargeText(),
                             ),
                             SizedBox(
-                              height: ScreenSize().getScreenHeight(2),
+                              height: ScreenSize().getScreenHeight(1),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,15 +270,27 @@ class SelectPaymentOption extends StatelessWidget {
                                   btnAction: () {
                                     Navigator.push(
                                       context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
-                                                const QRCodePaymentScreen(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
+                                      PageTransition(
+                                          type: PageTransitionType.fade,
+                                          duration:
+                                              const Duration(milliseconds: 200),
+                                          reverseDuration:
+                                              const Duration(milliseconds: 200),
+                                          child: const QRCodePaymentScreen(),
+                                          inheritTheme: true,
+                                          ctx: context),
                                     );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   PageRouteBuilder(
+                                    //     pageBuilder:
+                                    //         (context, animation1, animation2) =>
+                                    //             const QRCodePaymentScreen(),
+                                    //     transitionDuration: Duration.zero,
+                                    //     reverseTransitionDuration:
+                                    //         Duration.zero,
+                                    //   ),
+                                    // );
                                     myType.setPayment("QR", context);
                                   },
                                   btnText: Column(

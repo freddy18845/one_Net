@@ -11,6 +11,7 @@ import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/splash_screen.dart';
 import 'package:one_net/widgets/button.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class ReceiptScreen extends StatelessWidget {
@@ -23,10 +24,10 @@ class ReceiptScreen extends StatelessWidget {
     final myCurrency =
         Provider.of<CurrencySelectionViewModel>(context, listen: false);
     Provider.of<PrintingService>(context, listen: false).printReceipt(context);
-    double btnInHeightSize = ScreenSize().getScreenHeight(6);
-    double btnOutHeightSize = ScreenSize().getScreenHeight(7.5);
+    double btnInHeightSize = ScreenSize().getScreenHeight(5);
+    double btnOutHeightSize = ScreenSize().getScreenHeight(6);
     double btnInWidthSize = ScreenSize().getScreenWidth(30);
-    double btnOutWidthSize = ScreenSize().getScreenWidth(32.7);
+    double btnOutWidthSize = ScreenSize().getScreenWidth(32);
 
     return Scaffold(
       body: Container(
@@ -55,7 +56,10 @@ class ReceiptScreen extends StatelessWidget {
                       height: ScreenSize().getScreenHeight(2),
                     ),
                     Container(
-                      height: ScreenSize().getScreenHeight(74),
+                      height: invoice.transactionData["TransactionType"] !=
+                              "Get eSIM"
+                          ? ScreenSize().getScreenHeight(72)
+                          : ScreenSize().getScreenHeight(77),
                       width: double.infinity,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
@@ -78,7 +82,7 @@ class ReceiptScreen extends StatelessWidget {
                                 fit: BoxFit.contain,
                               ),
                               SizedBox(
-                                height: ScreenSize().getScreenHeight(2.5),
+                                height: ScreenSize().getScreenHeight(2),
                               ),
                               Text(
                                 "Transaction Receipt",
@@ -106,7 +110,7 @@ class ReceiptScreen extends StatelessWidget {
                               Text(
                                 myCurrency.activeCurrency +
                                     Currency().format(
-                                      invoice.transactionData["rechargeAmount"]
+                                      invoice.transactionData["totalPrice"]
                                           .toString(),
                                     ),
                                 //  "Amount To Pay",
@@ -126,16 +130,195 @@ class ReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: ScreenSize().getScreenHeight(1),
+                                height: invoice.transactionData[
+                                            "TransactionType"] !=
+                                        "Get eSIM"
+                                    ? ScreenSize().getScreenHeight(1.5)
+                                    : ScreenSize().getScreenHeight(1),
                               ),
+                              invoice.transactionData["TransactionType"] ==
+                                      "Get eSIM"
+                                  ? Text(
+                                      "eSIM DETAILS ",
+                                      style: FontsStyle().invoiceEsimtxn(),
+                                    )
+                                  : const SizedBox.shrink(),
+                              invoice.transactionData["TransactionType"] ==
+                                      "Get eSIM"
+                                  ? Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: ScreenSize()
+                                              .getScreenHeight(0.5)),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        height:
+                                            ScreenSize().getScreenHeight(10.5),
+                                        child: Row(
+                                          children: [
+                                            Flexible(
+                                              flex: 2,
+                                              child: Image.asset(
+                                                "assets/images/scan_qr.png",
+                                                width: double.infinity,
+                                              ),
+                                            ),
+                                            Flexible(
+                                              flex: 4,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: ScreenSize()
+                                                        .getScreenWidth(1.5)),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "MSISDN",
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                        Text(
+                                                          '233200068758',
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: ScreenSize()
+                                                          .getScreenHeight(0.3),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "ICCID",
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                        Text(
+                                                          '8923302050020013008',
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: ScreenSize()
+                                                          .getScreenHeight(0.3),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "PIN 1",
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                        Text(
+                                                          '1234',
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: ScreenSize()
+                                                          .getScreenHeight(0.3),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "PIN 2",
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                        Text(
+                                                          '4734',
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: ScreenSize()
+                                                          .getScreenHeight(0.3),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "PUK 1",
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                        Text(
+                                                          '87994856',
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: ScreenSize()
+                                                          .getScreenHeight(0.3),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "PUK 2",
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                        Text(
+                                                          '55504503',
+                                                          style: FontsStyle()
+                                                              .invoiceEsimtext(),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                              invoice.transactionData["TransactionType"] ==
+                                      "Get eSIM"
+                                  ? const Divider(
+                                      color: Colors.black87,
+                                      thickness: 1.5,
+                                    )
+                                  : const SizedBox.shrink(),
                               Text(
                                 "TRANSACTION DETAILS",
                                 style: FontsStyle().invoicetxn(),
                               ),
-                              const Divider(
-                                color: Colors.black87,
-                                thickness: 1.5,
-                              ),
+                              invoice.transactionData["TransactionType"] !=
+                                      "Get eSIM"
+                                  ? const Divider(
+                                      color: Colors.black87,
+                                      thickness: 1.5,
+                                    )
+                                  : const SizedBox.shrink(),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -145,13 +328,22 @@ class ReceiptScreen extends StatelessWidget {
                                     style: FontsStyle().invoicetext(),
                                   ),
                                   Text(
-                                    invoice.transactionData["TransactionType"],
+                                    invoice.transactionData[
+                                                "TransactionType"] ==
+                                            "Get eSIM"
+                                        ? "eSIM Purchase"
+                                        : invoice
+                                            .transactionData["TransactionType"],
                                     style: FontsStyle().invoicetext1(),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height: ScreenSize().getScreenHeight(1),
+                                height: invoice.transactionData[
+                                            "TransactionType"] !=
+                                        "Get eSIM"
+                                    ? ScreenSize().getScreenHeight(1.5)
+                                    : ScreenSize().getScreenHeight(0.5),
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -162,36 +354,19 @@ class ReceiptScreen extends StatelessWidget {
                                     style: FontsStyle().invoicetext(),
                                   ),
                                   Text(
-                                    DateFormat("dd-MMM-yyyy, h:mm a").format(
-                                        DateTime.parse(invoice
-                                            .transactionData["orderDateTime"]
-                                            .toString())),
+                                    DateFormat("dd MMMM yyyy HH:mm:ss")
+                                        .format(DateTime.now()),
                                     style: FontsStyle().invoicetext1(),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height: ScreenSize().getScreenHeight(1),
+                                height: invoice.transactionData[
+                                            "TransactionType"] !=
+                                        "Get eSIM"
+                                    ? ScreenSize().getScreenHeight(1.5)
+                                    : ScreenSize().getScreenHeight(0.5),
                               ),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Text(
-                              //       "Date",
-                              //       style: FontsStyle().invoicetext(),
-                              //     ),
-                              //     Text(
-                              //       DateFormat("dd-MMM-yyyy, h:mm a").format(
-                              //           DateTime.parse(invoice
-                              //               .transactionData["orderDateTime"]
-                              //               .toString())),
-                              //       style: FontsStyle().invoicetext1(),
-                              //     ),
-                              //   ],
-                              // ),
-                              // SizedBox(
-                              //   height: ScreenSize().getScreenHeight(1),
-                              // ),
                               invoice.transactionData["paymentMethod"] == "Card"
                                   ? Row(
                                       mainAxisAlignment:
@@ -227,7 +402,11 @@ class ReceiptScreen extends StatelessWidget {
                                     )
                                   : const SizedBox.shrink(),
                               SizedBox(
-                                height: ScreenSize().getScreenHeight(1),
+                                height: invoice.transactionData[
+                                            "TransactionType"] !=
+                                        "Get eSIM"
+                                    ? ScreenSize().getScreenHeight(1.5)
+                                    : ScreenSize().getScreenHeight(0.5),
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -245,7 +424,11 @@ class ReceiptScreen extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(
-                                height: ScreenSize().getScreenHeight(1),
+                                height: invoice.transactionData[
+                                            "TransactionType"] !=
+                                        "Get eSIM"
+                                    ? ScreenSize().getScreenHeight(1.5)
+                                    : ScreenSize().getScreenHeight(0.5),
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -263,7 +446,11 @@ class ReceiptScreen extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(
-                                height: ScreenSize().getScreenHeight(1),
+                                height: invoice.transactionData[
+                                            "TransactionType"] !=
+                                        "Get eSIM"
+                                    ? ScreenSize().getScreenHeight(1.5)
+                                    : ScreenSize().getScreenHeight(0.5),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -276,7 +463,7 @@ class ReceiptScreen extends StatelessWidget {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(
-                                    top: ScreenSize().getScreenHeight(2)),
+                                    top: ScreenSize().getScreenHeight(0.8)),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -285,7 +472,7 @@ class ReceiptScreen extends StatelessWidget {
                                       style: FontsStyle().receiptTitle(),
                                     ),
                                     SizedBox(
-                                      height: ScreenSize().getScreenHeight(2.5),
+                                      height: ScreenSize().getScreenHeight(1.5),
                                     ),
                                     Center(
                                       child: BarcodeWidget(
@@ -303,7 +490,7 @@ class ReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: ScreenSize().getScreenHeight(2),
+                                height: ScreenSize().getScreenHeight(2.5),
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -319,7 +506,7 @@ class ReceiptScreen extends StatelessWidget {
                                       btnInwardWidthSize: btnInWidthSize,
                                       btnOutwardWidthSize: btnOutWidthSize,
                                       outerColor:
-                                          Colour().primary().withOpacity(0.5),
+                                          Colour().primary().withOpacity(0.2),
                                       inerColor: Colour().primary(),
                                       btnAction: () {}),
                                   Button(
@@ -332,7 +519,7 @@ class ReceiptScreen extends StatelessWidget {
                                     btnInwardWidthSize: btnInWidthSize,
                                     btnOutwardWidthSize: btnOutWidthSize,
                                     outerColor:
-                                        Colour().primary().withOpacity(0.5),
+                                        Colour().primary().withOpacity(0.2),
                                     btnAction: () {},
                                     inerColor: Colour().primary(),
                                   ),
@@ -350,19 +537,30 @@ class ReceiptScreen extends StatelessWidget {
                             .setallfield();
                         Navigator.push(
                           context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
-                                const SplashScreen(),
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              duration: const Duration(milliseconds: 200),
+                              reverseDuration:
+                                  const Duration(milliseconds: 200),
+                              child: const SplashScreen(),
+                              inheritTheme: true,
+                              ctx: context),
                         );
+                        // Navigator.push(
+                        //   context,
+                        //   PageRouteBuilder(
+                        //     pageBuilder: (context, animation1, animation2) =>
+                        //         const SplashScreen(),
+                        //     transitionDuration: Duration.zero,
+                        //     reverseTransitionDuration: Duration.zero,
+                        //   ),
+                        // );
                       },
                       btnInwardHightSize: ScreenSize().getScreenHeight(7),
-                      btnOutwardHieghtSize: ScreenSize().getScreenHeight(8.5),
-                      btnInwardWidthSize: ScreenSize().getScreenWidth(78),
-                      btnOutwardWidthSize: ScreenSize().getScreenWidth(81),
-                      outerColor: Colour().primary().withOpacity(0.5),
+                      btnOutwardHieghtSize: ScreenSize().getScreenHeight(8),
+                      btnInwardWidthSize: ScreenSize().getScreenWidth(84.5),
+                      btnOutwardWidthSize: ScreenSize().getScreenWidth(87),
+                      outerColor: Colour().primary().withOpacity(0.2),
                       inerColor: Colour().primary(),
                       btnLabel: Text(
                         'Done',

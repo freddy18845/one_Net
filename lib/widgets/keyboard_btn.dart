@@ -53,7 +53,7 @@ class _ButtonState extends State<KeyboardButton> {
                   : [Colors.white, Colour().primary()],
             ),
             borderRadius: BorderRadius.circular(
-              ScreenSize().getScreenHeight(2),
+              ScreenSize().getScreenHeight(1),
             ),
             border: Border.all(width: 2, color: Colour().primary()),
           ),

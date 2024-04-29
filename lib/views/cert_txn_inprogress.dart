@@ -6,11 +6,11 @@ import 'package:lottie/lottie.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
-import 'package:one_net/views/reciept_screen.dart';
+import 'package:one_net/views/esim_certi_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
-class TransactionInprogress extends StatelessWidget {
-  const TransactionInprogress({super.key});
+class CertTransactionInprogress extends StatelessWidget {
+  const CertTransactionInprogress({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class TransactionInprogress extends StatelessWidget {
             type: PageTransitionType.fade,
             duration: const Duration(milliseconds: 200),
             reverseDuration: const Duration(milliseconds: 200),
-            child: const ReceiptScreen(),
+            child: const EsimCertiScreen(),
             inheritTheme: true,
             ctx: context),
       );

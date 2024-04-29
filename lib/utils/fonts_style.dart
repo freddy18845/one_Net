@@ -12,6 +12,14 @@ class FontsStyle {
         fontWeight: FontWeight.w600);
   }
 
+  startbtnTextdisable() {
+    return TextStyle(
+        color: const Color.fromARGB(64, 0, 0, 0),
+        fontSize: ScreenSize().getScreenHeight(2.5),
+        decoration: TextDecoration.none,
+        fontWeight: FontWeight.w600);
+  }
+
   curencybtnText() {
     return TextStyle(
         color: Colors.black,
@@ -49,7 +57,8 @@ class FontsStyle {
         color: Colors.black,
         fontSize: ScreenSize().getScreenHeight(2.5),
         decoration: TextDecoration.none,
-        fontWeight: FontWeight.w700);
+        fontFamily: 'comfortaa',
+        fontWeight: FontWeight.w800);
   }
 
   splashText3() {
@@ -78,7 +87,14 @@ class FontsStyle {
     return TextStyle(
         color: Colour().primary(),
         fontSize: ScreenSize().getScreenHeight(3),
-        fontWeight: FontWeight.w700);
+        fontWeight: FontWeight.w900);
+  }
+
+  mainMenuTextOne() {
+    return TextStyle(
+        color: Colour().primary(),
+        fontSize: ScreenSize().getScreenHeight(4),
+        fontWeight: FontWeight.w900);
   }
 
   mainText() {
@@ -91,14 +107,14 @@ class FontsStyle {
   recipientNumText() {
     return TextStyle(
         color: Colors.black,
-        fontSize: ScreenSize().getScreenHeight(1.5),
+        fontSize: ScreenSize().getScreenHeight(1.7),
         fontWeight: FontWeight.normal);
   }
 
   recipientNumName() {
     return TextStyle(
         color: Colors.black,
-        fontSize: ScreenSize().getScreenHeight(1.5),
+        fontSize: ScreenSize().getScreenHeight(1.7),
         fontWeight: FontWeight.w700);
   }
 
@@ -106,7 +122,14 @@ class FontsStyle {
     return TextStyle(
         color: Colour().secondary(),
         fontSize: ScreenSize().getScreenHeight(2),
-        fontWeight: FontWeight.w900);
+        fontWeight: FontWeight.w600);
+  }
+
+  buyTextGold() {
+    return TextStyle(
+        color: Colour().primary(),
+        fontSize: ScreenSize().getScreenHeight(2),
+        fontWeight: FontWeight.w600);
   }
 
   cardreadDone() {
@@ -116,10 +139,24 @@ class FontsStyle {
         fontWeight: FontWeight.w600);
   }
 
+  textComfirmNumber() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(3.5),
+        fontWeight: FontWeight.w900);
+  }
+
   txnInprogress() {
     return TextStyle(
         color: Colour().primary(),
         fontSize: ScreenSize().getScreenHeight(2.5),
+        fontWeight: FontWeight.w900);
+  }
+
+  congrats() {
+    return TextStyle(
+        color: Colors.green,
+        fontSize: ScreenSize().getScreenHeight(3.5),
         fontWeight: FontWeight.w900);
   }
 
@@ -130,17 +167,31 @@ class FontsStyle {
         fontWeight: FontWeight.w900);
   }
 
+  invoiceEsimtxn() {
+    return TextStyle(
+        color: Colour().primary(),
+        fontSize: ScreenSize().getScreenHeight(1.5),
+        fontWeight: FontWeight.w700);
+  }
+
+  invoiceEsimtext() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(1),
+        fontWeight: FontWeight.w600);
+  }
+
   invoicetext() {
     return TextStyle(
         color: Colors.black,
-        fontSize: ScreenSize().getScreenHeight(1.8),
+        fontSize: ScreenSize().getScreenHeight(1.5),
         fontWeight: FontWeight.w600);
   }
 
   invoicetext1() {
     return TextStyle(
         color: Colors.black,
-        fontSize: ScreenSize().getScreenHeight(1.8),
+        fontSize: ScreenSize().getScreenHeight(1.5),
         fontWeight: FontWeight.normal);
   }
 
@@ -154,14 +205,14 @@ class FontsStyle {
   cardAmtText() {
     return TextStyle(
         color: Colour().secondary(),
-        fontSize: ScreenSize().getScreenHeight(4.5),
+        fontSize: ScreenSize().getScreenHeight(6),
         fontWeight: FontWeight.w800);
   }
 
   invoiceAmtText() {
     return TextStyle(
         color: Colour().green(),
-        fontSize: ScreenSize().getScreenHeight(4.5),
+        fontSize: ScreenSize().getScreenHeight(5),
         fontWeight: FontWeight.w800);
   }
 
@@ -176,13 +227,6 @@ class FontsStyle {
     return TextStyle(
         color: Colour().secondary(),
         fontSize: ScreenSize().getScreenHeight(2),
-        fontWeight: FontWeight.w700);
-  }
-
-  buyAirtimeText() {
-    return TextStyle(
-        color: Colour().secondary(),
-        fontSize: ScreenSize().getScreenHeight(2.5),
         fontWeight: FontWeight.w800);
   }
 
@@ -203,7 +247,7 @@ class FontsStyle {
   receiptTitle() {
     return TextStyle(
         color: Colors.black,
-        fontSize: ScreenSize().getScreenHeight(1.8),
+        fontSize: ScreenSize().getScreenHeight(1.5),
         fontWeight: FontWeight.normal);
   }
 }

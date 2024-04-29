@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/currency_format.dart';
@@ -5,11 +7,13 @@ import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/store_view_model.dart';
+import 'package:one_net/views/transaction_inprogess_screen.dart';
 import 'package:one_net/widgets/footer.dart';
+import 'package:one_net/widgets/round_btn.dart';
+import 'package:one_net/widgets/toast_message.dart';
 import 'package:provider/provider.dart';
-
 import '../view_models/card_payment_view_model.dart';
-import '../widgets/header.dart';
+import '../view_models/debug_switch_view_model.dart';
 
 class CardPayment extends StatelessWidget {
   const CardPayment({super.key});
@@ -18,8 +22,27 @@ class CardPayment extends StatelessWidget {
   Widget build(BuildContext context) {
     final myCurrency =
         Provider.of<CurrencySelectionViewModel>(context, listen: false);
-    Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
-
+    bool isDebugMode =
+        Provider.of<DebugSwitchViewModel>(context, listen: false).debug;
+    //Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
+    var timeNavigator;
+    isDebugMode == false
+        ? Provider.of<CardPaymentViewModel>(context, listen: false)
+            .payNow(context)
+        : timeNavigator = Timer(const Duration(seconds: 3), () {
+            print("working");
+            Provider.of<StoreViewModel>(context, listen: false)
+                .defaultResponse();
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation1, animation2) =>
+                    const TransactionInprogress(),
+                transitionDuration: Duration.zero,
+                reverseTransitionDuration: Duration.zero,
+              ),
+            );
+          });
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -64,12 +87,62 @@ class CardPayment extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Header(
-                        showHome: false,
-                        showPrevious: true,
-                        titleText: "Card Payment",
-                        subtitleText: 'Present Your Card',
+                      SizedBox(
+                        height: ScreenSize().getScreenHeight(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: isDebugMode == false
+                                  ? () {
+                                      getTxnFailedAlert(context);
+                                    }
+                                  : () {
+                                      timeNavigator.cancel();
+                                      Navigator.pop(context);
+                                      print("working");
+                                    },
+                              child: RoundBtn(
+                                btnLabel: Icon(
+                                  Icons.arrow_back,
+                                  color: Colour().primary(),
+                                  size: ScreenSize().getScreenHeight(4),
+                                ),
+                                innerColor: Colour().secondary(),
+                                outerColor: Colour().primary(),
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: ScreenSize().getScreenHeight(1),
+                                ),
+                                Text(
+                                  "Card Payment",
+                                  style: FontsStyle().mainMenuText(),
+                                ),
+                                SizedBox(
+                                  height: ScreenSize().getScreenHeight(1),
+                                ),
+                                Text(
+                                  "Present Your Card",
+                                  style: FontsStyle().buyText(),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              width: ScreenSize().getScreenHeight(6),
+                            ),
+                          ],
+                        ),
                       ),
+                      // const Header(
+                      //   showHome: false,
+                      //   showPrevious: false,
+                      //   titleText: "Card Payment",
+                      //   subtitleText: 'Present Your Card',
+                      // ),
                       Divider(
                         thickness: 1,
                         color: Colour().primary(),
@@ -83,14 +156,14 @@ class CardPayment extends StatelessWidget {
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage("assets/images/subtract.png"),
-                                fit: BoxFit.contain),
+                                fit: BoxFit.fill),
                           ),
                           child: Consumer<StoreViewModel>(
                             builder: (context, amount, child) {
                               return Column(
                                 children: [
                                   SizedBox(
-                                      height: ScreenSize().getScreenHeight(3)),
+                                      height: ScreenSize().getScreenHeight(2)),
                                   Text(
                                     "Amount To Pay",
                                     style: FontsStyle().buyText(),
@@ -98,16 +171,13 @@ class CardPayment extends StatelessWidget {
                                   Text(
                                     myCurrency.activeCurrency +
                                         Currency().format(
-                                          amount
-                                              .transactionData["rechargeAmount"]
+                                          amount.transactionData["totalPrice"]
                                               .toString(),
                                         ),
                                     //  "Amount To Pay",
 
                                     style: FontsStyle().cardAmtText(),
                                   ),
-                                  SizedBox(
-                                      height: ScreenSize().getScreenHeight(0)),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal:

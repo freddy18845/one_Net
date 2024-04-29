@@ -6,10 +6,12 @@ import 'package:one_net/view_models/currency_selection.dart';
 import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/input_recipientNo.dart';
+import 'package:one_net/views/select_payment.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/header.dart';
 import 'package:one_net/widgets/keyboard_btn.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class CustomRechargeScreen extends StatefulWidget {
@@ -47,8 +49,8 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final String transactionType =
-    //     Provider.of<StoreViewModel>(context).getTxnType();
+    final String transactionType =
+        Provider.of<StoreViewModel>(context).getTxnType();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -72,7 +74,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                 horizontal: ScreenSize().getScreenHeight(2),
               ),
               child: Container(
-                height: ScreenSize().getScreenHeight(70),
+                height: ScreenSize().getScreenHeight(75),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   boxShadow: const [
@@ -93,17 +95,11 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Consumer<StoreViewModel>(
-                        builder: (context, myTxnType, child) {
-                          return Header(
-                            showHome: true,
-                            showPrevious: true,
-                            titleText: myTxnType
-                                .transactionData["TransactionType"]
-                                .toString(),
-                            subtitleText: 'Enter Your Detial Below',
-                          );
-                        },
+                      Header(
+                        showHome: true,
+                        showPrevious: true,
+                        titleText: transactionType.toString(),
+                        subtitleText: 'Enter Your Detial Below',
                       ),
                       Divider(
                         thickness: 1,
@@ -134,20 +130,31 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                                   underline: const SizedBox(),
                                   itemHeight: ScreenSize().getScreenHeight(6),
                                   // Initial Value
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.w400),
+                                      fontWeight: FontWeight.w700,
+                                      fontSize:
+                                          ScreenSize().getScreenHeight(2.5)),
                                   elevation: 8,
                                   value: dropdownvalue.toString(),
 
                                   // Down Arrow Icon
-                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Colors.black,
+                                    size: ScreenSize().getScreenHeight(3),
+                                  ),
 
                                   // Array list of items
                                   items: items.map((String items) {
                                     return DropdownMenuItem(
                                       value: items,
-                                      child: Text(items),
+                                      child: Text(items,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: ScreenSize()
+                                                  .getScreenHeight(2.5))),
                                     );
                                   }).toList(),
                                   // After selecting the desired option,it will
@@ -174,21 +181,28 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                                         width: double.maxFinite,
                                         child: Padding(
                                           padding: EdgeInsets.only(
-                                              top: ScreenSize()
-                                                  .getScreenHeight(1.8)),
+                                            top: ScreenSize()
+                                                .getScreenHeight(1.3),
+                                          ),
                                           child: Text(
                                             textAlign: TextAlign.left,
                                             myAmount.amount.isEmpty
                                                 ? "Enter Amount"
                                                 : myAmount.amount.toString(),
                                             style: TextStyle(
-                                              fontWeight:
-                                                  myAmount.amount.isEmpty
-                                                      ? FontWeight.w100
-                                                      : FontWeight.bold,
-                                              fontSize: ScreenSize()
-                                                  .getScreenHeight(2),
-                                            ),
+                                                fontWeight:
+                                                    myAmount.amount.isEmpty
+                                                        ? FontWeight.w100
+                                                        : FontWeight.w500,
+                                                fontSize: myAmount
+                                                        .amount.isEmpty
+                                                    ? ScreenSize()
+                                                        .getScreenHeight(2.5)
+                                                    : ScreenSize()
+                                                        .getScreenHeight(3),
+                                                color: myAmount.amount.isEmpty
+                                                    ? Colors.black38
+                                                    : Colors.black),
                                           ),
                                         ),
                                       );
@@ -196,10 +210,9 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                                   )),
                               Flexible(
                                 flex: 1,
-                                child: Icon(
-                                  Icons.dialpad,
-                                  color: Colour().primary(),
-                                ),
+                                child: Icon(Icons.dialpad,
+                                    color: Colour().primary(),
+                                    size: ScreenSize().getScreenHeight(3.5)),
                               ),
                             ]),
                       ),
@@ -398,7 +411,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(2.5),
+                        height: ScreenSize().getScreenHeight(7),
                       ),
                       Consumer<InputAmountViewModel>(
                         builder: (context, myType, child) {
@@ -411,17 +424,34 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                                             listen: false)
                                         .setRechargeAmount(
                                             myType.amount.toString());
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (context, animation1, animation2) =>
+                                    if (transactionType == "Get eSIM") {
+                                      Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            duration: const Duration(
+                                                milliseconds: 200),
+                                            reverseDuration: const Duration(
+                                                milliseconds: 200),
+                                            child: const SelectPaymentOption(),
+                                            inheritTheme: true,
+                                            ctx: context),
+                                      );
+                                    } else {
+                                      Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            duration: const Duration(
+                                                milliseconds: 200),
+                                            reverseDuration: const Duration(
+                                                milliseconds: 200),
+                                            child:
                                                 const InputRecipientNumScreen(),
-                                        transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
-                                      ),
-                                    );
+                                            inheritTheme: true,
+                                            ctx: context),
+                                      );
+                                    }
                                   },
                             inerColor:
                                 myType.amount == null || myType.amount.isEmpty
@@ -429,15 +459,18 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                                     : Colour().primary(),
                             btnLabel: Text(
                               'Proceed ',
-                              style: FontsStyle().startbtnText(),
+                              style:
+                                  myType.amount == null || myType.amount.isEmpty
+                                      ? FontsStyle().startbtnTextdisable()
+                                      : FontsStyle().startbtnText(),
                             ),
                             btnInwardHightSize: ScreenSize().getScreenHeight(7),
                             btnOutwardHieghtSize:
                                 ScreenSize().getScreenHeight(8.5),
-                            btnInwardWidthSize: ScreenSize().getScreenWidth(78),
+                            btnInwardWidthSize: ScreenSize().getScreenWidth(83),
                             btnOutwardWidthSize:
-                                ScreenSize().getScreenWidth(81),
-                            outerColor: Colour().primary().withOpacity(0.5),
+                                ScreenSize().getScreenWidth(87),
+                            outerColor: Colour().primary().withOpacity(0.2),
                           );
                         },
                       )

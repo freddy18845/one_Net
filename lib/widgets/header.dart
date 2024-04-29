@@ -3,6 +3,7 @@ import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/widgets/round_btn.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../views/home_screen.dart';
 
@@ -71,12 +72,13 @@ class Header extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            HomeScreen(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
+                      PageTransition(
+                          type: PageTransitionType.fade,
+                          duration: const Duration(milliseconds: 900),
+                          reverseDuration: const Duration(milliseconds: 900),
+                          child: HomeScreen(),
+                          inheritTheme: true,
+                          ctx: context),
                     );
                   },
                   child: RoundBtn(

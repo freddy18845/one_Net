@@ -12,6 +12,7 @@ import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/views/transaction_inprogess_screen.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/round_btn.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class QRCodePaymentScreen extends StatelessWidget {
@@ -24,13 +25,23 @@ class QRCodePaymentScreen extends StatelessWidget {
     var navigateTime = Timer(const Duration(seconds: 5), () {
       Navigator.push(
         context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) =>
-              const TransactionInprogress(),
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: Duration.zero,
-        ),
+        PageTransition(
+            type: PageTransitionType.fade,
+            duration: const Duration(milliseconds: 200),
+            reverseDuration: const Duration(milliseconds: 200),
+            child: const TransactionInprogress(),
+            inheritTheme: true,
+            ctx: context),
       );
+      // Navigator.push(
+      //   context,
+      //   PageRouteBuilder(
+      //     pageBuilder: (context, animation1, animation2) =>
+      //         const TransactionInprogress(),
+      //     transitionDuration: Duration.zero,
+      //     reverseTransitionDuration: Duration.zero,
+      //   ),
+      // );
     });
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -72,7 +83,7 @@ class QRCodePaymentScreen extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(ScreenSize().getScreenHeight(2)),
+                  padding: EdgeInsets.all(ScreenSize().getScreenHeight(3)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -132,14 +143,14 @@ class QRCodePaymentScreen extends StatelessWidget {
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage("assets/images/subtract.png"),
-                                fit: BoxFit.contain),
+                                fit: BoxFit.fill),
                           ),
                           child: Consumer<StoreViewModel>(
                             builder: (context, amount, child) {
                               return Column(
                                 children: [
                                   SizedBox(
-                                      height: ScreenSize().getScreenHeight(3)),
+                                      height: ScreenSize().getScreenHeight(2)),
                                   Text(
                                     "Amount To Pay",
                                     style: FontsStyle().buyText(),
@@ -147,16 +158,13 @@ class QRCodePaymentScreen extends StatelessWidget {
                                   Text(
                                     myCurrency.activeCurrency +
                                         Currency().format(
-                                          amount
-                                              .transactionData["rechargeAmount"]
+                                          amount.transactionData["totalPrice"]
                                               .toString(),
                                         ),
                                     //  "Amount To Pay",
 
                                     style: FontsStyle().cardAmtText(),
                                   ),
-                                  SizedBox(
-                                      height: ScreenSize().getScreenHeight(0)),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                       horizontal:
@@ -188,8 +196,8 @@ class QRCodePaymentScreen extends StatelessWidget {
                               Align(
                                 alignment: Alignment.center,
                                 child: Container(
-                                  width: ScreenSize().getScreenHeight(17),
-                                  height: ScreenSize().getScreenHeight(17),
+                                  width: ScreenSize().getScreenHeight(15),
+                                  height: ScreenSize().getScreenHeight(15),
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 3, color: Colour().primary())),
@@ -207,8 +215,8 @@ class QRCodePaymentScreen extends StatelessWidget {
                                     data:
                                         '{"payment":"QR Code","merchant":"One Net", "amount":${myQrCode.transactionData["rechargeAmount"].toString()}, "currency":"USD","paymentId":${myQrCode.transactionData["receiptNum"].toString()},"callbackUrl":""}', // Content
 
-                                    width: ScreenSize().getScreenHeight(15),
-                                    height: ScreenSize().getScreenHeight(15),
+                                    width: ScreenSize().getScreenHeight(13),
+                                    height: ScreenSize().getScreenHeight(13),
                                   ),
                                 ),
                               ),

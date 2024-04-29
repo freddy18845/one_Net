@@ -88,7 +88,7 @@ class PrintingService extends ChangeNotifier {
       await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
       await SunmiPrinter.setCustomFontSize(30);
       await SunmiPrinter.printText(myCurrency.activeCurrency +
-          Currency().format(transactionData["rechargeAmount"].toString()));
+          Currency().format(transactionData["totalPrice"].toString()));
 
       await SunmiPrinter.line(len: 48);
       await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);

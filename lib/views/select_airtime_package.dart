@@ -10,6 +10,7 @@ import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/custom_recharge.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/airtime_package_tag.dart';
@@ -27,6 +28,8 @@ class SelectAirtimePackageScreen extends StatelessWidget {
     Provider.of<InputAmountViewModel>(context, listen: false)
         .clearCustonAmount();
     Provider.of<PinpadThemeView>(context).colourTheme(context);
+    final String transactionType =
+        Provider.of<StoreViewModel>(context).getTxnType();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -75,17 +78,11 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Consumer<StoreViewModel>(
-                              builder: (context, myTxnType, child) {
-                                return Header(
-                                  showHome: true,
-                                  showPrevious: false,
-                                  titleText: myTxnType
-                                      .transactionData["TransactionType"]
-                                      .toString(),
-                                  subtitleText: 'Select Currency Below',
-                                );
-                              },
+                            Header(
+                              showHome: true,
+                              showPrevious: true,
+                              titleText: transactionType.toString(),
+                              subtitleText: 'Select Airtime Below',
                             ),
                             Divider(
                               thickness: 1,
@@ -164,13 +161,15 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                               btnAction: () {
                                 Navigator.push(
                                   context,
-                                  PageRouteBuilder(
-                                    pageBuilder:
-                                        (context, animation1, animation2) =>
-                                            const CustomRechargeScreen(),
-                                    transitionDuration: Duration.zero,
-                                    reverseTransitionDuration: Duration.zero,
-                                  ),
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      duration:
+                                          const Duration(milliseconds: 600),
+                                      reverseDuration:
+                                          const Duration(milliseconds: 600),
+                                      child: const CustomRechargeScreen(),
+                                      inheritTheme: true,
+                                      ctx: context),
                                 );
                               },
                               btnLabel: Text(
@@ -182,9 +181,9 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                               btnOutwardHieghtSize:
                                   ScreenSize().getScreenHeight(8.5),
                               btnInwardWidthSize:
-                                  ScreenSize().getScreenWidth(78),
+                                  ScreenSize().getScreenWidth(83),
                               btnOutwardWidthSize:
-                                  ScreenSize().getScreenWidth(81),
+                                  ScreenSize().getScreenWidth(87),
                               inerColor: Colour().primary(),
                               outerColor: Colour().primary().withOpacity(0.5),
                             ),

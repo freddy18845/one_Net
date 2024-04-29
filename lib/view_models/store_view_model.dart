@@ -2,12 +2,17 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:one_net/views/cardpayment.dart';
+import 'package:one_net/views/esim_certi_screen.dart';
 import 'package:one_net/views/mobile_money_screen.dart';
 import 'package:one_net/views/qr_scan_screen.dart';
+import 'package:one_net/views/reciept_screen.dart';
 import 'package:one_net/views/splash_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class StoreViewModel extends ChangeNotifier {
   Map transactionData = {};
+  String esimType = '';
+
   List mobileNetworks = [
     {
       "name": "telecash",
@@ -22,8 +27,14 @@ class StoreViewModel extends ChangeNotifier {
       "image": "assets/images/payments/EcoCash.png",
     }
   ];
-  setRecipietNo(String value) {
+  setRecipienttNo(String value) {
     transactionData["recipientNo"] = value;
+    print(transactionData["recipientNo"]);
+    notifyListeners();
+  }
+
+  setEmail(String value) {
+    transactionData["email"] = value;
     notifyListeners();
   }
 
@@ -43,13 +54,11 @@ class StoreViewModel extends ChangeNotifier {
 
   defualtRecipietNo() {
     transactionData["recipientNo"] = '';
-    notifyListeners();
   }
 
   momoNum(String value) {
     transactionData["momoNumber"] = value;
     notifyListeners();
-    print(transactionData["momoNumber"]);
   }
 
   setallfield() {
@@ -63,6 +72,32 @@ class StoreViewModel extends ChangeNotifier {
     transactionData["receiptNum"] = '';
     transactionData["orderDateTime"] = '';
     transactionData["TranactionType"] = '';
+    transactionData["totalPrice"] = '';
+    esimType = '';
+  }
+
+  setTxnProgress(context) {
+    if (esimType == '' || esimType == null) {
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) =>
+              const ReceiptScreen(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) =>
+              const EsimCertiScreen(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      );
+    }
   }
 
   setBuyerNo(String value) {
@@ -71,21 +106,41 @@ class StoreViewModel extends ChangeNotifier {
   }
 
   setRechargeAmount(String value) {
-    transactionData["rechargeAmount"] = value;
+    transactionData["totalPrice"] = double.parse(value) + 2.00;
+    transactionData["rechargeAmount"] = double.parse(value);
+
+    notifyListeners();
+  }
+
+  setAmount(String value) {
+    transactionData["totalPrice"] = double.parse(value);
+    transactionData["rechargeAmount"] = double.parse(value);
     notifyListeners();
   }
 
   setTxnType(String value) {
     transactionData["TransactionType"] = value;
+
     notifyListeners();
   }
 
   String getTxnType() {
     return transactionData["TransactionType"].toString();
   }
-  // double getAmount() {
-  //   return double.parse(transactionData["rechargeAmount"]);
-  // }
+
+  String geteSimUserType() {
+    return esimType.toString();
+  }
+
+  seteSimType(String value) {
+    esimType = value;
+    notifyListeners();
+    print(esimType);
+  }
+
+  String getEsimType() {
+    return esimType.toString();
+  }
 
   setPayment(String value, context) {
     if (transactionData["recipientNo"] != null) {
@@ -95,35 +150,41 @@ class StoreViewModel extends ChangeNotifier {
         case "Mobile Money":
           Navigator.push(
             context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) =>
-                  const MobileMoneyScreen(),
-              transitionDuration: Duration.zero,
-              reverseTransitionDuration: Duration.zero,
-            ),
+            PageTransition(
+                type: PageTransitionType.fade,
+                duration: const Duration(milliseconds: 900),
+                reverseDuration: const Duration(milliseconds: 900),
+                child: const MobileMoneyScreen(),
+                inheritTheme: true,
+                ctx: context),
           );
+
           break;
         case "Card":
           Navigator.push(
             context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) =>
-                  const CardPayment(),
-              transitionDuration: Duration.zero,
-              reverseTransitionDuration: Duration.zero,
-            ),
+            PageTransition(
+                type: PageTransitionType.fade,
+                duration: const Duration(milliseconds: 900),
+                reverseDuration: const Duration(milliseconds: 900),
+                child: const CardPayment(),
+                inheritTheme: true,
+                ctx: context),
           );
+
           break;
         case "QR":
           Navigator.push(
             context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) =>
-                  const QRCodePaymentScreen(),
-              transitionDuration: Duration.zero,
-              reverseTransitionDuration: Duration.zero,
-            ),
+            PageTransition(
+                type: PageTransitionType.fade,
+                duration: const Duration(milliseconds: 900),
+                reverseDuration: const Duration(milliseconds: 900),
+                child: const QRCodePaymentScreen(),
+                inheritTheme: true,
+                ctx: context),
           );
+
           break;
       }
 
@@ -141,9 +202,9 @@ class StoreViewModel extends ChangeNotifier {
   }
 
   setPaymetData(data) {
-    transactionData["cardNumber"] = data["pan"].toString();
-    transactionData["receiptNum"] = data["transactionId"].toString();
-    transactionData["orderDateTime"] = data["date"];
+    transactionData["cardNumber"] = data["PAN"].toString();
+    transactionData["receiptNum"] = 1 + Random().nextInt(9999999 - 0000001);
+    transactionData["orderDateTime"] = data["DateTime"];
     notifyListeners();
   }
 

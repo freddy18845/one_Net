@@ -4,11 +4,13 @@ import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
+import 'package:one_net/views/esim_otp_screen.dart';
 import 'package:one_net/views/select_payment.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/header.dart';
 import 'package:one_net/widgets/keyboard_btn.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class InputRecipientNumScreen extends StatefulWidget {
@@ -51,8 +53,10 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final String transactionType =
-    //     Provider.of<StoreViewModel>(context).getTxnType();
+    final String transactionType =
+        Provider.of<StoreViewModel>(context).getTxnType();
+    final String existingEsimUser =
+        Provider.of<StoreViewModel>(context).geteSimUserType();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -100,17 +104,11 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Consumer<StoreViewModel>(
-                              builder: (context, myTxnType, child) {
-                                return Header(
-                                  showHome: true,
-                                  showPrevious: true,
-                                  titleText: myTxnType
-                                      .transactionData["TransactionType"]
-                                      .toString(),
-                                  subtitleText: 'Enter Your Detial Below',
-                                );
-                              },
+                            Header(
+                              showHome: true,
+                              showPrevious: true,
+                              titleText: transactionType.toString(),
+                              subtitleText: 'Enter Your Detial Below',
                             ),
                             Divider(
                               thickness: 1,
@@ -120,137 +118,155 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                               height: ScreenSize().getScreenHeight(1),
                             ),
                             SizedBox(
+                              height: ScreenSize().getScreenHeight(7),
+                              width: double.infinity,
+                              child: Container(
                                 height: ScreenSize().getScreenHeight(7),
                                 width: double.infinity,
-                                child: Container(
-                                  height: ScreenSize().getScreenHeight(7),
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black12,
-                                    borderRadius: BorderRadius.circular(
-                                      ScreenSize().getScreenHeight(1.5),
-                                    ),
-                                    border: Border.all(
-                                      width: 2,
-                                      color: Colour().primary(),
-                                    ),
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(
+                                    ScreenSize().getScreenHeight(1.5),
                                   ),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Flexible(
-                                            flex: 1,
-                                            child: myData.showAllNetworks ==
-                                                    true
-                                                ? DropdownButton(
-                                                    underline: const SizedBox(),
-                                                    itemHeight: ScreenSize()
-                                                        .getScreenHeight(6),
-                                                    // Initial Value
-                                                    style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                    elevation: 8,
-                                                    value: dropdownvalue
-                                                        .toString(),
+                                  border: Border.all(
+                                    width: 2,
+                                    color: Colour().primary(),
+                                  ),
+                                ),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Flexible(
+                                          flex: 1,
+                                          child: myData.showAllNetworks == true
+                                              ? DropdownButton(
+                                                  underline: const SizedBox(),
+                                                  itemHeight: ScreenSize()
+                                                      .getScreenHeight(6),
+                                                  // Initial Value
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                  elevation: 8,
+                                                  value:
+                                                      dropdownvalue.toString(),
 
-                                                    // Down Arrow Icon
-                                                    icon: const Icon(Icons
-                                                        .keyboard_arrow_down),
+                                                  // Down Arrow Icon
+                                                  icon: Icon(
+                                                    Icons.keyboard_arrow_down,
+                                                    color: Colors.black,
+                                                    size: ScreenSize()
+                                                        .getScreenHeight(3),
+                                                  ),
 
-                                                    // Array list of items
-                                                    items: mobileNetworks.map(
-                                                        (String
-                                                            selectedNetworks) {
-                                                      return DropdownMenuItem(
-                                                        value: selectedNetworks,
-                                                        child: Container(
-                                                          height: ScreenSize()
-                                                              .getScreenHeight(
-                                                                  4.3),
-                                                          width: ScreenSize()
-                                                              .getScreenHeight(
-                                                                  4.3),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            image: DecorationImage(
-                                                                image: AssetImage(
-                                                                    selectedNetworks)),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                              ScreenSize()
-                                                                  .getScreenHeight(
-                                                                      5.5),
-                                                            ),
+                                                  // Array list of items
+                                                  items: mobileNetworks.map(
+                                                      (String
+                                                          selectedNetworks) {
+                                                    return DropdownMenuItem(
+                                                      value: selectedNetworks,
+                                                      child: Container(
+                                                        height: ScreenSize()
+                                                            .getScreenHeight(5),
+                                                        width: ScreenSize()
+                                                            .getScreenHeight(5),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          boxShadow: const [
+                                                            BoxShadow(
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      166,
+                                                                      221,
+                                                                      219,
+                                                                      214), //New
+                                                              blurRadius: 25.0,
+                                                            )
+                                                          ],
+                                                          image: DecorationImage(
+                                                              image: AssetImage(
+                                                                  selectedNetworks)),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                            ScreenSize()
+                                                                .getScreenHeight(
+                                                                    5.5),
                                                           ),
                                                         ),
-                                                      );
-                                                    }).toList(),
-                                                    // After selecting the desired option,it will
-                                                    // change button value to selected value
-                                                    onChanged:
-                                                        (String? newValue) {
-                                                      setState(() {
-                                                        dropdownvalue =
-                                                            newValue!;
-                                                      });
-                                                    },
-                                                  )
-                                                : Container(
-                                                    height: ScreenSize()
-                                                        .getScreenHeight(4.3),
-                                                    width: ScreenSize()
-                                                        .getScreenHeight(4.3),
-                                                    decoration: BoxDecoration(
-                                                      image: const DecorationImage(
-                                                          image: AssetImage(
-                                                              'assets/images/payments/OneMoney.png')),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                        ScreenSize()
-                                                            .getScreenHeight(
-                                                                5.5),
                                                       ),
+                                                    );
+                                                  }).toList(),
+                                                  // After selecting the desired option,it will
+                                                  // change button value to selected value
+                                                  onChanged:
+                                                      (String? newValue) {
+                                                    setState(() {
+                                                      dropdownvalue = newValue!;
+                                                    });
+                                                  },
+                                                )
+                                              : Container(
+                                                  height: ScreenSize()
+                                                      .getScreenHeight(4.3),
+                                                  width: ScreenSize()
+                                                      .getScreenHeight(4.3),
+                                                  decoration: BoxDecoration(
+                                                    image: const DecorationImage(
+                                                        image: AssetImage(
+                                                            'assets/images/payments/OneMoney.png')),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      ScreenSize()
+                                                          .getScreenHeight(5.5),
                                                     ),
-                                                  )),
-                                        Flexible(
-                                            flex: 3,
-                                            child: SizedBox(
-                                              height: double.infinity,
-                                              width: double.maxFinite,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: ScreenSize()
-                                                        .getScreenHeight(1.8)),
-                                                child: Text(
-                                                  textAlign: TextAlign.left,
-                                                  myData.number.isEmpty
-                                                      ? "Enter Recipient Number"
-                                                      : myData.number
-                                                          .toString(),
-                                                  style: TextStyle(
+                                                  ),
+                                                )),
+                                      Flexible(
+                                          flex: 3,
+                                          child: SizedBox(
+                                            height: double.infinity,
+                                            width: double.maxFinite,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                top: ScreenSize()
+                                                    .getScreenHeight(1.3),
+                                              ),
+                                              child: Text(
+                                                textAlign: TextAlign.left,
+                                                myData.number.isEmpty
+                                                    ? "Enter Mobile Number"
+                                                    : myData.number.toString(),
+                                                style: TextStyle(
                                                     fontWeight:
                                                         myData.number.isEmpty
                                                             ? FontWeight.w100
-                                                            : FontWeight.bold,
-                                                    fontSize: ScreenSize()
-                                                        .getScreenHeight(2),
-                                                  ),
-                                                ),
+                                                            : FontWeight.w500,
+                                                    fontSize: myData
+                                                            .number.isEmpty
+                                                        ? ScreenSize()
+                                                            .getScreenHeight(
+                                                                2.5)
+                                                        : ScreenSize()
+                                                            .getScreenHeight(3),
+                                                    color: myData.number.isEmpty
+                                                        ? Colors.black38
+                                                        : Colors.black),
                                               ),
-                                            )),
-                                        Flexible(
-                                          flex: 1,
-                                          child: Icon(
-                                            Icons.dialpad,
+                                            ),
+                                          )),
+                                      Flexible(
+                                        flex: 1,
+                                        child: Icon(Icons.dialpad,
                                             color: Colour().primary(),
-                                          ),
-                                        ),
-                                      ]),
-                                )),
+                                            size: ScreenSize()
+                                                .getScreenHeight(3.5)),
+                                      ),
+                                    ]),
+                              ),
+                            ),
                             SizedBox(
                               height: ScreenSize().getScreenHeight(3),
                             ),
@@ -447,12 +463,15 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                               height: ScreenSize().getScreenHeight(1.5),
                             ),
                             //Logics  For Displaying The  CircleLoader Or Wallet Name
-                            myData.number.length < 9 || myData.status.isEmpty
+                            myData.number.length < 9 ||
+                                    myData.status.isEmpty ||
+                                    transactionType != "TopUp Wallet"
                                 ? SizedBox(
-                                    height: ScreenSize().getScreenHeight(3),
+                                    height: ScreenSize().getScreenHeight(5),
                                   )
                                 // Code For Displaying The  Circle Loader
                                 : SizedBox(
+                                    height: ScreenSize().getScreenHeight(5),
                                     width: double.infinity,
                                     child: myData.isloading == true
                                         ? Center(
@@ -475,33 +494,32 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                                         // Code For Displaying Wallet Name
                                         : SizedBox(
                                             height:
-                                                ScreenSize().getScreenHeight(3),
+                                                ScreenSize().getScreenHeight(5),
                                             width: double.infinity,
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: ScreenSize()
-                                                      .getScreenWidth(4)),
+                                            child: Center(
                                               child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
-                                                  Checkbox(
-                                                    checkColor: Colors.white,
-                                                    autofocus: true,
-                                                    activeColor:
-                                                        Colour().primary(),
-                                                    focusColor:
-                                                        Colour().primary(),
-                                                    value: valuefirst,
-                                                    onChanged: (bool? value) {
-                                                      setState(() {
-                                                        valuefirst = value!;
-                                                      });
-                                                    },
+                                                  Transform.scale(
+                                                    scale: 1.8,
+                                                    child: Checkbox(
+                                                      checkColor: Colors.white,
+                                                      autofocus: true,
+                                                      activeColor:
+                                                          Colour().primary(),
+                                                      focusColor:
+                                                          Colour().primary(),
+                                                      value: valuefirst,
+                                                      onChanged: (bool? value) {
+                                                        setState(() {
+                                                          valuefirst = value!;
+                                                        });
+                                                      },
+                                                    ),
                                                   ),
                                                   Text(
-                                                    myData.showAllNetworks ==
-                                                            true
-                                                        ? 'Buying  Airtime For '
-                                                        : ' Sending Money to',
+                                                    ' Sending Money to',
                                                     style: FontsStyle()
                                                         .recipientNumText(),
                                                   ),
@@ -515,50 +533,138 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                                             ),
                                           ),
                                   ),
+
                             SizedBox(
-                              height: ScreenSize().getScreenHeight(1.5),
+                              height: ScreenSize().getScreenHeight(0.5),
                             ),
-                            Button(
-                              // Enable and Disable Proceed Button
-                              btnAction: myData.number.length != 9 ||
-                                      valuefirst == false
-                                  ? () {}
-                                  : () {
-                                      Provider.of<StoreViewModel>(context,
-                                              listen: false)
-                                          .setRecipietNo(
-                                              myData.number.toString());
-                                      print(myData.number);
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          pageBuilder: (context, animation1,
-                                                  animation2) =>
-                                              const SelectPaymentOption(),
-                                          transitionDuration: Duration.zero,
-                                          reverseTransitionDuration:
-                                              Duration.zero,
-                                        ),
-                                      );
-                                    },
-                              inerColor: myData.number.length != 9 ||
-                                      valuefirst == false
-                                  ? const Color.fromARGB(255, 245, 195, 154)
-                                  : Colour().primary(),
-                              btnLabel: Text(
-                                'Proceed ',
-                                style: FontsStyle().startbtnText(),
-                              ),
-                              btnInwardHightSize:
-                                  ScreenSize().getScreenHeight(7),
-                              btnOutwardHieghtSize:
-                                  ScreenSize().getScreenHeight(8.5),
-                              btnInwardWidthSize:
-                                  ScreenSize().getScreenWidth(78),
-                              btnOutwardWidthSize:
-                                  ScreenSize().getScreenWidth(81),
-                              outerColor: Colour().primary().withOpacity(0.5),
-                            )
+                            transactionType != "TopUp Wallet"
+                                ? Button(
+                                    // Enable and Disable Proceed Button
+                                    btnAction: myData.number.length != 9
+                                        ? () {}
+                                        : () {
+                                            Provider.of<StoreViewModel>(context,
+                                                    listen: false)
+                                                .setRecipienttNo(
+                                                    myData.number.toString());
+                                            if (existingEsimUser !=
+                                                "Existing User") {
+                                              Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    duration: const Duration(
+                                                        milliseconds: 200),
+                                                    reverseDuration:
+                                                        const Duration(
+                                                            milliseconds: 200),
+                                                    child:
+                                                        const SelectPaymentOption(),
+                                                    inheritTheme: true,
+                                                    ctx: context),
+                                              );
+                                            } else {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .generateOrderNumAndDate();
+                                              Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    duration: const Duration(
+                                                        milliseconds: 200),
+                                                    reverseDuration:
+                                                        const Duration(
+                                                            milliseconds: 200),
+                                                    child:
+                                                        const EsimOTPScreen(),
+                                                    inheritTheme: true,
+                                                    ctx: context),
+                                              );
+
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .seteSimType('');
+                                            }
+                                          },
+                                    inerColor: myData.number.length != 9
+                                        ? const Color.fromARGB(
+                                            255, 245, 195, 154)
+                                        : Colour().primary(),
+                                    btnLabel: Text(
+                                      'Proceed ',
+                                      style: myData.number.length != 9
+                                          ? FontsStyle().startbtnTextdisable()
+                                          : FontsStyle().startbtnText(),
+                                    ),
+                                    btnInwardHightSize:
+                                        ScreenSize().getScreenHeight(7),
+                                    btnOutwardHieghtSize:
+                                        ScreenSize().getScreenHeight(8.5),
+                                    btnInwardWidthSize:
+                                        ScreenSize().getScreenWidth(83),
+                                    btnOutwardWidthSize:
+                                        ScreenSize().getScreenWidth(87),
+                                    outerColor:
+                                        Colour().primary().withOpacity(0.2),
+                                  )
+                                : Button(
+                                    // Enable and Disable Proceed Button
+                                    btnAction: myData.number.length != 9 ||
+                                            valuefirst == false
+                                        ? () {}
+                                        : () {
+                                            Provider.of<StoreViewModel>(context,
+                                                    listen: false)
+                                                .setRecipienttNo(
+                                                    myData.number.toString());
+                                            print(myData.number);
+                                            Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  duration: const Duration(
+                                                      milliseconds: 200),
+                                                  reverseDuration:
+                                                      const Duration(
+                                                          milliseconds: 200),
+                                                  child:
+                                                      const SelectPaymentOption(),
+                                                  inheritTheme: true,
+                                                  ctx: context),
+                                            );
+
+                                            setState(() {
+                                              valuefirst = false;
+                                            });
+                                          },
+                                    inerColor: myData.number.length != 9 ||
+                                            valuefirst == false
+                                        ? const Color.fromARGB(
+                                            255, 245, 195, 154)
+                                        : Colour().primary(),
+                                    btnLabel: Text(
+                                      'Proceed ',
+                                      style: myData.number.length != 9 ||
+                                              valuefirst == false
+                                          ? FontsStyle().startbtnTextdisable()
+                                          : FontsStyle().startbtnText(),
+                                    ),
+                                    btnInwardHightSize:
+                                        ScreenSize().getScreenHeight(7),
+                                    btnOutwardHieghtSize:
+                                        ScreenSize().getScreenHeight(8.5),
+                                    btnInwardWidthSize:
+                                        ScreenSize().getScreenWidth(83),
+                                    btnOutwardWidthSize:
+                                        ScreenSize().getScreenWidth(87),
+                                    outerColor:
+                                        Colour().primary().withOpacity(0.2),
+                                  ),
                           ],
                         ),
                       ),

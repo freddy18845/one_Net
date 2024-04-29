@@ -11,6 +11,7 @@ import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/header.dart';
 import 'package:one_net/widgets/round_btn.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class MobileMoneyScreen extends StatelessWidget {
@@ -256,14 +257,16 @@ class MobileMoneyScreen extends StatelessWidget {
                                       : () {
                                           Navigator.push(
                                             context,
-                                            PageRouteBuilder(
-                                              pageBuilder: (context, animation1,
-                                                      animation2) =>
-                                                  const TransactionInprogress(),
-                                              transitionDuration: Duration.zero,
-                                              reverseTransitionDuration:
-                                                  Duration.zero,
-                                            ),
+                                            PageTransition(
+                                                type: PageTransitionType.fade,
+                                                duration: const Duration(
+                                                    milliseconds: 200),
+                                                reverseDuration: const Duration(
+                                                    milliseconds: 200),
+                                                child:
+                                                    const TransactionInprogress(),
+                                                inheritTheme: true,
+                                                ctx: context),
                                           );
                                         },
                                   inerColor: myType
@@ -278,11 +281,11 @@ class MobileMoneyScreen extends StatelessWidget {
                                   btnOutwardHieghtSize:
                                       ScreenSize().getScreenHeight(8.5),
                                   btnInwardWidthSize:
-                                      ScreenSize().getScreenWidth(78),
+                                      ScreenSize().getScreenWidth(83),
                                   btnOutwardWidthSize:
-                                      ScreenSize().getScreenWidth(81),
+                                      ScreenSize().getScreenWidth(87),
                                   outerColor:
-                                      Colour().primary().withOpacity(0.5),
+                                      Colour().primary().withOpacity(0.2),
                                   btnLabel: Text(
                                     'Buy ',
                                     style: FontsStyle().startbtnText(),

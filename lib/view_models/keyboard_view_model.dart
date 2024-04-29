@@ -75,7 +75,7 @@ class InputAmountViewModel extends ChangeNotifier {
 
   void setRecipientNo(String value) {
     if (value == '.') return;
-    if (amount.length > 9 && (value != 'back')) return;
+    if (number.length > 9 && (value != 'back')) return;
     if (value == 'back') {
       if (number.isNotEmpty) {
         number = number.substring(0, number.length - 1);
@@ -105,10 +105,12 @@ class InputAmountViewModel extends ChangeNotifier {
   }
 
   clearCustonAmount() {
-    amount = '';
-    number = '';
+    amount = "";
+    number = "";
+  }
 
-    notifyListeners();
+  clearNumber() {
+    number = "";
   }
 
   reset() {

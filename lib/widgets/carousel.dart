@@ -79,7 +79,7 @@ class _CarouselState extends State<Carousel> {
             alignment: Alignment.topCenter,
             child: Padding(
               padding: EdgeInsets.all(
-                ScreenSize().getScreenHeight(3),
+                ScreenSize().getScreenHeight(1.5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

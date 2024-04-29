@@ -7,6 +7,7 @@ import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/carousel.dart';
 import 'package:one_net/widgets/ip_address_modal.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -47,26 +48,40 @@ class SplashScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Button(
-                  btnInwardHightSize: ScreenSize().getScreenHeight(15),
+                  btnInwardHightSize: ScreenSize().getScreenHeight(14),
                   btnLabel: Text(
                     'Tap To Start',
                     style: FontsStyle().btnText(),
                   ),
-                  btnOutwardHieghtSize: ScreenSize().getScreenHeight(16.5),
-                  btnInwardWidthSize: ScreenSize().getScreenWidth(80),
-                  btnOutwardWidthSize: ScreenSize().getScreenWidth(84),
+                  btnOutwardHieghtSize: ScreenSize().getScreenHeight(15.5),
+                  btnInwardWidthSize: ScreenSize().getScreenWidth(86.3),
+                  btnOutwardWidthSize: ScreenSize().getScreenWidth(89),
                   inerColor: Colour().primary(),
                   outerColor: Colour().primary().withOpacity(0.5),
                   btnAction: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                    // );
                     Navigator.push(
                       context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            HomeScreen(),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
+                      PageTransition(
+                          type: PageTransitionType.fade,
+                          duration: const Duration(milliseconds: 200),
+                          reverseDuration: const Duration(milliseconds: 200),
+                          child: HomeScreen(),
+                          inheritTheme: true,
+                          ctx: context),
                     );
+                    // Navigator.push(
+                    //   context,
+                    //   PageRouteBuilder(
+                    //     pageBuilder: (context, animation1, animation2) =>
+                    //         HomeScreen(),
+                    //     transitionDuration: Duration.zero,
+                    //     reverseTransitionDuration: Duration.zero,
+                    //   ),
+                    // );
                   },
                 ),
               ),
