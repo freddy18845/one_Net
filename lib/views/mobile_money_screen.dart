@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
+import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
-import 'package:one_net/views/home_screen.dart';
-import 'package:one_net/views/select_payment.dart';
 import 'package:one_net/views/transaction_inprogess_screen.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:one_net/widgets/header.dart';
+import 'package:one_net/widgets/keyboard_btn.dart';
 import 'package:one_net/widgets/round_btn.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class MobileMoneyScreen extends StatelessWidget {
+class MobileMoneyScreen extends StatefulWidget {
   const MobileMoneyScreen({super.key});
 
+  @override
+  State<MobileMoneyScreen> createState() => _MobileMoneyScreenState();
+}
+
+class _MobileMoneyScreenState extends State<MobileMoneyScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
@@ -43,7 +49,7 @@ class MobileMoneyScreen extends StatelessWidget {
                 horizontal: ScreenSize().getScreenHeight(2),
               ),
               child: Container(
-                height: ScreenSize().getScreenHeight(49),
+                height: ScreenSize().getScreenHeight(75),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   boxShadow: const [
@@ -64,17 +70,70 @@ class MobileMoneyScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Header(
-                        showHome: true,
-                        showPrevious: true,
-                        titleText: "Mobile Payment",
-                        subtitleText: 'Select Payment Method',
+                      SizedBox(
+                        height: ScreenSize().getScreenHeight(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Provider.of<StoreViewModel>(context,
+                                        listen: false)
+                                    .clearmomoNumber(context);
+                              },
+                              child: RoundBtn(
+                                btnLabel: Icon(
+                                  Icons.arrow_back,
+                                  color: Colour().primary(),
+                                  size: ScreenSize().getScreenHeight(4),
+                                ),
+                                innerColor: Colour().secondary(),
+                                outerColor: Colour().primary(),
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: ScreenSize().getScreenHeight(1),
+                                ),
+                                Text(
+                                  "Mobile Payment",
+                                  style: FontsStyle().mainMenuText(),
+                                ),
+                                SizedBox(
+                                  height: ScreenSize().getScreenHeight(1),
+                                ),
+                                Text(
+                                  "Select Payment Method",
+                                  style: FontsStyle().buyText(),
+                                ),
+                              ],
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: RoundBtn(
+                                btnLabel: Image.asset(
+                                  "assets/images/home_logo.png",
+                                  width: ScreenSize().getScreenHeight(3.5),
+                                  height: ScreenSize().getScreenHeight(3.5),
+                                  fit: BoxFit.contain,
+                                ),
+                                innerColor: Colour().secondary(),
+                                outerColor: Colour().primary(),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Divider(
                         thickness: 1,
                         color: Colour().primary(),
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Consumer<StoreViewModel>(
                               builder: (context, myNetwork, child) {
@@ -89,8 +148,8 @@ class MobileMoneyScreen extends StatelessWidget {
                                 Map value = network.value;
 
                                 return SizedBox(
-                                  height: ScreenSize().getScreenHeight(15.5),
-                                  width: ScreenSize().getScreenWidth(28.5),
+                                  height: ScreenSize().getScreenHeight(12.5),
+                                  width: ScreenSize().getScreenWidth(27.5),
                                   child: Stack(
                                     children: [
                                       InkWell(
@@ -104,9 +163,9 @@ class MobileMoneyScreen extends StatelessWidget {
                                               AlignmentDirectional.center,
                                           child: Container(
                                             height: ScreenSize()
-                                                .getScreenHeight(13),
+                                                .getScreenHeight(10),
                                             width:
-                                                ScreenSize().getScreenWidth(24),
+                                                ScreenSize().getScreenWidth(26),
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(
@@ -165,77 +224,335 @@ class MobileMoneyScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: ScreenSize().getScreenHeight(1),
+                        height: ScreenSize().getScreenHeight(0.5),
                       ),
                       Consumer<StoreViewModel>(
                         builder: (context, myNetwork, child) {
                           return myNetwork.transactionData["selectedNetwork"] ==
                                   ""
                               ? const SizedBox.shrink()
-                              : SizedBox(
-                                  height: ScreenSize().getScreenHeight(7),
-                                  width: double.infinity,
-                                  child: TextField(
-                                    textAlign: TextAlign.start,
-                                    autofocus: true,
-                                    textAlignVertical: TextAlignVertical.center,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.allow(
-                                          RegExp(r'[0-9]')),
+                              : Animate(
+                                  effects: const [
+                                    FadeEffect(
+                                        duration: Duration(milliseconds: 600)),
+                                    ScaleEffect(
+                                        duration: Duration(milliseconds: 600))
+                                  ],
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: ScreenSize().getScreenHeight(6),
+                                        width: double.infinity,
+                                        child: Container(
+                                          height:
+                                              ScreenSize().getScreenHeight(6),
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: Colors.black12,
+                                            borderRadius: BorderRadius.circular(
+                                              ScreenSize().getScreenHeight(1.5),
+                                            ),
+                                            border: Border.all(
+                                              width: 2,
+                                              color: Colour().primary(),
+                                            ),
+                                          ),
+                                          child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Flexible(
+                                                    flex: 4,
+                                                    child: SizedBox(
+                                                      height: double.infinity,
+                                                      width: double.maxFinite,
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          top: ScreenSize()
+                                                              .getScreenHeight(
+                                                                  1.0),
+                                                        ),
+                                                        child: Text(
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          myNetwork.momonumber
+                                                                  .isEmpty
+                                                              ? "Enter Mobile Number"
+                                                              : myNetwork
+                                                                  .momonumber
+                                                                  .toString(),
+                                                          style: TextStyle(
+                                                              fontWeight: myNetwork
+                                                                      .momonumber
+                                                                      .isEmpty
+                                                                  ? FontWeight
+                                                                      .w100
+                                                                  : FontWeight
+                                                                      .w500,
+                                                              fontSize: myNetwork
+                                                                      .momonumber
+                                                                      .isEmpty
+                                                                  ? ScreenSize()
+                                                                      .getScreenHeight(
+                                                                          2.5)
+                                                                  : ScreenSize()
+                                                                      .getScreenHeight(
+                                                                          3),
+                                                              color: myNetwork
+                                                                      .momonumber
+                                                                      .isEmpty
+                                                                  ? Colors
+                                                                      .black38
+                                                                  : Colors
+                                                                      .black),
+                                                        ),
+                                                      ),
+                                                    )),
+                                                Flexible(
+                                                  flex: 1,
+                                                  child: Icon(Icons.dialpad,
+                                                      color: Colour().primary(),
+                                                      size: ScreenSize()
+                                                          .getScreenHeight(
+                                                              3.5)),
+                                                ),
+                                              ]),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            ScreenSize().getScreenHeight(1.5),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('1');
+                                            },
+                                            btnLabel: Text(
+                                              '1',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: ScreenSize()
+                                                .getScreenWidth(1.5),
+                                          ),
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('2');
+                                            },
+                                            btnLabel: Text(
+                                              '2',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: ScreenSize()
+                                                .getScreenWidth(1.5),
+                                          ),
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('3');
+                                            },
+                                            btnLabel: Text(
+                                              '3',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            ScreenSize().getScreenHeight(0.8),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('4');
+                                            },
+                                            btnLabel: Text(
+                                              '4',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: ScreenSize()
+                                                .getScreenWidth(1.5),
+                                          ),
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('5');
+                                            },
+                                            btnLabel: Text(
+                                              '5',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: ScreenSize()
+                                                .getScreenWidth(1.5),
+                                          ),
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('6');
+                                            },
+                                            btnLabel: Text(
+                                              '6',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            ScreenSize().getScreenHeight(0.8),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('7');
+                                            },
+                                            btnLabel: Text(
+                                              '7',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: ScreenSize()
+                                                .getScreenWidth(1.5),
+                                          ),
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('8');
+                                            },
+                                            btnLabel: Text(
+                                              '8',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: ScreenSize()
+                                                .getScreenWidth(1.5),
+                                          ),
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('9');
+                                            },
+                                            btnLabel: Text(
+                                              '9',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            ScreenSize().getScreenHeight(0.8),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              // Provider.of<InputAmountViewModel>(context,
+                                              //         listen: false)
+                                              //     .
+                                              //setMomoNo('1');
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('.');
+                                            },
+                                            btnLabel: Text(
+                                              '.',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: ScreenSize()
+                                                .getScreenWidth(1.5),
+                                          ),
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('0');
+                                            },
+                                            btnLabel: Text(
+                                              '0',
+                                              style:
+                                                  FontsStyle().inputAmtText(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: ScreenSize()
+                                                .getScreenWidth(1.5),
+                                          ),
+                                          KeyboardButton(
+                                            btnAction: () {
+                                              Provider.of<StoreViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .setMomoNo('back');
+                                            },
+                                            btnLabel: Image.asset(
+                                              "assets/images/clear.png",
+                                              width: ScreenSize()
+                                                  .getScreenWidth(10),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
-                                    maxLength: 10,
-                                    onChanged: (value) {
-                                      Provider.of<StoreViewModel>(context,
-                                              listen: false)
-                                          .setBuyerNo(value);
-                                    },
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: ScreenSize().getScreenHeight(2),
-                                    ),
-                                    textInputAction: TextInputAction.done,
-                                    keyboardType: TextInputType.number,
-                                    onEditingComplete: () {
-                                      // Provider.of<LoginViewModal>(context, listen: false)
-                                      // .loginNow();
-                                    },
-                                    decoration: InputDecoration(
-                                        hintText: 'Buyer Number',
-                                        suffixIcon: const Icon(
-                                          Icons.dialpad,
-                                        ),
-                                        filled: true,
-                                        fillColor: const Color.fromARGB(
-                                            113, 211, 210, 210),
-                                        suffixIconColor:
-                                            MaterialStateColor.resolveWith(
-                                                (states) => states.contains(
-                                                        MaterialState.focused)
-                                                    ? Colour().primary()
-                                                    : const Color.fromRGBO(
-                                                        134, 134, 134, 1)),
-                                        counterText: "",
-                                        labelStyle: const TextStyle(
-                                            color: Color.fromRGBO(
-                                                134, 134, 134, 1)),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            width: 2,
-                                            color: Colour().primary(),
-                                          ),
-                                          borderRadius: BorderRadius.circular(
-                                            ScreenSize().getScreenHeight(1),
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            width: 2,
-                                            color: Colour().primary(),
-                                          ),
-                                          borderRadius: BorderRadius.circular(
-                                            ScreenSize().getScreenHeight(1),
-                                          ),
-                                        )),
                                   ),
                                 );
                         },
@@ -248,13 +565,13 @@ class MobileMoneyScreen extends StatelessWidget {
                           return myType.transactionData["selectedNetwork"] == ""
                               ? const SizedBox.shrink()
                               : Button(
-                                  btnAction: myType
-                                                  .transactionData["buyerNo"] ==
-                                              null ||
-                                          myType.transactionData["buyerNo"]
-                                              .isEmpty
+                                  // ignore: unrelated_type_equality_checks
+                                  btnAction: myType.momonumber.length != 9
                                       ? () {}
                                       : () {
+                                          Provider.of<StoreViewModel>(context,
+                                                  listen: false)
+                                              .setBuyerNo(myType.momonumber);
                                           Navigator.push(
                                             context,
                                             PageTransition(
@@ -269,17 +586,14 @@ class MobileMoneyScreen extends StatelessWidget {
                                                 ctx: context),
                                           );
                                         },
-                                  inerColor: myType
-                                                  .transactionData["buyerNo"] ==
-                                              null ||
-                                          myType.transactionData["buyerNo"]
-                                              .isEmpty
+                                  // ignore: unrelated_type_equality_checks
+                                  inerColor: myType.momonumber.length != 9
                                       ? const Color.fromARGB(255, 245, 195, 154)
                                       : Colour().primary(),
                                   btnInwardHightSize:
-                                      ScreenSize().getScreenHeight(7),
+                                      ScreenSize().getScreenHeight(6),
                                   btnOutwardHieghtSize:
-                                      ScreenSize().getScreenHeight(8.5),
+                                      ScreenSize().getScreenHeight(7.5),
                                   btnInwardWidthSize:
                                       ScreenSize().getScreenWidth(83),
                                   btnOutwardWidthSize:
@@ -287,7 +601,7 @@ class MobileMoneyScreen extends StatelessWidget {
                                   outerColor:
                                       Colour().primary().withOpacity(0.2),
                                   btnLabel: Text(
-                                    'Buy ',
+                                    'Pay',
                                     style: FontsStyle().startbtnText(),
                                   ),
                                 );

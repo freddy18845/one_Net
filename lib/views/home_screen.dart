@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
@@ -23,9 +22,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     Provider.of<StoreViewModel>(context, listen: false).setallfield();
+    Provider.of<StoreViewModel>(context, listen: false).clearmomoNum();
     Provider.of<InputAmountViewModel>(context, listen: false)
         .clearCustonAmount();
-
     Provider.of<PinpadThemeView>(context).colourTheme(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,

@@ -161,7 +161,7 @@ class ESIMOptionScreen extends StatelessWidget {
                               btnid: 3,
                             ),
                             SizedBox(
-                              height: ScreenSize().getScreenHeight(0.8),
+                              height: ScreenSize().getScreenHeight(1.5),
                             ),
                             HomeCardBtn(
                               image: "assets/images/esim.png",

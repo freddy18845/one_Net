@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:one_net/views/cardpayment.dart';
-import 'package:one_net/views/esim_certi_screen.dart';
+import 'package:one_net/views/esim_reciept_screen.dart';
 import 'package:one_net/views/mobile_money_screen.dart';
 import 'package:one_net/views/qr_scan_screen.dart';
 import 'package:one_net/views/reciept_screen.dart';
@@ -12,6 +13,8 @@ import 'package:page_transition/page_transition.dart';
 class StoreViewModel extends ChangeNotifier {
   Map transactionData = {};
   String esimType = '';
+  String momonumber = '';
+  bool esimInvoice = false;
 
   List mobileNetworks = [
     {
@@ -56,6 +59,11 @@ class StoreViewModel extends ChangeNotifier {
     transactionData["recipientNo"] = '';
   }
 
+  txnType(bool data) {
+    esimInvoice = data;
+    notifyListeners();
+  }
+
   momoNum(String value) {
     transactionData["momoNumber"] = value;
     notifyListeners();
@@ -73,36 +81,75 @@ class StoreViewModel extends ChangeNotifier {
     transactionData["orderDateTime"] = '';
     transactionData["TranactionType"] = '';
     transactionData["totalPrice"] = '';
+    transactionData["email"] = '';
     esimType = '';
   }
 
   setTxnProgress(context) {
-    if (esimType == '' || esimType == null) {
-      Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) =>
-              const ReceiptScreen(),
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: Duration.zero,
-        ),
-      );
+    esimInvoice == true
+        ? Timer(const Duration(seconds: 3), () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation1, animation2) =>
+                    const ReceiptScreen(),
+                transitionDuration: Duration.zero,
+                reverseTransitionDuration: Duration.zero,
+              ),
+            );
+          })
+        : Timer(const Duration(seconds: 3), () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation1, animation2) =>
+                    const EsimRecieptScreen(),
+                transitionDuration: Duration.zero,
+                reverseTransitionDuration: Duration.zero,
+              ),
+            );
+          });
+  }
+
+  clearmomoNumber(context) {
+    Navigator.pop(context);
+    momonumber = '';
+  }
+
+  clearmomoNum() {
+    momonumber = '';
+  }
+
+  void setMomoNo(String value) {
+    print(value);
+    if (value == '.') return;
+    if (momonumber.length > 9 && (value != 'back')) return;
+    if (value == 'back') {
+      if (momonumber.isNotEmpty) {
+        momonumber = momonumber.substring(0, momonumber.length - 1);
+
+        notifyListeners();
+      } else {
+        return;
+      }
     } else {
-      Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) =>
-              const EsimCertiScreen(),
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: Duration.zero,
-        ),
-      );
+      if (momonumber.length < 9) {
+        momonumber += value;
+
+        //print(number.length);
+      }
+      notifyListeners();
     }
   }
 
   setBuyerNo(String value) {
     transactionData["buyerNo"] = value;
     notifyListeners();
+    clearNumber();
+  }
+
+  clearNumber() {
+    momonumber = "";
   }
 
   setRechargeAmount(String value) {

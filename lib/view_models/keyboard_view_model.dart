@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class InputAmountViewModel extends ChangeNotifier {
   String amount = '';
   String number = '';
+
   bool point = false;
   bool isloading = true;
   String status = '';

@@ -64,6 +64,9 @@ class PrintingService extends ChangeNotifier {
     final myCurrency =
         Provider.of<CurrencySelectionViewModel>(context, listen: false);
 
+    bool invoicetype =
+        Provider.of<StoreViewModel>(context, listen: false).esimInvoice;
+
     try {
       /// Receipt Header
       await SunmiPrinter.initPrinter();
@@ -90,6 +93,57 @@ class PrintingService extends ChangeNotifier {
       await SunmiPrinter.printText(myCurrency.activeCurrency +
           Currency().format(transactionData["totalPrice"].toString()));
 
+      await SunmiPrinter.line(len: 48);
+      if (invoicetype == false) {
+        await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
+        await SunmiPrinter.setCustomFontSize(20);
+        await SunmiPrinter.printText("eSIM Details");
+        await SunmiPrinter.line(len: 48);
+        await SunmiPrinter.printRow(
+          cols: [
+            ColumnMaker(text: "MSISDN", width: 23, align: SunmiPrintAlign.LEFT),
+            ColumnMaker(
+                text: transactionData["recipientNo"],
+                width: 24,
+                align: SunmiPrintAlign.RIGHT),
+          ],
+        );
+        await SunmiPrinter.printRow(
+          cols: [
+            ColumnMaker(text: "ICCID", width: 23, align: SunmiPrintAlign.LEFT),
+            ColumnMaker(
+                text: "8923302050020013008",
+                width: 24,
+                align: SunmiPrintAlign.RIGHT),
+          ],
+        );
+        await SunmiPrinter.printRow(
+          cols: [
+            ColumnMaker(text: "PIN 1", width: 23, align: SunmiPrintAlign.LEFT),
+            ColumnMaker(text: "1234", width: 24, align: SunmiPrintAlign.RIGHT),
+          ],
+        );
+        await SunmiPrinter.printRow(
+          cols: [
+            ColumnMaker(text: "PIN 2", width: 23, align: SunmiPrintAlign.LEFT),
+            ColumnMaker(text: "1234", width: 24, align: SunmiPrintAlign.RIGHT),
+          ],
+        );
+        await SunmiPrinter.printRow(
+          cols: [
+            ColumnMaker(text: "PUK 1", width: 23, align: SunmiPrintAlign.LEFT),
+            ColumnMaker(
+                text: "87994856", width: 24, align: SunmiPrintAlign.RIGHT),
+          ],
+        );
+        await SunmiPrinter.printRow(
+          cols: [
+            ColumnMaker(text: "PUK 2", width: 23, align: SunmiPrintAlign.LEFT),
+            ColumnMaker(
+                text: "55504503", width: 24, align: SunmiPrintAlign.RIGHT),
+          ],
+        );
+      }
       await SunmiPrinter.line(len: 48);
       await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
       await SunmiPrinter.setCustomFontSize(26);
@@ -177,14 +231,26 @@ class PrintingService extends ChangeNotifier {
       await SunmiPrinter.lineWrap(1);
       await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER); // Center align
       await SunmiPrinter.printText('Thank You!');
-      // await SunmiPrinter.lineWrap(1);
-      await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
-      await SunmiPrinter.printBarCode(
-          "Order No:${myCurrency.activeCurrency}${Currency().format("${transactionData["rechargeAmount"]}")}",
-          height: 54,
-          width: 46,
-          textPosition: SunmiBarcodeTextPos.NO_TEXT);
       await SunmiPrinter.lineWrap(1);
+      if (invoicetype == false) {
+        await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
+
+        await SunmiPrinter.printQRCode(
+            " LPA:\$pord.smdp-plus.rsp.goog\$3TD6-8L82-HUE1-LVN6");
+        await SunmiPrinter.lineWrap(1);
+        await SunmiPrinter.setCustomFontSize(23);
+        await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
+        await SunmiPrinter.printText("Scan Me");
+      }
+      if (invoicetype == true) {
+        await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
+        await SunmiPrinter.printBarCode(
+            "Order No:${myCurrency.activeCurrency}${Currency().format("${transactionData["rechargeAmount"]}")}",
+            height: 54,
+            width: 46,
+            textPosition: SunmiBarcodeTextPos.NO_TEXT);
+        await SunmiPrinter.lineWrap(1);
+      }
       await SunmiPrinter.exitTransactionPrint(true);
       await SunmiPrinter.cut();
 

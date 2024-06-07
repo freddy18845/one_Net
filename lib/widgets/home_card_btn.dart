@@ -59,6 +59,9 @@ class _HomeCardBtnState extends State<HomeCardBtn> {
                     .setNetworks(true);
                 Provider.of<InputAmountViewModel>(context, listen: false)
                     .clearCustonAmount();
+                Provider.of<StoreViewModel>(context, listen: false)
+                    .txnType(true);
+
                 Navigator.push(
                   context,
                   PageTransition(
@@ -77,6 +80,8 @@ class _HomeCardBtnState extends State<HomeCardBtn> {
                     .setNetworks(false);
                 Provider.of<InputAmountViewModel>(context, listen: false)
                     .clearCustonAmount();
+                Provider.of<StoreViewModel>(context, listen: false)
+                    .txnType(true);
 
                 Navigator.push(
                   context,
@@ -93,6 +98,8 @@ class _HomeCardBtnState extends State<HomeCardBtn> {
 
             case 2:
               {
+                Provider.of<StoreViewModel>(context, listen: false)
+                    .txnType(false);
                 Navigator.push(
                   context,
                   PageTransition(

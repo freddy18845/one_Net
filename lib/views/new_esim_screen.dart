@@ -125,7 +125,6 @@ class SelectNewEsimScreen extends StatelessWidget {
                                               .toString());
                                       confirmDataAlert(
                                           context,
-                                          "eSIM",
                                           allEsim[index]["moile_number"]
                                               .toString());
                                     },

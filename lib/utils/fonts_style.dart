@@ -188,10 +188,24 @@ class FontsStyle {
         fontWeight: FontWeight.w600);
   }
 
+  invoicetxt() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(2),
+        fontWeight: FontWeight.w600);
+  }
+
   invoicetext1() {
     return TextStyle(
         color: Colors.black,
         fontSize: ScreenSize().getScreenHeight(1.5),
+        fontWeight: FontWeight.normal);
+  }
+
+  invoicetxt1() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(2),
         fontWeight: FontWeight.normal);
   }
 
@@ -213,6 +227,13 @@ class FontsStyle {
     return TextStyle(
         color: Colour().green(),
         fontSize: ScreenSize().getScreenHeight(5),
+        fontWeight: FontWeight.w800);
+  }
+
+  invoiceAmt() {
+    return TextStyle(
+        color: Colour().green(),
+        fontSize: ScreenSize().getScreenHeight(7),
         fontWeight: FontWeight.w800);
   }
 

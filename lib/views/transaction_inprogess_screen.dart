@@ -34,47 +34,48 @@ class TransactionInprogress extends StatelessWidget {
         width: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/txn_inprogess.png"),
-              fit: BoxFit.fill),
+              image: AssetImage("assets/images/home.png"), fit: BoxFit.fill),
         ),
-        child: Center(
-          child: Container(
-            height: ScreenSize().getScreenHeight(45),
-            width: ScreenSize().getScreenWidth(80),
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image: AssetImage("assets/images/txn_card.png"),
-                  fit: BoxFit.cover),
-              border: Border.all(width: 5, color: Colour().primary()),
-              borderRadius: BorderRadius.circular(
-                ScreenSize().getScreenHeight(3),
-              ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              "assets/images/logo2.png",
+              width: ScreenSize().getScreenWidth(70),
+              height: ScreenSize().getScreenHeight(15),
+              fit: BoxFit.cover,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Transaction In Progress",
-                  style: FontsStyle().txnInprogress(),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: ScreenSize().getScreenHeight(7)),
-                  child: Lottie.asset(
-                    'assets/lottie/checked.json',
-                    repeat: false,
-                    //options: LottieOptions(),
-                    height: ScreenSize().getScreenHeight(17),
+            SizedBox(
+              height: ScreenSize().getScreenHeight(30),
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Transaction In Progress",
+                    style: FontsStyle().txnInprogress(),
                   ),
-                ),
-                Text(
-                  "Card Read Done - Remove Card",
-                  style: FontsStyle().cardreadDone(),
-                ),
-              ],
-            ),
-          ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenSize().getScreenHeight(7)),
+                    child: Lottie.asset(
+                      'assets/lottie/checked.json',
+                      repeat: false,
+                      //options: LottieOptions(),
+                      height: ScreenSize().getScreenHeight(17),
+                    ),
+                  ),
+                  Text(
+                    "Card Read Done - Remove Card",
+                    style: FontsStyle().cardreadDone(),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
+        // ),
       ),
     );
   }

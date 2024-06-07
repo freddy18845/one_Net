@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
-import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
-
 import '../views/select_airtime_package.dart';
-import '../views/transaction_inprogess_screen.dart';
 
-confirmDataAlert(context, String myDataType, String myData) async {
+confirmDataAlert(context, String myData) async {
   return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -35,10 +31,10 @@ confirmDataAlert(context, String myDataType, String myData) async {
             child: Stack(
               children: [
                 Align(
-                  alignment: Alignment.bottomCenter,
+                  alignment: Alignment.center,
                   child: Container(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                    height: ScreenSize().getScreenHeight(30),
+                    height: ScreenSize().getScreenHeight(23),
                     width: double.infinity,
                     decoration: BoxDecoration(
                         image: const DecorationImage(
@@ -52,66 +48,53 @@ confirmDataAlert(context, String myDataType, String myData) async {
                             Border.all(width: 2, color: Colour().primary())),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: ScreenSize().getScreenHeight(5),
+                          vertical: ScreenSize().getScreenHeight(3),
                           horizontal: ScreenSize().getScreenWidth(5)),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: ScreenSize().getScreenHeight(3.5),
+                              height: ScreenSize().getScreenHeight(2.5),
                             ),
                             Text(
-                              myDataType == "eSIM"
-                                  ? "Confirm New eSIM Number"
-                                  : "Email Address",
+                              "Confirm New eSIM Number",
                               style: FontsStyle().buyText(),
                             ),
                             SizedBox(
                               height: ScreenSize().getScreenHeight(1),
                             ),
-                            myDataType == "eSIM"
-                                ? Text(
-                                    myData,
-                                    style: FontsStyle().buyText(),
-                                  )
-                                : SizedBox(
-                                    height: ScreenSize().getScreenHeight(5),
-                                    width: double.infinity,
-                                    child: TextField(
-                                      autofocus: true,
-                                      keyboardType: TextInputType.emailAddress,
-                                      keyboardAppearance: Brightness.light,
-                                      style: FontsStyle().recipientNumText(),
-                                      onChanged: (value) {
-                                        Provider.of<StoreViewModel>(context,
-                                                listen: false)
-                                            .setEmail(value);
-                                      },
-                                    ),
-                                  ),
+                            Text(
+                              myData,
+                              style: FontsStyle().buyText(),
+                            ),
                           ]),
                     ),
                   ),
                 ),
                 Align(
                   alignment: Alignment.topCenter,
-                  child: Image.asset("assets/images/circle.png",
-                      height: ScreenSize().getScreenHeight(10),
-                      width: ScreenSize().getScreenHeight(10),
-                      fit: BoxFit.cover),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(top: ScreenSize().getScreenHeight(0.5)),
+                    child: Image.asset("assets/images/circle.png",
+                        height: ScreenSize().getScreenHeight(10),
+                        width: ScreenSize().getScreenHeight(10),
+                        fit: BoxFit.cover),
+                  ),
                 ),
                 Align(
-                  alignment: Alignment.bottomCenter,
+                  alignment: Alignment.center,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenSize().getScreenWidth(3),
-                        vertical: ScreenSize().getScreenHeight(1.5)),
+                    padding: EdgeInsets.only(
+                        left: ScreenSize().getScreenWidth(3),
+                        right: ScreenSize().getScreenWidth(3),
+                        top: ScreenSize().getScreenHeight(11)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Button(
                             btnLabel: Text(
-                              'Cancel',
+                              'Back',
                               style: FontsStyle().startbtnText(),
                             ),
                             btnInwardHightSize: btnInHeightSize,
@@ -125,7 +108,7 @@ confirmDataAlert(context, String myDataType, String myData) async {
                             }),
                         Button(
                           btnLabel: Text(
-                            myDataType == "eSIM" ? 'Confirm' : 'Send',
+                            'Confirm',
                             style: FontsStyle().startbtnText(),
                           ),
                           btnInwardHightSize: btnInHeightSize,
@@ -133,38 +116,20 @@ confirmDataAlert(context, String myDataType, String myData) async {
                           btnInwardWidthSize: btnInWidthSize,
                           btnOutwardWidthSize: btnOutWidthSize,
                           outerColor: Colour().primary().withOpacity(0.2),
-                          btnAction: myDataType == "eSIM"
-                              ? () {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.fade,
-                                        duration:
-                                            const Duration(milliseconds: 600),
-                                        reverseDuration:
-                                            const Duration(milliseconds: 600),
-                                        child:
-                                            const SelectAirtimePackageScreen(),
-                                        inheritTheme: true,
-                                        ctx: context),
-                                  );
-                                }
-                              : () {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.fade,
-                                        duration:
-                                            const Duration(milliseconds: 600),
-                                        reverseDuration:
-                                            const Duration(milliseconds: 600),
-                                        child: const TransactionInprogress(),
-                                        inheritTheme: true,
-                                        ctx: context),
-                                  );
-                                },
+                          btnAction: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.fade,
+                                  duration: const Duration(milliseconds: 600),
+                                  reverseDuration:
+                                      const Duration(milliseconds: 600),
+                                  child: const SelectAirtimePackageScreen(),
+                                  inheritTheme: true,
+                                  ctx: context),
+                            );
+                          },
                           inerColor: Colour().primary(),
                         ),
                       ],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
-import 'package:one_net/views/cert_txn_inprogress.dart';
 import 'package:one_net/views/home_screen.dart';
 import 'package:one_net/views/transaction_inprogess_screen.dart';
 import 'package:one_net/widgets/button.dart';
@@ -67,7 +66,6 @@ class _EsimOTPScreenState extends State<EsimOTPScreen> {
     final String transactionType =
         Provider.of<StoreViewModel>(context).getTxnType();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -381,7 +379,7 @@ class _EsimOTPScreenState extends State<EsimOTPScreen> {
                                           const Duration(milliseconds: 200),
                                       reverseDuration:
                                           const Duration(milliseconds: 200),
-                                      child: const CertTransactionInprogress(),
+                                      child: const TransactionInprogress(),
                                       inheritTheme: true,
                                       ctx: context),
                                 );

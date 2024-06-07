@@ -4,7 +4,9 @@ import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/widgets/round_btn.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
+import '../view_models/store_view_model.dart';
 import '../views/home_screen.dart';
 
 class Header extends StatelessWidget {
@@ -59,7 +61,7 @@ class Header extends StatelessWidget {
                 style: FontsStyle().mainMenuText(),
               ),
               SizedBox(
-                height: ScreenSize().getScreenHeight(1),
+                height: ScreenSize().getScreenHeight(0.5),
               ),
               Text(
                 subtitleText,

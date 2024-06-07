@@ -100,7 +100,6 @@ class CardPayment extends StatelessWidget {
                                   : () {
                                       timeNavigator.cancel();
                                       Navigator.pop(context);
-                                      print("working");
                                     },
                               child: RoundBtn(
                                 btnLabel: Icon(
@@ -137,12 +136,6 @@ class CardPayment extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // const Header(
-                      //   showHome: false,
-                      //   showPrevious: false,
-                      //   titleText: "Card Payment",
-                      //   subtitleText: 'Present Your Card',
-                      // ),
                       Divider(
                         thickness: 1,
                         color: Colour().primary(),
