@@ -26,20 +26,21 @@ class CardPaymentViewModel extends ChangeNotifier {
       Map jsonData = <String, dynamic>{
         "MessageType": "0200",
         "TransactionType": "00",
-        "TellerID": "11000011",
+        "TellerID": "11011011",
         "TellerName": "Teller 1",
-        "ReferenceNo": "REF0000001",
-        "DateTime": "20231014161425",
-        "InvoiceNo": "Inv2500179",
+        "ReferenceNo": "123456789017",
+        "DateTime": "20240613211013",
+        "InvoiceNo": "Inv2500292",
         "TenderType": "01",
-        "Currency": 748,
-        "CurrencySymbol": selectedCurrency,
+        "Currency": "936",
+        "CurrencySymbol": "\$",
         "TransactionAmount": myData.transactionData["rechargeAmount"],
-        "CashBackAmount": 0.0,
+        "CashBackAmount": "0.00",
+        "ForcePost": "0",
         "Narrative": myData.transactionData["TransactionType"].toString(),
         "Account1": "",
         "Account2": "",
-        "EchoData": "I move through air without wings"
+        "EchoData": "I move through air without wings"
       };
 
       final url = Uri.parse('http://$ipAddress:8080/v1/pay/');

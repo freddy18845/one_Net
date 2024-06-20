@@ -167,11 +167,7 @@ class PrintingService extends ChangeNotifier {
         cols: [
           ColumnMaker(text: "Date", width: 23, align: SunmiPrintAlign.LEFT),
           ColumnMaker(
-              text: DateFormat("dd-MMM-yyyy  h:mm a").format(
-                DateTime.parse(
-                  transactionData["orderDateTime"].toString(),
-                ),
-              ),
+              text: DateFormat("dd-MMM-yyyy  h:mm a").format(DateTime.now()),
               width: 24,
               align: SunmiPrintAlign.RIGHT),
         ],
@@ -227,11 +223,7 @@ class PrintingService extends ChangeNotifier {
       );
 
       /// Receipt Footer
-      await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
-      await SunmiPrinter.lineWrap(1);
-      await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER); // Center align
-      await SunmiPrinter.printText('Thank You!');
-      await SunmiPrinter.lineWrap(1);
+
       if (invoicetype == false) {
         await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
 
@@ -243,6 +235,11 @@ class PrintingService extends ChangeNotifier {
         await SunmiPrinter.printText("Scan Me");
       }
       if (invoicetype == true) {
+        await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
+        await SunmiPrinter.lineWrap(1);
+        await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER); // Center align
+        await SunmiPrinter.printText('Thank You!');
+        await SunmiPrinter.lineWrap(1);
         await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
         await SunmiPrinter.printBarCode(
             "Order No:${myCurrency.activeCurrency}${Currency().format("${transactionData["rechargeAmount"]}")}",

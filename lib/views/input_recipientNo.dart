@@ -463,7 +463,7 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                               height: ScreenSize().getScreenHeight(1.5),
                             ),
                             //Logics  For Displaying The  CircleLoader Or Wallet Name
-                            myData.number.length < 9 ||
+                            myData.number.length < 10 ||
                                     myData.status.isEmpty ||
                                     transactionType != "TopUp Wallet"
                                 ? SizedBox(
@@ -540,7 +540,7 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                             transactionType != "TopUp Wallet"
                                 ? Button(
                                     // Enable and Disable Proceed Button
-                                    btnAction: myData.number.length != 9
+                                    btnAction: myData.number.length != 10
                                         ? () {}
                                         : () {
                                             Provider.of<StoreViewModel>(context,
@@ -591,13 +591,13 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                                                   .seteSimType('');
                                             }
                                           },
-                                    inerColor: myData.number.length != 9
+                                    inerColor: myData.number.length != 10
                                         ? const Color.fromARGB(
                                             255, 245, 195, 154)
                                         : Colour().primary(),
                                     btnLabel: Text(
                                       'Proceed ',
-                                      style: myData.number.length != 9
+                                      style: myData.number.length != 10
                                           ? FontsStyle().startbtnTextdisable()
                                           : FontsStyle().startbtnText(),
                                     ),
@@ -614,7 +614,7 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                                   )
                                 : Button(
                                     // Enable and Disable Proceed Button
-                                    btnAction: myData.number.length != 9 ||
+                                    btnAction: myData.number.length != 10 ||
                                             valuefirst == false
                                         ? () {}
                                         : () {
@@ -642,14 +642,14 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                                               valuefirst = false;
                                             });
                                           },
-                                    inerColor: myData.number.length != 9 ||
+                                    inerColor: myData.number.length != 10 ||
                                             valuefirst == false
                                         ? const Color.fromARGB(
                                             255, 245, 195, 154)
                                         : Colour().primary(),
                                     btnLabel: Text(
                                       'Proceed ',
-                                      style: myData.number.length != 9 ||
+                                      style: myData.number.length != 10 ||
                                               valuefirst == false
                                           ? FontsStyle().startbtnTextdisable()
                                           : FontsStyle().startbtnText(),

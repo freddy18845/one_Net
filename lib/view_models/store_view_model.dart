@@ -123,7 +123,7 @@ class StoreViewModel extends ChangeNotifier {
   void setMomoNo(String value) {
     print(value);
     if (value == '.') return;
-    if (momonumber.length > 9 && (value != 'back')) return;
+    if (momonumber.length > 10 && (value != 'back')) return;
     if (value == 'back') {
       if (momonumber.isNotEmpty) {
         momonumber = momonumber.substring(0, momonumber.length - 1);
@@ -133,7 +133,7 @@ class StoreViewModel extends ChangeNotifier {
         return;
       }
     } else {
-      if (momonumber.length < 9) {
+      if (momonumber.length < 10) {
         momonumber += value;
 
         //print(number.length);

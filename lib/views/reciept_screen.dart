@@ -378,11 +378,10 @@ class ReceiptScreen extends StatelessWidget {
                           : ScreenSize().getScreenHeight(1.5),
                     ),
                     Button(
-                      btnAction: invoice.transactionData["email"] == '' ||
+                      btnAction: invoicetype == false &&
+                                  invoice.transactionData["email"] == '' ||
                               invoice.transactionData["email"] == null
-                          ? () {
-                              toastMsg();
-                            }
+                          ? () {}
                           : () {
                               // Provider.of<StoreViewModel>(context, listen: true)
                               //     .setallfield();
@@ -403,7 +402,8 @@ class ReceiptScreen extends StatelessWidget {
                       btnInwardWidthSize: ScreenSize().getScreenWidth(84.5),
                       btnOutwardWidthSize: ScreenSize().getScreenWidth(87),
                       outerColor: Colour().primary().withOpacity(0.2),
-                      inerColor: invoice.transactionData["email"] == '' ||
+                      inerColor: invoicetype == false &&
+                                  invoice.transactionData["email"] == '' ||
                               invoice.transactionData["email"] == null
                           ? Colour().primary().withOpacity(0.3)
                           : Colour().primary(),

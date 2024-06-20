@@ -76,7 +76,7 @@ class InputAmountViewModel extends ChangeNotifier {
 
   void setRecipientNo(String value) {
     if (value == '.') return;
-    if (number.length > 9 && (value != 'back')) return;
+    if (number.length > 10 && (value != 'back')) return;
     if (value == 'back') {
       if (number.isNotEmpty) {
         number = number.substring(0, number.length - 1);
@@ -86,11 +86,11 @@ class InputAmountViewModel extends ChangeNotifier {
         return;
       }
     } else {
-      if (number.length < 9) {
+      if (number.length < 10) {
         number += value;
 
         //print(number.length);
-        if (number.length == 9) {
+        if (number.length == 10) {
           isloading = true;
           status = 'isloading';
           Timer(const Duration(seconds: 4), () {

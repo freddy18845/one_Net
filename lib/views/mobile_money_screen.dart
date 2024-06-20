@@ -4,12 +4,10 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
-import 'package:one_net/view_models/keyboard_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/transaction_inprogess_screen.dart';
 import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
-import 'package:one_net/widgets/header.dart';
 import 'package:one_net/widgets/keyboard_btn.dart';
 import 'package:one_net/widgets/round_btn.dart';
 import 'package:page_transition/page_transition.dart';
@@ -587,7 +585,7 @@ class _MobileMoneyScreenState extends State<MobileMoneyScreen> {
                                           );
                                         },
                                   // ignore: unrelated_type_equality_checks
-                                  inerColor: myType.momonumber.length != 9
+                                  inerColor: myType.momonumber.length != 10
                                       ? const Color.fromARGB(255, 245, 195, 154)
                                       : Colour().primary(),
                                   btnInwardHightSize:

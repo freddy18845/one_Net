@@ -168,7 +168,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                                             listen: false)
                                         .changeCurrency(dropdownvalue);
 
-                                    print(dropdownvalue);
+                                    // print(dropdownvalue);
                                   },
                                 ),
                               ),
