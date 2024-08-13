@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ScreenSize {
   MediaQueryData screenSize =
+      // ignore: deprecated_member_use
       MediaQueryData.fromWindow(WidgetsBinding.instance.window);
 
   getScreenWidth(double percent) {

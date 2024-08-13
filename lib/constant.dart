@@ -12,3 +12,18 @@ List eSIM = [
   {"bg_image": "assets/images/tag2.png", "moile_number": "0771 504 303"},
   {"bg_image": "assets/images/tag2.png", "moile_number": "0771 555 011"}
 ];
+
+List airtime = [
+  {"airtime": "1"},
+  {"airtime": "10"},
+  {"airtime": "2"},
+  {"airtime": "20"},
+  {"airtime": "5"},
+  {"airtime": "50"},
+  {"airtime": "60"},
+  {"airtime": "80"},
+  {"airtime": "100"},
+  {"airtime": "120"},
+  {"airtime": "150"},
+  {"airtime": "200"},
+];

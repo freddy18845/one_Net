@@ -20,21 +20,19 @@ class IpaddressViewModel extends ChangeNotifier {
     final SharedPreferences prefs = await _prefs;
     ipAddress = val;
     await prefs.setString('ip', val);
-    // setIPAddress();
+
     notifyListeners();
     Navigator.of(context).pop();
   }
 
   getIpAddress() async {
-    final SharedPreferences prefs = await _prefs;
+    // final SharedPreferences prefs = await _prefs;
     if (ipAddress == "000.000.000.000") {
       final SharedPreferences prefs = await _prefs;
       ipAddress = prefs.getString('ip') ?? "000.000.000.000";
-      //  update();
+
       notifyListeners();
     }
-    //return ipAddress;
-    //print(ipAddress);
   }
 
   void setIPAddress() async {

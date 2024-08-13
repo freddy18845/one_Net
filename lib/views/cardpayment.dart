@@ -25,12 +25,12 @@ class CardPayment extends StatelessWidget {
     bool isDebugMode =
         Provider.of<DebugSwitchViewModel>(context, listen: false).debug;
     //Provider.of<CardPaymentViewModel>(context, listen: false).payNow(context);
+    // ignore: prefer_typing_uninitialized_variables
     var timeNavigator;
     isDebugMode == false
         ? Provider.of<CardPaymentViewModel>(context, listen: false)
             .payNow(context)
         : timeNavigator = Timer(const Duration(seconds: 3), () {
-            print("working");
             Provider.of<StoreViewModel>(context, listen: false)
                 .defaultResponse();
             Navigator.push(

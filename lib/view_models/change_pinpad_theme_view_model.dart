@@ -17,7 +17,7 @@ class PinpadThemeView extends ChangeNotifier {
         Provider.of<IpaddressViewModel>(context, listen: false).ipAddress;
     bool isDebugMode =
         Provider.of<DebugSwitchViewModel>(context, listen: false).debug;
-    print("Changng PIN Pad Colour");
+    // print("Changng PIN Pad Colour");
     if (isDebugMode == false) {
       try {
         final url = Uri.parse('http://$ipAddress:8080/v1/colour/');
@@ -29,15 +29,14 @@ class PinpadThemeView extends ChangeNotifier {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
             });
-        print(response.body);
+        //  print(response.body);
 
-        var apiResponse = jsonDecode(response.body);
-        print("apiResponse");
-        print(apiResponse);
+        // var apiResponse =
+        jsonDecode(response.body);
       } catch (e) {
-        print(e);
+        // print(e);
         getSmartPadAlert(context);
-        print("An error occured in the http request");
+        // print("An error occured in the http request");
       }
     }
   }

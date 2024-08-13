@@ -9,10 +9,10 @@ import '../view_models/store_view_model.dart';
 import '../views/input_recipientNo.dart';
 
 // ignore: must_be_immutable
-class AirtimeTag extends StatelessWidget {
+class EsimTag extends StatelessWidget {
   String airtimeAmt;
   String tagBg;
-  AirtimeTag({super.key, required this.airtimeAmt, required this.tagBg});
+  EsimTag({super.key, required this.airtimeAmt, required this.tagBg});
 
   @override
   Widget build(BuildContext context) {

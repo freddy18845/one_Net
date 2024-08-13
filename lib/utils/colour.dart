@@ -13,4 +13,8 @@ class Colour {
   green() {
     return const Color.fromARGB(255, 6, 160, 11);
   }
+
+  dark() {
+    return Colors.black;
+  }
 }

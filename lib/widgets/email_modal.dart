@@ -4,9 +4,7 @@ import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/widgets/button.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import '../views/transaction_inprogess_screen.dart';
 
 sendEmailAlert(
   context,

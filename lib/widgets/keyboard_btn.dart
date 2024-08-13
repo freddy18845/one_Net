@@ -32,7 +32,7 @@ class _ButtonState extends State<KeyboardButton> {
             isPressed = true;
           });
 
-          Timer(const Duration(milliseconds: 200), () {
+          Timer(const Duration(milliseconds: 100), () {
             setState(() {
               isPressed = false;
             });

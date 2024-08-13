@@ -1,7 +1,6 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:one_net/services/printing_service.dart';
 import 'package:one_net/utils/colour.dart';
@@ -24,16 +23,6 @@ class ReceiptScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    toastMsg() {
-      Fluttertoast.showToast(
-          msg: "Kindly Mail A Copy To Yourself Before Leaving This Page",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.black,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
 
     final myCurrency =
         Provider.of<CurrencySelectionViewModel>(context, listen: true);

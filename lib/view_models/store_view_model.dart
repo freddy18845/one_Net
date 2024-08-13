@@ -14,6 +14,7 @@ class StoreViewModel extends ChangeNotifier {
   Map transactionData = {};
   String esimType = '';
   String momonumber = '';
+  String selectedAmount = '';
   bool esimInvoice = false;
 
   List mobileNetworks = [
@@ -32,7 +33,11 @@ class StoreViewModel extends ChangeNotifier {
   ];
   setRecipienttNo(String value) {
     transactionData["recipientNo"] = value;
-    print(transactionData["recipientNo"]);
+    notifyListeners();
+  }
+
+  setAirtime(String value) {
+    selectedAmount = value;
     notifyListeners();
   }
 
@@ -121,7 +126,6 @@ class StoreViewModel extends ChangeNotifier {
   }
 
   void setMomoNo(String value) {
-    print(value);
     if (value == '.') return;
     if (momonumber.length > 10 && (value != 'back')) return;
     if (value == 'back') {
@@ -155,7 +159,6 @@ class StoreViewModel extends ChangeNotifier {
   setRechargeAmount(String value) {
     transactionData["totalPrice"] = double.parse(value) + 2.00;
     transactionData["rechargeAmount"] = double.parse(value);
-
     notifyListeners();
   }
 
@@ -182,7 +185,6 @@ class StoreViewModel extends ChangeNotifier {
   seteSimType(String value) {
     esimType = value;
     notifyListeners();
-    print(esimType);
   }
 
   String getEsimType() {
@@ -236,7 +238,6 @@ class StoreViewModel extends ChangeNotifier {
       }
 
       notifyListeners();
-      print("working");
     }
   }
 
@@ -275,7 +276,6 @@ class StoreViewModel extends ChangeNotifier {
     transactionData["selectedNetwork"] = selectedNet["name"];
 
     notifyListeners();
-    print(transactionData["selectedNetworkImage"]);
   }
 
   resetNetworksPosition() {

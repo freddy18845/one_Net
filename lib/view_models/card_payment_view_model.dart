@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:one_net/view_models/currency_selection.dart';
-import 'package:one_net/view_models/debug_switch_view_model.dart';
 import 'package:one_net/view_models/ip_address_view_model.dart';
 import 'package:one_net/view_models/store_view_model.dart';
 import 'package:one_net/views/transaction_inprogess_screen.dart';
@@ -12,12 +10,6 @@ import 'package:provider/provider.dart';
 
 class CardPaymentViewModel extends ChangeNotifier {
   payNow(context) async {
-    String selectedCurrency =
-        Provider.of<CurrencySelectionViewModel>(context, listen: false)
-            .activeCurrency;
-
-    bool isDebugMode =
-        Provider.of<DebugSwitchViewModel>(context, listen: false).debug;
     String ipAddress =
         Provider.of<IpaddressViewModel>(context, listen: false).ipAddress;
     StoreViewModel myData = Provider.of<StoreViewModel>(context, listen: false);
@@ -77,23 +69,6 @@ class CardPaymentViewModel extends ChangeNotifier {
       Timer(const Duration(seconds: 1), () {
         Navigator.pop(context);
       });
-      print(e);
-      print("An error occured in the http request");
     }
   }
-  //else {
-  // Timer(const Duration(seconds: 5), () {
-  //   Provider.of<StoreViewModel>(context, listen: false).defaultResponse();
-  //   Navigator.push(
-  //     context,
-  //     PageRouteBuilder(
-  //       pageBuilder: (context, animation1, animation2) =>
-  //           const TransactionInprogress(),
-  //       transitionDuration: Duration.zero,
-  //       reverseTransitionDuration: Duration.zero,
-  //     ),
-  //   );
-  // });
-  // }
-  // }
 }

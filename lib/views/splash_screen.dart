@@ -44,7 +44,7 @@ class SplashScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DebugSwitch(),
+                  const DebugSwitch(),
                   InkWell(
                     onTap: () {
                       FlutterExitApp.exitApp();

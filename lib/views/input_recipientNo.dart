@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
@@ -24,11 +25,8 @@ class InputRecipientNumScreen extends StatefulWidget {
 class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
   TextEditingController amountCtr = TextEditingController();
 
-  // Initial Selected Value
   String dropdownvalue = 'assets/images/payments/OneMoney.png';
   bool valuefirst = false;
-
-  // List of items in our dropdown menu
 
   var mobileNetworks = [
     'assets/images/payments/OneMoney.png',
@@ -47,16 +45,11 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final String transactionType =
-        Provider.of<StoreViewModel>(context).getTxnType();
-    final String existingEsimUser =
-        Provider.of<StoreViewModel>(context).geteSimUserType();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -66,8 +59,8 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
             image: DecorationImage(
                 image: AssetImage("assets/images/home.png"), fit: BoxFit.cover),
           ),
-          child: Consumer<InputAmountViewModel>(
-            builder: (context, myData, child) {
+          child: Consumer2<InputAmountViewModel, StoreViewModel>(
+            builder: (context, myData, mystore, child) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -107,7 +100,9 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                             Header(
                               showHome: true,
                               showPrevious: true,
-                              titleText: transactionType.toString(),
+                              titleText: mystore
+                                  .transactionData['TranactionType']
+                                  .toString(),
                               subtitleText: 'Enter Your Detial Below',
                             ),
                             Divider(
@@ -465,7 +460,8 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                             //Logics  For Displaying The  CircleLoader Or Wallet Name
                             myData.number.length < 10 ||
                                     myData.status.isEmpty ||
-                                    transactionType != "TopUp Wallet"
+                                    mystore.transactionData["TranactionType"] !=
+                                        "TopUp Wallet"
                                 ? SizedBox(
                                     height: ScreenSize().getScreenHeight(5),
                                   )
@@ -537,7 +533,8 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                             SizedBox(
                               height: ScreenSize().getScreenHeight(0.5),
                             ),
-                            transactionType != "TopUp Wallet"
+                            mystore.transactionData["TranactionType"] !=
+                                    "TopUp Wallet"
                                 ? Button(
                                     // Enable and Disable Proceed Button
                                     btnAction: myData.number.length != 10
@@ -547,7 +544,7 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                                                     listen: false)
                                                 .setRecipienttNo(
                                                     myData.number.toString());
-                                            if (existingEsimUser !=
+                                            if (mystore.esimType !=
                                                 "Existing User") {
                                               Navigator.push(
                                                 context,
@@ -622,7 +619,7 @@ class _InputRecipientNumScreenState extends State<InputRecipientNumScreen> {
                                                     listen: false)
                                                 .setRecipienttNo(
                                                     myData.number.toString());
-                                            print(myData.number);
+                                            //print(myData.number);
                                             Navigator.push(
                                               context,
                                               PageTransition(

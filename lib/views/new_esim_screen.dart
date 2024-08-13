@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_net/constant.dart';
@@ -14,8 +15,35 @@ import 'package:provider/provider.dart';
 import '../widgets/header.dart';
 
 // ignore: must_be_immutable
-class SelectNewEsimScreen extends StatelessWidget {
+class SelectNewEsimScreen extends StatefulWidget {
   const SelectNewEsimScreen({super.key});
+
+  @override
+  State<SelectNewEsimScreen> createState() => _SelectNewEsimScreenState();
+}
+
+bool islaoding = false;
+
+class _SelectNewEsimScreenState extends State<SelectNewEsimScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setloader();
+    });
+  }
+
+  setloader() {
+    setState(() {
+      islaoding = true;
+    });
+
+    Timer(const Duration(milliseconds: 1200), () {
+      setState(() {
+        islaoding = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,52 +126,67 @@ class SelectNewEsimScreen extends StatelessWidget {
                               height: ScreenSize().getScreenHeight(1),
                             ),
                             Expanded(
-                              child: GridView.builder(
-                                scrollDirection: Axis.vertical,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount:
-                                            2, // number of items in each row
-                                        mainAxisSpacing: ScreenSize()
-                                            .getScreenHeight(
-                                                2.2), // spacing between rows
-                                        crossAxisSpacing:
-                                            2.0, // spacing between columns
-                                        childAspectRatio: 2.1),
+                              child: islaoding
+                                  ? Center(
+                                      child: Image.asset(
+                                        'assets/images/loader_1.gif',
+                                        fit: BoxFit.fill,
+                                        height:
+                                            ScreenSize().getScreenHeight(10),
+                                        width: ScreenSize().getScreenHeight(10),
+                                        opacity:
+                                            const AlwaysStoppedAnimation(0.2),
+                                      ),
+                                    )
+                                  : GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount:
+                                                  2, // number of items in each row
+                                              mainAxisSpacing: ScreenSize()
+                                                  .getScreenHeight(
+                                                      2.2), // spacing between rows
+                                              crossAxisSpacing:
+                                                  2.0, // spacing between columns
+                                              childAspectRatio: 2.1),
 
-                                padding: const EdgeInsets.all(
-                                    8.0), // padding around the grid
-                                itemCount:
-                                    allEsim.length, // total number of items
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      Provider.of<StoreViewModel>(context,
-                                              listen: false)
-                                          .setRecipienttNo(allEsim[index]
-                                                  ["moile_number"]
-                                              .toString());
-                                      confirmDataAlert(
-                                          context,
-                                          allEsim[index]["moile_number"]
-                                              .toString());
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                allEsim[index]["bg_image"]),
-                                            fit: BoxFit.fill),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                            allEsim[index]["moile_number"],
-                                            style: FontsStyle().priceText()),
-                                      ),
+                                      padding: const EdgeInsets.all(
+                                          8.0), // padding around the grid
+                                      itemCount: allEsim
+                                          .length, // total number of items
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            Provider.of<StoreViewModel>(context,
+                                                    listen: false)
+                                                .setRecipienttNo(allEsim[index]
+                                                        ["moile_number"]
+                                                    .toString());
+                                            confirmDataAlert(
+                                                context,
+                                                allEsim[index]["moile_number"]
+                                                    .toString());
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      allEsim[index]
+                                                          ["bg_image"]),
+                                                  fit: BoxFit.fill),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                  allEsim[index]
+                                                      ["moile_number"],
+                                                  style:
+                                                      FontsStyle().priceText()),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
-                              ),
                             ),
                           ],
                         ),

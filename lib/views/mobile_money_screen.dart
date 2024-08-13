@@ -563,8 +563,7 @@ class _MobileMoneyScreenState extends State<MobileMoneyScreen> {
                           return myType.transactionData["selectedNetwork"] == ""
                               ? const SizedBox.shrink()
                               : Button(
-                                  // ignore: unrelated_type_equality_checks
-                                  btnAction: myType.momonumber.length != 9
+                                  btnAction: myType.momonumber.length != 10
                                       ? () {}
                                       : () {
                                           Provider.of<StoreViewModel>(context,

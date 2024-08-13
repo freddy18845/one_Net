@@ -43,7 +43,6 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -224,9 +223,6 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                         children: [
                           KeyboardButton(
                             btnAction: () {
-                              // Provider.of<InputAmountViewModel>(context,
-                              //         listen: false)
-                              //     .setCustonAmount('1');
                               Provider.of<InputAmountViewModel>(context,
                                       listen: false)
                                   .setCustonAmount('1');
@@ -416,6 +412,7 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                       Consumer<InputAmountViewModel>(
                         builder: (context, myType, child) {
                           return Button(
+                            // ignore: unnecessary_null_comparison
                             btnAction: myType.amount == null ||
                                     myType.amount.isEmpty
                                 ? () {}
@@ -454,12 +451,14 @@ class _CustomRechargeState extends State<CustomRechargeScreen> {
                                     }
                                   },
                             inerColor:
+                                // ignore: unnecessary_null_comparison
                                 myType.amount == null || myType.amount.isEmpty
                                     ? const Color.fromARGB(255, 245, 195, 154)
                                     : Colour().primary(),
                             btnLabel: Text(
                               'Proceed ',
                               style:
+                                  // ignore: unnecessary_null_comparison
                                   myType.amount == null || myType.amount.isEmpty
                                       ? FontsStyle().startbtnTextdisable()
                                       : FontsStyle().startbtnText(),

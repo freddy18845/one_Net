@@ -28,14 +28,18 @@ class OTPInputField extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.only(top: ScreenSize().getScreenHeight(1)),
           child: Text(
+            // ignore: unnecessary_null_comparison
             otpValue.isEmpty || otpValue == null ? ' ' : '*',
             style: TextStyle(
+                // ignore: unnecessary_null_comparison
                 fontWeight: otpValue.isEmpty || otpValue == null
                     ? FontWeight.w100
                     : FontWeight.w700,
+                // ignore: unnecessary_null_comparison
                 fontSize: otpValue.isEmpty || otpValue == null
                     ? ScreenSize().getScreenHeight(3.5)
                     : ScreenSize().getScreenHeight(6),
+                // ignore: unnecessary_null_comparison
                 color: otpValue.isEmpty || otpValue == null
                     ? Colors.black38
                     : Colors.black),

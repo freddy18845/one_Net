@@ -35,7 +35,6 @@ class InputAmountViewModel extends ChangeNotifier {
   }
 
   void setCustonAmount(String value) {
-    print(value);
     if (value == '.') return;
     if (amount.length > 6 && (value != 'back')) return;
     if (value == 'back') {
@@ -97,7 +96,6 @@ class InputAmountViewModel extends ChangeNotifier {
             isloading = false;
             status = 'display';
             notifyListeners();
-            print(status);
           });
         }
       }

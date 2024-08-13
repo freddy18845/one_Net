@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:one_net/utils/colour.dart';
 import 'package:one_net/utils/fonts_style.dart';
 import 'package:one_net/utils/screen_size.dart';
@@ -12,15 +14,50 @@ import 'package:one_net/widgets/button.dart';
 import 'package:one_net/widgets/footer.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
-import '../widgets/airtime_package_tag.dart';
+import '../constant.dart';
+import '../widgets/airtime.dart';
 import '../widgets/header.dart';
 
 // ignore: must_be_immutable
-class SelectAirtimePackageScreen extends StatelessWidget {
+class SelectAirtimePackageScreen extends StatefulWidget {
   const SelectAirtimePackageScreen({super.key});
 
-  // TextEditingController amountCtr = TextEditingController();
+  @override
+  State<SelectAirtimePackageScreen> createState() =>
+      _SelectAirtimePackageScreenState();
+}
+
+bool islaoding = false;
+
+class _SelectAirtimePackageScreenState
+    extends State<SelectAirtimePackageScreen> {
+  // Initial Selected Value
+  String dropdownvalue = 'USD';
+  List airtimeData = airtime;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<StoreViewModel>(context, listen: false).setAirtime('');
+
+      // final String transactionType =
+      //     Provider.of<StoreViewModel>(context).getTxnType();
+      setloader();
+    });
+  }
+
+  setloader() {
+    setState(() {
+      islaoding = true;
+    });
+
+    Timer(const Duration(milliseconds: 1200), () {
+      setState(() {
+        islaoding = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +65,6 @@ class SelectAirtimePackageScreen extends StatelessWidget {
     Provider.of<InputAmountViewModel>(context, listen: false)
         .clearCustonAmount();
     Provider.of<PinpadThemeView>(context).colourTheme(context);
-    final String transactionType =
-        Provider.of<StoreViewModel>(context).getTxnType();
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -78,10 +112,10 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Header(
+                            const Header(
                               showHome: true,
                               showPrevious: true,
-                              titleText: transactionType.toString(),
+                              titleText: "Buy Airtime",
                               subtitleText: 'Select Airtime Below',
                             ),
                             Divider(
@@ -96,59 +130,163 @@ class SelectAirtimePackageScreen extends StatelessWidget {
                               style: FontsStyle().rechargeText(),
                             ),
                             SizedBox(
-                              height: ScreenSize().getScreenHeight(1),
+                              height: ScreenSize().getScreenHeight(0.5),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AirtimeTag(
-                                  airtimeAmt: '5',
-                                  tagBg: 'tag1',
-                                ),
-                                AirtimeTag(
-                                  airtimeAmt: '10',
-                                  tagBg: 'tag1',
-                                ),
-                              ],
+                            Container(
+                              height: ScreenSize().getScreenHeight(4.8),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                      width: 1, color: Colors.black12),
+                                  borderRadius: BorderRadius.circular(
+                                      ScreenSize().getScreenHeight(0.8))),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        ScreenSize().getScreenWidth(0.3)),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            dropdownvalue = 'USD';
+                                          });
+                                          Provider.of<CurrencySelectionViewModel>(
+                                                  context,
+                                                  listen: false)
+                                              .changeCurrency(dropdownvalue);
+                                          setloader();
+                                          Provider.of<StoreViewModel>(context,
+                                                  listen: false)
+                                              .setAirtime('');
+                                        },
+                                        child: Container(
+                                          height:
+                                              ScreenSize().getScreenHeight(4.3),
+                                          width:
+                                              ScreenSize().getScreenWidth(42),
+                                          decoration: BoxDecoration(
+                                              color: dropdownvalue == 'USD'
+                                                  ? Colour().primary()
+                                                  : Colors.white,
+                                              borderRadius: BorderRadius
+                                                  .circular(ScreenSize()
+                                                      .getScreenHeight(0.5)),
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: dropdownvalue == 'USD'
+                                                      ? Colors.transparent
+                                                      : Colors.black12)),
+                                          child: Center(
+                                            child: Text(
+                                              'USD',
+                                              style: TextStyle(
+                                                  color: dropdownvalue == 'USD'
+                                                      ? Colors.white
+                                                      : Colour().primary(),
+                                                  fontSize: ScreenSize()
+                                                      .getScreenHeight(1.5),
+                                                  decoration:
+                                                      TextDecoration.none,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            dropdownvalue = 'ZiG';
+                                          });
+                                          Provider.of<CurrencySelectionViewModel>(
+                                                  context,
+                                                  listen: false)
+                                              .changeCurrency(dropdownvalue);
+                                          setloader();
+                                          Provider.of<StoreViewModel>(context,
+                                                  listen: false)
+                                              .setAirtime('');
+                                        },
+                                        child: Container(
+                                          height:
+                                              ScreenSize().getScreenHeight(4.3),
+                                          width:
+                                              ScreenSize().getScreenWidth(42),
+                                          decoration: BoxDecoration(
+                                              color: dropdownvalue == 'ZiG'
+                                                  ? Colour().primary()
+                                                  : Colors.white,
+                                              borderRadius: BorderRadius
+                                                  .circular(ScreenSize()
+                                                      .getScreenHeight(0.5)),
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: dropdownvalue == 'ZiG'
+                                                      ? Colors.transparent
+                                                      : Colors.black12)),
+                                          child: Center(
+                                            child: Text(
+                                              'ZiG',
+                                              style: TextStyle(
+                                                  color: dropdownvalue == 'ZiG'
+                                                      ? Colors.white
+                                                      : Colour().primary(),
+                                                  fontSize: ScreenSize()
+                                                      .getScreenHeight(1.5),
+                                                  decoration:
+                                                      TextDecoration.none,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                              ),
                             ),
                             SizedBox(
-                              height: ScreenSize().getScreenHeight(2),
+                              height: ScreenSize().getScreenHeight(0.5),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AirtimeTag(
-                                  airtimeAmt: '30',
-                                  tagBg: 'tag2',
-                                ),
-                                AirtimeTag(
-                                  airtimeAmt: '50',
-                                  tagBg: 'tag2',
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: ScreenSize().getScreenHeight(2),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AirtimeTag(
-                                  airtimeAmt: '75',
-                                  tagBg: 'tag3',
-                                ),
-                                AirtimeTag(
-                                  airtimeAmt: '100',
-                                  tagBg: 'tag3',
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: ScreenSize().getScreenHeight(2),
-                            ),
+                            Expanded(
+                                child: islaoding
+                                    ? Center(
+                                        child: Image.asset(
+                                          'assets/images/loader_1.gif',
+                                          fit: BoxFit.fill,
+                                          height:
+                                              ScreenSize().getScreenHeight(10),
+                                          width:
+                                              ScreenSize().getScreenHeight(10),
+                                          opacity:
+                                              const AlwaysStoppedAnimation(0.2),
+                                        ),
+                                      )
+                                    : Animate(
+                                        effects: const [
+                                          FadeEffect(
+                                              duration:
+                                                  Duration(milliseconds: 600)),
+                                          ScaleEffect(
+                                              duration:
+                                                  Duration(milliseconds: 600))
+                                        ],
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: airtimeData.length,
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
+                                            return AirtimeTag(
+                                              airtimeAmt: airtimeData[index]
+                                                  ["airtime"],
+                                              airtimeindex: index,
+                                            );
+                                          },
+                                        ),
+                                      )),
                             const Divider(
                               thickness: 1,
-                              // color: Colour().primary(),
                             ),
                             Text(
                               "Custom Recharge",

@@ -7,7 +7,7 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: ScreenSize().getScreenHeight(5),
       child: Center(

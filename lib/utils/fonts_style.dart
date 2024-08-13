@@ -237,11 +237,32 @@ class FontsStyle {
         fontWeight: FontWeight.w800);
   }
 
+  airtimetitle() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(1.3),
+        fontWeight: FontWeight.w300);
+  }
+
+  airtimetext() {
+    return TextStyle(
+        color: Colors.black,
+        fontSize: ScreenSize().getScreenHeight(1.3),
+        fontWeight: FontWeight.w700);
+  }
+
   priceText() {
     return TextStyle(
         color: Colour().secondary(),
-        fontSize: ScreenSize().getScreenHeight(2.5),
-        fontWeight: FontWeight.normal);
+        fontSize: ScreenSize().getScreenHeight(1.8),
+        fontWeight: FontWeight.w600);
+  }
+
+  airtimeText() {
+    return TextStyle(
+        color: Colour().secondary(),
+        fontSize: ScreenSize().getScreenHeight(1.6),
+        fontWeight: FontWeight.w200);
   }
 
   rechargeText() {
@@ -262,6 +283,7 @@ class FontsStyle {
     return TextStyle(
         color: Colour().primary(),
         fontSize: ScreenSize().getScreenHeight(2),
+        fontStyle: FontStyle.italic,
         fontWeight: FontWeight.bold);
   }
 

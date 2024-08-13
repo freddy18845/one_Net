@@ -24,13 +24,11 @@ class _EsimOTPScreenState extends State<EsimOTPScreen> {
   List pin = ["", "", "", "", "", ""];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   void setPin(String value) {
     for (int i = 0; i < pin.length; i++) {
-      print(pin[i]);
       if (pin[i].isEmpty) {
         setState(() {
           pin[i] = value;
@@ -38,8 +36,6 @@ class _EsimOTPScreenState extends State<EsimOTPScreen> {
         break;
       }
     }
-    print(pin);
-    //notifyListeners();
   }
 
   resetPin() {
@@ -58,7 +54,6 @@ class _EsimOTPScreenState extends State<EsimOTPScreen> {
         break;
       }
     }
-    print(pin);
   }
 
   @override
@@ -161,7 +156,7 @@ class _EsimOTPScreenState extends State<EsimOTPScreen> {
                                       PageRouteBuilder(
                                         pageBuilder:
                                             (context, animation1, animation2) =>
-                                                HomeScreen(),
+                                                const HomeScreen(),
                                         transitionDuration: Duration.zero,
                                         reverseTransitionDuration:
                                             Duration.zero,

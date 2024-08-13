@@ -253,8 +253,8 @@ class PrintingService extends ChangeNotifier {
 
       return true;
     } catch (e) {
-      print(e);
-      print("Cannot Print. An Error Occured!");
+      //  print(e);
+      // print("Cannot Print. An Error Occured!");
       return false;
     }
   }
